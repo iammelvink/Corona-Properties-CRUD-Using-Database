@@ -24,11 +24,9 @@ import static javax.swing.UIManager.setLookAndFeel;
  * @author MightyBeatz
  */
 public class Menu extends javax.swing.JFrame {
-
     Connection con;
     Statement stm;
     ResultSet rs;
-
     public Menu() {
         initComponents();
         DoConnect();
@@ -37,8 +35,8 @@ public class Menu extends javax.swing.JFrame {
     public void DoConnect() {
         try {
             String host = "jdbc:mysql://localhost:3306/corona_properties";
-            String uName = "corona_properties_db";
-            String uPass = "P@ss1";
+            String uName = "root";
+            String uPass = "";
             con = getConnection(host, uName, uPass);
 
             stm = con.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_UPDATABLE);
@@ -421,11 +419,14 @@ public class Menu extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
         // (optional) ">
         /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default
          * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
@@ -444,7 +445,9 @@ public class Menu extends javax.swing.JFrame {
 
         // </editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         invokeLater(() -> {
             new Menu().setVisible(true);
         });

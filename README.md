@@ -1,8 +1,8 @@
-# Corona-Properties-CRUD: Using Java
+# Corona-Properties-CRUD-Using-Database
 
-## Repository for my Corona-Properties-CRUD project
+## Repository for my Corona-Properties-CRUD-Using-Database project
 
-Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso tackle CRUD functions and connect the system to a database.
+Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso tackle CRUD functions and connect the system to a database, in Java.
 
 ## Instructions
 
@@ -13,7 +13,7 @@ Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso t
 
 2. Clone this repository into your local machine using the terminal (mac) or [Gitbash (PC)](https://git-scm.com/download/win 'Gitbash (PC)')
 
-   `> git clone https://github.com/iammelvink/Corona-Properties-CRUD.git`
+   `> git clone https://github.com/iammelvink/Corona-Properties-CRUD-Using-Database.git`
 
 3. Run XAMPP
 

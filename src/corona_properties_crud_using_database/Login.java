@@ -38,8 +38,8 @@ public class Login extends javax.swing.JFrame {
     public void DoConnect() {
         try {
             String host = "jdbc:mysql://localhost:3306/corona_properties";
-            String uName = "corona_properties_db";
-            String uPass = "P@ss1";
+            String uName = "root";
+            String uPass = "";
             con = getConnection(host, uName, uPass);
 
             String SQL = "SELECT * FROM Admin where username =? and password = ?";

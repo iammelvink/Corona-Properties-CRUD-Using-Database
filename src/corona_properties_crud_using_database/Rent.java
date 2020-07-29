@@ -40,8 +40,8 @@ public class Rent extends javax.swing.JFrame {
     public void DoConnect() {
         try {
             String host = "jdbc:mysql://localhost:3306/corona_properties";
-            String uName = "corona_properties_db";
-            String uPass = "P@ss1";
+            String uName = "root";
+            String uPass = "";
             con = getConnection(host, uName, uPass);
 
             stm = con.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_UPDATABLE);

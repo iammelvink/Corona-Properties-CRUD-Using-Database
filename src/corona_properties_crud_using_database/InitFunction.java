@@ -55,28 +55,5 @@ public class InitFunction {
             e.printStackTrace();
         }
     }
-//    public static void main(String[] args) {
-//        Splash spl = new Splash();
-//        spl.setVisible(true);
-//        try{
-//            for(int i =0;i <=100;i++)
-//            {
-//                sleep(50);
-//                spl.lblHouse.setText(Integer.toString(i)+"%");
-//                spl.bar.setValue(i);
-//
-//                if(i==100)
-//                {
-//                    spl.dispose();
-//                    new Login().setVisible(true);
-//                }
-//            }
-//
-//        }
-//        catch(InterruptedException e)
-//        {
-//
-//        }
-//    }
 
 }
