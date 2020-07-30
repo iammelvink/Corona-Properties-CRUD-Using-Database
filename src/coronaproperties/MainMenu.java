@@ -217,6 +217,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        this.dispose();
         DeleteProp aDeleteProp = new DeleteProp();
         System.gc();
     }//GEN-LAST:event_btnDeleteActionPerformed
