@@ -152,50 +152,6 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         txtemail.setText(email);
     }
 
-    private void tempMethod() {
-        ResultSet rs = null;
-        String sql = "SELECT * FROM property ";
-
-        //Connecting using MySQLJDBCUtil
-        try (Connection conn = MySQLJDBCUtil.getConnection();
-                //Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            //Executing query
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                txtpropertyPrimaryKey.setText(rs.getString("propertyPrimaryKey"));
-                jComboBoxpropertyType.setSelectedItem(rs.getString("propertyType"));
-                txtaddressNum.setText(rs.getString("addressNum"));
-                txtaddressStreet.setText(rs.getString("addressStreet"));
-                txtaddressCity.setText(rs.getString("addressCity"));
-                txtaddressCode.setText(rs.getString("addressCode"));
-                txtvalue.setText(String.valueOf(rs.getDouble("value")));
-                jComboBoxconstructionStatus.setSelectedItem(rs.getString("constructionStatus"));
-                jComboBoxuseOfProperty.setSelectedItem(rs.getString("useOfProperty"));
-                jSpinnerroom.setValue(rs.getInt("room"));
-                jSpinnergarage.setValue(rs.getInt("garage"));
-                jSpinnerbath.setValue(rs.getInt("bath"));
-                txtfloorArea.setText(String.valueOf(rs.getDouble("floorArea")));
-                txtlandArea.setText(String.valueOf(rs.getDouble("landArea")));
-                txtrates.setText(String.valueOf(rs.getDouble("rates")));
-                jTextAreadescription.setText(rs.getString("description"));
-                txttelephone.setText(rs.getString("telephone"));
-                txtemail.setText(rs.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
     /**
      * This method is called from within the constructor to
      * initialize the form.
