@@ -3,6 +3,7 @@ package coronaproperties;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.sql.*;
  */
 public class Auth {
     static boolean login(String emailString, String passString) {
-        boolean correct = false;
+        boolean success = false;
         ResultSet rs = null;
 
         String sql = "SELECT email, password FROM user "
@@ -28,7 +29,7 @@ public class Auth {
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 // Authenticating
-                correct = true;
+                success = true;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -41,29 +42,43 @@ public class Auth {
                 System.out.println(e.getMessage());
             }
         }
-        return correct;
+        return success;
     }
 
     static boolean register(String emailString, String passString) {
-        boolean correct = false;
+        boolean success = false;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO user email, password VALUES(?,?)";
+        int userPKey = 0;
 
+        String sql = "INSERT INTO user(email,password) "
+                + "VALUES(?,?)";
         //Connecting using ConnectUtil
         //using resources
         ///so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
                 //Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            // set parameters for statement
             pstmt.setString(1, emailString);
             pstmt.setString(2, passString);
+            int rowAffected = pstmt.executeUpdate();
 
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                // Authenticating
-                correct = true;
+            if (rowAffected == 1) {
+                // get userPKey id
+                rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    userPKey = rs.getInt(1);
+                }
             }
+            JOptionPane.showMessageDialog(null, "Registered successfully\nUser ID is:  " + userPKey + ".");
+
+            //Login after register
+            if (login(emailString, passString)) {
+                //registered successfully
+                success = true;
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -75,7 +90,7 @@ public class Auth {
                 System.out.println(e.getMessage());
             }
         }
-        return correct;
+        return success;
     }
 
     static void closeLoginScreen() {
