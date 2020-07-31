@@ -5,6 +5,11 @@
  */
 package coronaproperties;
 
+import static coronaproperties.ComparativeViewsMenu.compareByCity;
+import static coronaproperties.ComparativeViewsMenu.compareByType;
+import static coronaproperties.ComparativeViewsMenu.compareByUse;
+import static coronaproperties.ComputationMenu.computeAppre;
+import static coronaproperties.ComputationMenu.computeDep;
 import static coronaproperties.CreateProp.createSomeProp;
 import static coronaproperties.DeleteProp.deleteSomeProp;
 import static coronaproperties.ReadPropAll.readPropAll;
@@ -14,7 +19,7 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import static java.lang.String.valueOf;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -48,6 +53,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     private String description;
     private String telephone;
     private String email;
+    private ArrayList searchField = new ArrayList();
     /**
      * Creates new form UpdatePropMenu
      */
@@ -83,35 +89,42 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         }
     }
 
-    public CRUDViewTemplate(String searchString) {
+    public CRUDViewTemplate(String searchString, String searchWhere) {
         initComponents();
         txtpropertyPrimaryKey.setEditable(false);
-        if (createSomeProp) {
-            lblTitle.setText("Add New Property");
+        if (compareByCity || compareByType || compareByUse) {
+            lblTitle.setText("Compare Property");
             btnOK.setText("Save");
             lblSearch.setVisible(false);
             txtSearch.setVisible(false);
             btnPrevious.setVisible(false);
             btnNext.setVisible(false);
-        }
-        if (readPropAll) {
-            lblTitle.setText("View All Property");
             readOnlyhouseCleaning();
-        }
-        if (updateSomeProp) {
-            lblTitle.setText("Update Property");
-            btnOK.setText("Update");
-        }
-        if (deleteSomeProp) {
-            lblTitle.setText("Delete Property");
-            btnOK.setText("Delete");
-        }
-        if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp) {
+            getData(searchString, searchWhere);
             if (loadData(rs)) {
                 displayData();
             } else {
-                JOptionPane.showMessageDialog(null, "No records in the database!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }//House cleaning
+        createSomeProp = false;
+        readPropAll = false;
+        updateSomeProp = false;
+        deleteSomeProp = false;
+        compareByCity = false;
+        compareByType = false;
+        compareByUse = false;
+        computeDep = false;
+        computeAppre = false;
+        //Close connection to db before leaving this form
+        try {
+            if (conn != null || pstmt != null || rs != null) {
+                conn.close();
+                pstmt.close();
+                rs.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -159,7 +172,35 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                loadData(rs);
+//                loadData(rs);
+                isData = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return isData;
+    }
+
+    private boolean getData(String searchString, String searchWhere) throws HeadlessException {
+        boolean isData = false;
+        String sql = "SELECT * FROM property WHERE"
+                + " UPPER(" + searchWhere + ") LIKE ?";
+        //Connecting using ConnectUtil
+        //Standard try without resources
+        //so that connection to db does not close automatically
+        try {
+            conn = ConnectUtil.getConnection();
+            //Creating query
+            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, "%" + searchString + "%");
+
+            //Executing query
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+//                loadData(rs);
                 isData = true;
             }
         } catch (SQLException e) {
@@ -1006,7 +1047,11 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             readPropAll = false;
             updateSomeProp = false;
             deleteSomeProp = false;
-
+            compareByCity = false;
+            compareByType = false;
+            compareByUse = false;
+            computeDep = false;
+            computeAppre = false;
             //Close connection to db before leaving this form
             try {
                 if (conn != null || pstmt != null || rs != null) {
@@ -1127,46 +1172,80 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     }
 
     public double search(String searchString) throws HeadlessException {
-        String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
-                + " OR UPPER(addressNum) LIKE ?"
-                + " OR UPPER(addressStreet) LIKE ?"
-                + " OR UPPER(addressCity) LIKE ?"
-                + " OR UPPER(addressCode) LIKE ?"
-                + " OR UPPER(value) LIKE ?"
-                + " OR UPPER(constructionStatus) LIKE ?"
-                + " OR UPPER(useOfProperty) LIKE ?"
-                + " OR UPPER(room) LIKE ?"
-                + " OR UPPER(garage) LIKE ?"
-                + " OR UPPER(bath) LIKE ?"
-                + " OR UPPER(floorArea) LIKE ?"
-                + " OR UPPER(landArea) LIKE ?"
-                + " OR UPPER(rates) LIKE ?"
-                //                + " OR UPPER(description) LIKE ?"
-                + " OR UPPER(telephone) LIKE ?"
-                + " OR UPPER(email) LIKE ?";
-        //Connecting using ConnectUtil
-        try {
-            //Creating query
-            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
 
-            for (int i = 1; i <= 16; i++) {
-                pstmt.setString(i, "%" + searchString + "%");
+        txtpropertyPrimaryKey.setEditable(false);
+        if (computeDep || computeAppre) {
+            lblTitle.setText("Computations");
+            btnOK.setText("Save");
+            lblSearch.setVisible(false);
+            txtSearch.setVisible(false);
+            btnPrevious.setVisible(false);
+            btnNext.setVisible(false);
+            readOnlyhouseCleaning();
+
+            String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
+                    + " OR UPPER(addressNum) LIKE ?"
+                    + " OR UPPER(addressStreet) LIKE ?"
+                    + " OR UPPER(addressCity) LIKE ?"
+                    + " OR UPPER(addressCode) LIKE ?"
+                    + " OR UPPER(value) LIKE ?"
+                    + " OR UPPER(constructionStatus) LIKE ?"
+                    + " OR UPPER(useOfProperty) LIKE ?"
+                    + " OR UPPER(room) LIKE ?"
+                    + " OR UPPER(garage) LIKE ?"
+                    + " OR UPPER(bath) LIKE ?"
+                    + " OR UPPER(floorArea) LIKE ?"
+                    + " OR UPPER(landArea) LIKE ?"
+                    + " OR UPPER(rates) LIKE ?"
+                    + " OR UPPER(telephone) LIKE ?"
+                    + " OR UPPER(email) LIKE ?";
+            //Connecting using ConnectUtil
+            try {
+                //Creating query
+                pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+
+                for (int i = 1; i <= 16; i++) {
+                    pstmt.setString(i, "%" + searchString + "%");
+                }
+
+                //Executing query
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    value = rs.getDouble("value");
+                }
+            } catch (SQLException e) {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            //Executing query
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-//                loadData(rs);
-                value = rs.getDouble("value");
-//                displayData();
+            if (loadData(rs)) {
+                displayData();
+            } else {
+                JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        //House cleaning
+        createSomeProp = false;
+        readPropAll = false;
+        updateSomeProp = false;
+        deleteSomeProp = false;
+        compareByCity = false;
+        compareByType = false;
+        compareByUse = false;
+        computeDep = false;
+        computeAppre = false;
+        //Close connection to db before leaving this form
+        try {
+            if (conn != null || pstmt != null || rs != null) {
+                conn.close();
+                pstmt.close();
+                rs.close();
             }
         } catch (SQLException e) {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return value;
     }
@@ -1193,7 +1272,6 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
 
     public void autoComp(String searchKeyword) {
         String comp = "";
-        ArrayList searchField = new ArrayList();
         int start = searchKeyword.length();
         int last = searchKeyword.length();
 

@@ -5,8 +5,6 @@
  */
 package coronaproperties;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +12,9 @@ import javax.swing.JOptionPane;
  * @author Melvin K
  */
 public class ComparativeViewsMenu extends javax.swing.JFrame {
+    static boolean compareByCity = false;
+    static boolean compareByType = false;
+    static boolean compareByUse = false;
     /**
      * Creates new form ReadPropByMenu
      */
@@ -114,7 +115,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to cancel?", "Are you sure",
                 JOptionPane.YES_NO_OPTION);
         /*
@@ -127,49 +128,86 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
             MainMenu menu = new MainMenu();
 
             menu.setTitle("Corona Main Menu");
-            menu.setOpacity((float) 0.9);
-            menu.setBackground(new Color(0, 0, 0, 0));
-            menu.setIconImage(Toolkit.getDefaultToolkit()
-                    .getImage(SetJFrameIcon.class.getResource("/icons/icons8_House_100px.png")));
-            menu.setLocationRelativeTo(null);
-            menu.setVisible(true);
-
-            System.gc();
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
         }
-    }// GEN-LAST:event_btnCancelActionPerformed
+    }
 
-    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCompareByCityActionPerformed
+    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt) {
+
         try {
-            String addressCity1 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
-            String addressCity2 = JOptionPane.showInputDialog("Enter another city (Eg: Durban, Kimberley): ");
-            CompViewByCity aCompViewByCity = new CompViewByCity(addressCity1, addressCity2);
+            String searchWhere = "addressCity";
+            if (!searchWhere.isEmpty()) {
+
+                String addressCity1 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
+                String addressCity2 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
+                compareByCity = true;
+                if (!addressCity1.isEmpty() && !addressCity2.isEmpty()) {
+                    this.dispose();
+                    //Searching
+                    CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(addressCity1, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare By City 1");
+                    SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
+
+                    CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(addressCity2, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare  by City 2");
+                    setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
+                }
+            }
+            compareByCity = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_btnCompareByCityActionPerformed
+    }
 
-    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCompareByTypeActionPerformed
+    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            String propertyType1 = JOptionPane.showInputDialog("Enter property type (Eg: House, Flat, Business): ");
-            String propertyType2 = JOptionPane
-                    .showInputDialog("Enter another property type (Eg: House, Flat, Business): ");
-            CompViewByType aCompViewByType = new CompViewByType(propertyType1, propertyType2);
+            String searchWhere = "propertyType";
+            if (!searchWhere.isEmpty()) {
+                String propertyType1 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
+                String propertyType2 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
+                compareByType = true;
+                if (!propertyType1.isEmpty() && !propertyType2.isEmpty()) {
+                    this.dispose();
+                    //Searching
+                    CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(propertyType1, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare property type 1");
+                    SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
+
+                    CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(propertyType2, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare property type 2");
+                    setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
+                }
+            }
+            compareByType = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_btnCompareByTypeActionPerformed
+    }
 
-    private void btnCompareByUseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCompareByUseActionPerformed
+    private void btnCompareByUseActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            String useOfProperty1 = JOptionPane
-                    .showInputDialog("Enter use of property (Eg: Rented, Idle, Dr Shaun's Home): ");
-            String useOfProperty2 = JOptionPane
-                    .showInputDialog("Enter another use of property (Eg: Rented, Idle, Dr Shaun's Home): ");
-            CompViewByUse compViewByUse = new CompViewByUse(useOfProperty1, useOfProperty2);
+            String searchWhere = "useOfProperty";
+            if (!searchWhere.isEmpty()) {
+                String useOfProperty1 = JOptionPane.showInputDialog("Enter use of property (Eg: Rented, Idle): ");
+                String useOfProperty2 = JOptionPane.showInputDialog("Enter another use of property (Eg: Rented, Idle): ");
+                compareByUse = true;
+                if (!useOfProperty1.isEmpty() && !useOfProperty2.isEmpty()) {
+                    this.dispose();
+                    //Searching
+                    CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(useOfProperty1, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare by use 1");
+                    SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
+
+                    CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(useOfProperty2, searchWhere);
+                    aCrudViewTemplate1.setTitle("Compare by use 2");
+                    setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
+                }
+            }
+            compareByUse = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_btnCompareByUseActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -181,7 +219,8 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
         // (optional) ">
         /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default
          * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */

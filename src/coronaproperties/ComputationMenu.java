@@ -5,8 +5,7 @@
  */
 package coronaproperties;
 
-import java.awt.Color;
-import java.awt.Toolkit;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +13,10 @@ import javax.swing.JOptionPane;
  * @author Melvin K
  */
 public class ComputationMenu extends javax.swing.JFrame {
+    static boolean computeDep = false;
+    static boolean computeAppre = false;
+    private static String output = "";
+    private static DecimalFormat df = new DecimalFormat("R ###,###,###,###,###,###.00");
     /**
      * Creates new form ReadPropByMenu
      */
@@ -133,52 +136,99 @@ public class ComputationMenu extends javax.swing.JFrame {
             MainMenu menu = new MainMenu();
 
             menu.setTitle("Corona Main Menu");
-            menu.setOpacity((float) 0.9);
-            menu.setBackground(new Color(0, 0, 0, 0));
-            menu.setIconImage(Toolkit.getDefaultToolkit().
-                    getImage(SetJFrameIcon.class.getResource("/icons/icons8_House_100px.png")));
-            menu.setLocationRelativeTo(null);
-            menu.setVisible(true);
-
-            System.gc();
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCompDepreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompDepreciationActionPerformed
         try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute depreciation on: ");
+            computeDep = true;
 
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             //Searching
-            double currentValue = aCrudViewTemplate.search(searchString);
-            double r = Double.parseDouble(JOptionPane.showInputDialog("Enter rate of depreciation: "));
-            int t = Integer.parseInt(JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ")
-            );
-            //Computing
-            ComputeDepBySearch.computeDep(currentValue, r, t);
-            ComputeDepBySearch.displayData();
+            if (!searchString.isEmpty()) {
+                double currentValue = aCrudViewTemplate.search(searchString);
+
+                String r = JOptionPane.showInputDialog("Enter rate of depreciation: ");
+                String t = JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ");
+                if (!r.isEmpty() && !t.isEmpty()) {
+                    this.dispose();
+                    //Computing
+                    computeDep(currentValue, r, t);
+                    aCrudViewTemplate.setTitle("Computations");
+                    SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate);
+                    displayData();
+                }
+            }
+            computeDep = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCompDepreciationActionPerformed
 
+    private static String computeDep(double currentValue, String r, String t) {
+        double depreciation = (currentValue * Double.parseDouble(t) / 100 * Integer.parseInt(t));
+        double valueAfterDep = currentValue - depreciation;
+
+        output = "";
+
+        if (valueAfterDep < depreciation) {
+            output = "This property no longer has any worth";
+        } else {
+            output = "Old value: " + df.format(currentValue)
+                    + "\n\nAfter a depreciation rate of " + r + "% for " + t + " years"
+                    + "\n\nThe properties' worth: "
+                    + df.format(valueAfterDep);
+        }
+        return output;
+    }
+
+    private static void displayData() {
+        JOptionPane.showMessageDialog(null, output);
+    }
+
     private void btnCompAppreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompAppreciationActionPerformed
         try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute appreciation on: ");
-
+            computeAppre = true;
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             //Searching
-            double currentValue = aCrudViewTemplate.search(searchString);
-            double r = Double.parseDouble(JOptionPane.showInputDialog("Enter rate of appreciation: "));
-            int t = Integer.parseInt(JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ")
-            );
-            //Computing
-            ComputeAppreBySearch.computeAppre(currentValue, r, t);
-            ComputeAppreBySearch.displayData();
+            if (!searchString.isEmpty()) {
+                double currentValue = aCrudViewTemplate.search(searchString);
+
+                String r = JOptionPane.showInputDialog("Enter rate of appreciation: ");
+                String t = JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ");
+                if (!r.isEmpty() && !t.isEmpty()) {
+                    this.dispose();
+                    //Computing
+                    computeDep(currentValue, r, t);
+                    aCrudViewTemplate.setTitle("Computations");
+                    SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate);
+                    displayData();
+                }
+            }
+            computeAppre = false;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCompAppreciationActionPerformed
+
+    static String computeAppre(double currentValue, double r, int t) {
+        double appreciation = (currentValue * r / 100 * t);
+        double valueAfterAppre = currentValue + appreciation;
+
+        output = "";
+
+        output = "This property no longer has any worth";
+
+        output = "Old value: " + df.format(currentValue)
+                + "\n\nAfter an appreciation rate of " + r + "% for " + t + " years"
+                + "\n\nThe properties' worth: "
+                + df.format(valueAfterAppre);
+
+        return output;
+    }
 
     /**
      * @param args the command line arguments
@@ -202,13 +252,17 @@ public class ComputationMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputationMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputationMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputationMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputationMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
