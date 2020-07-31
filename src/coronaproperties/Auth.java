@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  */
 public class Auth
 {
-    private static boolean success = false;
+    static boolean success = false;
     static int user_id;
     static boolean login(String emailString, String passString)
     {
@@ -36,7 +36,7 @@ public class Auth
                 user_id = rs.getInt("user_id");
 
                 //Log the login into the login_audit table
-                isLoggedIn(user_id);
+                signedIn(user_id);
             }
         } catch (SQLException e)
         {
@@ -57,12 +57,12 @@ public class Auth
         return success;
     }
 
-    static boolean isLoggedIn(int user_id)
+    static boolean signedIn(int user_id)
     {
         //1 means logged in
         int loggedIn = 1;
 
-        String sql = "UPDATE user SET logged_in = ? "
+        String sql = "UPDATE user SET signed_in = ? "
                 + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
                 //Creating query

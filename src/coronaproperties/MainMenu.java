@@ -5,8 +5,11 @@
  */
 package coronaproperties;
 
+import static coronaproperties.Auth.success;
+import static coronaproperties.Auth.user_id;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -15,28 +18,34 @@ import javax.swing.Timer;
  *
  * @author Melvin K
  */
-public class MainMenu extends javax.swing.JFrame {
+public class MainMenu extends javax.swing.JFrame
+{
     private int xMouse;
     private int yMouse;
     /**
      * Creates new form Menu
      */
-    public MainMenu() {
+    public MainMenu()
+    {
         initComponents();
         showDate();
         showTime();
     }
 
-    void showDate() {
+    void showDate()
+    {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         lblDate.setText(dateFormat.format(date));
     }
 
-    void showTime() {
-        new Timer(0, new ActionListener() {
+    void showTime()
+    {
+        new Timer(0, new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 java.util.Date date = new java.util.Date();
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
                 lblTime.setText(timeFormat.format(date));
@@ -240,7 +249,31 @@ public class MainMenu extends javax.swing.JFrame {
          * 0 = yes
          * 1 = no
          */
-        if (option == 0) {
+        if (option == 0)
+        {
+            //0 means logged out
+            int loggedIn = 0;
+
+            String sql = "UPDATE user SET signed_in = ? "
+                    + "WHERE user_id = ?";
+            try (Connection conn = ConnectUtil.getConnection();
+                    //Creating query
+                    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+            {
+                pstmt.setInt(1, loggedIn);
+                pstmt.setInt(2, user_id);
+
+                pstmt.executeUpdate();
+// Authentication complete
+                success = true;
+            } catch (SQLException e)
+            {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+                System.out.println(e.getMessage());
+            } catch (Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
@@ -306,7 +339,8 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /*
          * Set the Nimbus look and feel
          */
@@ -317,20 +351,27 @@ public class MainMenu extends javax.swing.JFrame {
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -339,8 +380,10 @@ public class MainMenu extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new MainMenu().setVisible(true);
             }
 
