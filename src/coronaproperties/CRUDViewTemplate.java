@@ -83,6 +83,38 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         }
     }
 
+    public CRUDViewTemplate(String searchString) {
+        initComponents();
+        txtpropertyPrimaryKey.setEditable(false);
+        if (createSomeProp) {
+            lblTitle.setText("Add New Property");
+            btnOK.setText("Save");
+            lblSearch.setVisible(false);
+            txtSearch.setVisible(false);
+            btnPrevious.setVisible(false);
+            btnNext.setVisible(false);
+        }
+        if (readPropAll) {
+            lblTitle.setText("View All Property");
+            readOnlyhouseCleaning();
+        }
+        if (updateSomeProp) {
+            lblTitle.setText("Update Property");
+            btnOK.setText("Update");
+        }
+        if (deleteSomeProp) {
+            lblTitle.setText("Delete Property");
+            btnOK.setText("Delete");
+        }
+        if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp) {
+            if (loadData(rs)) {
+                displayData();
+            } else {
+                JOptionPane.showMessageDialog(null, "No records in the database!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     private void readOnlyhouseCleaning() {
         //Set invisible
         btnOK.setVisible(false);
@@ -1092,6 +1124,51 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public double search(String searchString) throws HeadlessException {
+        String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
+                + " OR UPPER(addressNum) LIKE ?"
+                + " OR UPPER(addressStreet) LIKE ?"
+                + " OR UPPER(addressCity) LIKE ?"
+                + " OR UPPER(addressCode) LIKE ?"
+                + " OR UPPER(value) LIKE ?"
+                + " OR UPPER(constructionStatus) LIKE ?"
+                + " OR UPPER(useOfProperty) LIKE ?"
+                + " OR UPPER(room) LIKE ?"
+                + " OR UPPER(garage) LIKE ?"
+                + " OR UPPER(bath) LIKE ?"
+                + " OR UPPER(floorArea) LIKE ?"
+                + " OR UPPER(landArea) LIKE ?"
+                + " OR UPPER(rates) LIKE ?"
+                //                + " OR UPPER(description) LIKE ?"
+                + " OR UPPER(telephone) LIKE ?"
+                + " OR UPPER(email) LIKE ?";
+        //Connecting using ConnectUtil
+        try {
+            //Creating query
+            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+
+            for (int i = 1; i <= 16; i++) {
+                pstmt.setString(i, "%" + searchString + "%");
+            }
+
+            //Executing query
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+//                loadData(rs);
+                value = rs.getDouble("value");
+//                displayData();
+            }
+        } catch (SQLException e) {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return value;
     }
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed

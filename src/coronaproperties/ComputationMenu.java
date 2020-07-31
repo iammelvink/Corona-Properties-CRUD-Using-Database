@@ -147,10 +147,16 @@ public class ComputationMenu extends javax.swing.JFrame {
     private void btnCompDepreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompDepreciationActionPerformed
         try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute depreciation on: ");
-            String r = JOptionPane.showInputDialog("Enter rate of depreciation: ");
-            String t = JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ");
 
-            ComputeDepBySearch aComputeBySearch = new ComputeDepBySearch(searchString, r, t);
+            CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
+            //Searching
+            double currentValue = aCrudViewTemplate.search(searchString);
+            double r = Double.parseDouble(JOptionPane.showInputDialog("Enter rate of depreciation: "));
+            int t = Integer.parseInt(JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ")
+            );
+            //Computing
+            ComputeDepBySearch.computeDep(currentValue, r, t);
+            ComputeDepBySearch.displayData();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -159,9 +165,16 @@ public class ComputationMenu extends javax.swing.JFrame {
     private void btnCompAppreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompAppreciationActionPerformed
         try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute appreciation on: ");
-            String r = JOptionPane.showInputDialog("Enter rate of appreciation: ");
-            String t = JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ");
-            ComputeAppreBySearch aComputeAppreBySearch = new ComputeAppreBySearch(searchString, r, t);
+
+            CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
+            //Searching
+            double currentValue = aCrudViewTemplate.search(searchString);
+            double r = Double.parseDouble(JOptionPane.showInputDialog("Enter rate of appreciation: "));
+            int t = Integer.parseInt(JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ")
+            );
+            //Computing
+            ComputeAppreBySearch.computeAppre(currentValue, r, t);
+            ComputeAppreBySearch.displayData();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }

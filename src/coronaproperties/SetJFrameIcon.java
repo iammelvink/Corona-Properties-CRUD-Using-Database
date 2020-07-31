@@ -32,7 +32,6 @@ public class SetJFrameIcon extends JFrame {
         // use a "/" then the image file should be on the same folder
         // with your class file
         try {
-
             URL resource = ajFrame.getClass().getResource("/icons/icons8_House_100px.png");
             BufferedImage image = ImageIO.read(resource);
             ajFrame.setIconImage(image);
