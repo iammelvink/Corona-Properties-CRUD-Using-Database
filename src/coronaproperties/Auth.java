@@ -8,8 +8,9 @@ import javax.swing.JOptionPane;
  * @author Melvin K
  */
 public class Auth {
+    private static boolean success = false;
     static boolean login(String emailString, String passString) {
-        boolean success = false;
+
         ResultSet rs = null;
 
         String sql = "SELECT email, password FROM user "
@@ -43,14 +44,13 @@ public class Auth {
         return success;
     }
 
-    static boolean register(String emailString, String passString) {
-        boolean success = false;
+    static boolean register(String fNameString, String lNameString, String emailString, String passString) {
         ResultSet rs = null;
 
         int userPKey = 0;
 
-        String sql = "INSERT INTO user(email,password) "
-                + "VALUES(?,?)";
+        String sql = "INSERT INTO user(fName,lName,email,password) "
+                + "VALUES(?,?,?,?)";
         //Connecting using ConnectUtil
         //using resources
         ///so that connection to db closes automatically
@@ -58,8 +58,10 @@ public class Auth {
                 //Creating query
                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             // set parameters for statement
-            pstmt.setString(1, emailString);
-            pstmt.setString(2, passString);
+            pstmt.setString(1, fNameString);
+            pstmt.setString(2, lNameString);
+            pstmt.setString(3, emailString);
+            pstmt.setString(4, passString);
             int rowAffected = pstmt.executeUpdate();
 
             if (rowAffected == 1) {

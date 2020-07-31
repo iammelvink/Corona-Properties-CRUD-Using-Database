@@ -11,14 +11,16 @@ import javax.swing.JOptionPane;
  *
  * @author MightyBeatz
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame
+{
     private boolean register = false;
     private int xMouse;
     private int yMouse;
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login()
+    {
         initComponents();
     }
 
@@ -43,11 +45,15 @@ public class Login extends javax.swing.JFrame {
         lblError = new javax.swing.JLabel();
         lblRegister = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
+        lblForRegistration = new javax.swing.JLabel();
+        txtForRegistration = new javax.swing.JPasswordField();
+        txtForRegistration1 = new javax.swing.JPasswordField();
+        lblForRegistration1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 360));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 380));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -92,13 +98,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtPass.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txtPass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtPass.setOpaque(false);
-        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPassKeyTyped(evt);
-            }
-        });
 
         btnCancel.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnCancel.setText("Cancel");
@@ -124,6 +125,18 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lblForRegistration.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
+        lblForRegistration.setText("Password: ");
+
+        txtForRegistration.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtForRegistration.setOpaque(false);
+
+        txtForRegistration1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtForRegistration1.setOpaque(false);
+
+        lblForRegistration1.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
+        lblForRegistration1.setText("Re-enter Password: ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,59 +144,73 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblRegister)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegister))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnLogin)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCancel))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblPass)
-                                .addComponent(lblEmail))
-                            .addGap(27, 27, 27)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCheckBoxShowPass, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 87, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPass)
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblForRegistration)
+                                    .addComponent(lblForRegistration1))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPass)
+                                    .addComponent(txtForRegistration)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtForRegistration1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblRegister)
+                                    .addComponent(btnLogin))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBoxShowPass, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnRegister)
+                                        .addComponent(btnCancel)))))
+                        .addGap(76, 76, 76))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTitle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(lblTitle)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPass)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBoxShowPass)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnCancel))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister)
-                    .addComponent(lblRegister))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPass)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBoxShowPass)
+                            .addComponent(lblForRegistration)
+                            .addComponent(txtForRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblForRegistration1)
+                            .addComponent(txtForRegistration1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLogin)
+                            .addComponent(btnCancel))
+                        .addGap(40, 40, 40)
+                        .addComponent(lblRegister))
+                    .addComponent(btnRegister))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,45 +233,109 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-        if (register == false) {
+        if (!register)
+        {
+            //Capture email and password from GUI
+            String remain = "";
+            String fullName = String.valueOf(txtEmail.getText()).toUpperCase();
+            String emailString = String.valueOf(txtPass.getPassword());
+            String passString = String.valueOf(txtForRegistration.getPassword());
+            String tempPassString = String.valueOf(txtForRegistration1.getPassword());
+            //Checking for empty fields
+            if (!fullName.isEmpty() || !emailString.isEmpty() || !passString.isEmpty() || !tempPassString.isEmpty())
+            {
+                //Checking if fullname has illegal characters
+//                if (Validate.isWord(fullName))
+//                {
+                //Split first and last name
+                String[] fullNameArray = fullName.trim().split("\\s+");
+
+                //Get first name
+                String tempFNameString = fullNameArray[0];
+
+                //Converting First name to Title case
+                char f = tempFNameString.charAt(0);
+                String fN = String.valueOf(f);
+                String fNameString = fN + (tempFNameString.substring(1, tempFNameString.length()).toLowerCase());
+
+                //Get last name
+                String tempLNameString = fullNameArray[1];
+
+                char l = tempLNameString.charAt(0);
+                String lN = String.valueOf(l);
+                String lNameString = lN + (tempLNameString.substring(1, tempLNameString.length()).toLowerCase());
+
+                System.out.println(fNameString + "\t" + lNameString + "\t" + emailString + "\t" + passString + "\t" + tempPassString);
+
+//                //Check if passwords match
+                if (passString.compareTo(tempPassString) == 0)
+                {
+                    //Checking if email and password meets minimum requirements
+
+                    if (Validate.isEmail(emailString) && Validate.isPass(passString))
+                    {
+                        if (Auth.register(fNameString, lNameString, emailString, passString))
+                        {
+                            this.dispose();
+                            Auth.openMenu();
+                        } else
+                        {
+                            lblError.setText("Error occured!");
+                        }
+                    } else
+                    {
+                        lblError.setText("Email or Password does NOT meet min requirements!");
+                    }
+                } else
+                {
+                    lblError.setText("Password do NOT match!");
+                }
+//                } else
+//                {
+//                    lblError.setText("Fullname contains illegal characters!");
+//                }
+            } else
+            {
+                lblError.setText("One or more fields are empty!");
+            }
+
+        } else
+        {
             //Capture email and password from GUI
             String emailString = String.valueOf(txtEmail.getText());
             String passString = String.valueOf(txtPass.getPassword());
-
-            //Checking if email and password meets minimum requirements
-            if (Validate.isEmail(emailString) && Validate.isPass(passString)) {
-                if (Auth.login(emailString, passString)) {
-                    this.dispose();
-                    Auth.openMenu();
-                } else {
-                    lblError.setText("Email or Password is incorrect!");
+            //Checking for empty fields
+            if (!emailString.isEmpty() || !passString.isEmpty())
+            {
+                //Checking if email and password meets minimum requirements
+                if (Validate.isEmail(emailString) && Validate.isPass(passString))
+                {
+                    if (Auth.login(emailString, passString))
+                    {
+                        this.dispose();
+                        Auth.openMenu();
+                    } else
+                    {
+                        lblError.setText("Email or Password is incorrect!");
+                    }
+                } else
+                {
+                    lblError.setText("Email or Password does NOT meet min requirements!");
                 }
-            } else {
-                lblError.setText("Email or Password does NOT meet min requirements!");
+            } else
+            {
+                lblError.setText("One or more fields are empty!");
             }
-        } else if (register) {
-//Capture email and password from GUI
-            String emailString = String.valueOf(txtEmail.getText());
-            String passString = String.valueOf(txtPass.getPassword());
 
-            //Checking if email and password meets minimum requirements
-            if (Validate.isEmail(emailString) && Validate.isPass(passString)) {
-                if (Auth.register(emailString, passString)) {
-                    this.dispose();
-                    Auth.openMenu();
-                } else {
-                    lblError.setText("Error occured!");
-                }
-            } else {
-                lblError.setText("Email or Password does NOT meet min requirements!");
-            }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jCheckBoxShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowPassActionPerformed
-        if (jCheckBoxShowPass.isSelected()) {
+        if (jCheckBoxShowPass.isSelected())
+        {
             txtPass.setEchoChar('\u0000');
-        } else {
+        } else
+        {
             txtPass.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBoxShowPassActionPerformed
@@ -255,14 +346,11 @@ public class Login extends javax.swing.JFrame {
          * 0 = yes
          * 1 = no
          */
-        if (option == 0) {
+        if (option == 0)
+        {
             System.exit(0);
         }
     }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
-        txtPass.setEchoChar('*');
-    }//GEN-LAST:event_txtPassKeyTyped
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         int x = evt.getXOnScreen();
@@ -281,27 +369,73 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        if (register == false) {
+        whatAction();
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    public void whatAction()
+    {
+        if (register)
+        {
+            //Clear text fields first
+            txtEmail.setText("");
+            txtPass.setText("");
+            txtForRegistration.setText("");
+            txtForRegistration1.setText("");
+
+            //Adapt UI for registration
             lblTitle.setText("Register");
             btnLogin.setText("Register");
             lblRegister.setText("Already have an account?");
             btnRegister.setText("Login");
             lblError.setText("");
-            register = true;
-        } else if (register) {
+
+            lblEmail.setText("Full name: ");
+            lblPass.setText("Email: ");
+
+            txtPass.setEchoChar('\u0000');
+            lblForRegistration.setVisible(true);
+            txtForRegistration.setVisible(true);
+            lblForRegistration1.setVisible(true);
+            txtForRegistration1.setVisible(true);
+            txtForRegistration.setEchoChar('*');
+            txtForRegistration1.setEchoChar('*');
+            jCheckBoxShowPass.setVisible(false);
+
+            register = false;
+        } else
+        {
+            //Clear text fields first
+            txtEmail.setText("");
+            txtPass.setText("");
+            txtForRegistration.setText("");
+            txtForRegistration1.setText("");
+
+            //Adapt UI for login
             lblTitle.setText("Login");
             btnLogin.setText("Login");
             lblRegister.setText("No account?");
             btnRegister.setText("Register");
-            register = false;
             lblError.setText("");
+
+            lblEmail.setText("Email: ");
+            lblPass.setText("Password: ");
+            txtPass.setEchoChar('*');
+
+            lblForRegistration.setVisible(false);
+            txtForRegistration.setVisible(false);
+            lblForRegistration1.setVisible(false);
+            txtForRegistration1.setVisible(false);
+            txtForRegistration1.setEchoChar('\u0000');
+            jCheckBoxShowPass.setVisible(true);
+            register = true;
         }
-    }//GEN-LAST:event_btnRegisterActionPerformed
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /*
          * Set the Nimbus look and feel
          */
@@ -312,20 +446,27 @@ public class Login extends javax.swing.JFrame {
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -333,8 +474,10 @@ public class Login extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new Login().setVisible(true);
             }
 
@@ -349,10 +492,14 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblForRegistration;
+    private javax.swing.JLabel lblForRegistration1;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblRegister;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtForRegistration;
+    private javax.swing.JPasswordField txtForRegistration1;
     private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 }

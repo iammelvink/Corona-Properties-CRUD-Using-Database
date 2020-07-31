@@ -33,6 +33,7 @@ public class InitFunction {
 
                     // Open Login Screen
                     Login loginScreen = new Login();
+                    loginScreen.whatAction();
 
                     loginScreen.setTitle("Login");
                     setJFrameIcon = new SetJFrameIcon(loginScreen);
