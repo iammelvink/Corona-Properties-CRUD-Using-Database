@@ -31,7 +31,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
-    private int curRow = 0;
+//    private int curRow = 0;
     private String propertyPrimaryKey;
     private String propertyType;
     private String addressNum;
@@ -50,7 +50,6 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     private String description;
     private String telephone;
     private String email;
-    private ArrayList searchField = new ArrayList();
     /**
      * Creates new form UpdatePropMenu
      */
@@ -125,7 +124,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             conn = ConnectUtil.getConnection();
             //Creating query
             pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE); //Executing query
+                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+            //Executing query
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -750,16 +750,25 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
 
-        if (createSomeProp) {
-            if (captureInput()) {
-                create();
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0) {
+            //Clear search field
+            txtSearch.setText("");
+            if (createSomeProp) {
+                if (captureInput()) {
+                    create();
+                }
+            } else if (updateSomeProp) {
+                if (captureInput()) {
+                    update();
+                }
+            } else if (deleteSomeProp) {
+                delete();
             }
-        } else if (updateSomeProp) {
-            if (captureInput()) {
-                update();
-            }
-        } else if (deleteSomeProp) {
-            delete();
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -788,7 +797,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             email = txtemail.getText();
 
             //Validate email
-            if (Valid.isEmail(email)) {
+            if (Validate.isEmail(email)) {
                 captured = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Email does NOT meet minimum requirements!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1078,12 +1087,11 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
 
-            // set parameters for statement
             for (int i = 1; i <= 16; i++) {
                 pstmt.setString(i, "%" + txtSearch.getText().toUpperCase() + "%");
             }
-//            pstmt.setString(1, "%" + txtSearch.getText().toUpperCase() + "%");
 
+            //Executing query
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -1120,6 +1128,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
 
     public void autoComp(String searchKeyword) {
         String comp = "";
+        ArrayList searchField = new ArrayList();
         int start = searchKeyword.length();
         int last = searchKeyword.length();
 

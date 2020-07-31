@@ -188,7 +188,7 @@ public class Login extends javax.swing.JFrame {
         String passString = String.valueOf(txtPass.getPassword());
 
         //Checking if email and password meets minimum requirements
-        if (Valid.isEmail(emailString) && Valid.isPass(passString)) {
+        if (Validate.isEmail(emailString) && Validate.isPass(passString)) {
             if (Auth.login(emailString, passString)) {
                 this.dispose();
                 Auth.openMenu();

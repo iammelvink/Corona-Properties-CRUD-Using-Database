@@ -3,7 +3,7 @@ package coronaproperties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Valid {
+public class Validate {
     static boolean isEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
