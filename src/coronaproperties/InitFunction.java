@@ -5,9 +5,6 @@
  */
 package coronaproperties;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-
 /**
  *
  * @author MightyBeatz
@@ -21,12 +18,7 @@ public class InitFunction {
         SplashScreen spl = new SplashScreen();
 
         spl.setTitle("Corona Properties");
-        spl.setOpacity((float) 0.9);
-        spl.setBackground(new Color(0, 0, 0, 0));
-        spl.setIconImage(Toolkit.getDefaultToolkit()
-                .getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-        spl.setLocationRelativeTo(null);
-        spl.setVisible(true);
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(spl);
         try {
             for (int i = 0; i <= 100; i++) {
                 Thread.sleep(30);
@@ -43,12 +35,7 @@ public class InitFunction {
                     Login loginScreen = new Login();
 
                     loginScreen.setTitle("Login");
-                    loginScreen.setOpacity((float) 0.9);
-                    loginScreen.setBackground(new Color(0, 0, 0, 0));
-                    loginScreen.setIconImage(Toolkit.getDefaultToolkit()
-                            .getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-                    loginScreen.setLocationRelativeTo(null);
-                    loginScreen.setVisible(true);
+                    setJFrameIcon = new SetJFrameIcon(loginScreen);
                 }
             }
         } catch (InterruptedException e) {

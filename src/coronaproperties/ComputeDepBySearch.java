@@ -3,7 +3,6 @@ package coronaproperties;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.DecimalFormat;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -32,10 +31,8 @@ public class ComputeDepBySearch {
         private String telephone;
         private String email;
     }
-
     private static Property propertyInfo;
     private static DecimalFormat df = new DecimalFormat("R ###,###,###,###,###,###.00");
-
     ComputeDepBySearch(String searchString, String r, String t) {
         if (!searchString.isEmpty() || !r.isEmpty() || !t.isEmpty()) {
             displayData(searchString, Double.parseDouble(r), Integer.parseInt(t));
@@ -113,6 +110,9 @@ public class ComputeDepBySearch {
                 if (rec.toLowerCase().contains(searchString.toLowerCase())) {
                     double depreciation = (propertyInfo.value * r / 100 * t);
                     double valueAfterDep = propertyInfo.value - depreciation;
+                    if (valueAfterDep < depreciation) {
+                        output = "This property no longer has any worth";
+                    }
 
                     output += "\n" + propertyInfo.propertyPrimaryKey + "\n" + propertyInfo.propertyType + "\n"
                             + propertyInfo.addressNum + "\n" + propertyInfo.addressStreet + "\n"

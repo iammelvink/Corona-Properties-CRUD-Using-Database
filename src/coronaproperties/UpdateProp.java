@@ -1,26 +1,18 @@
 package coronaproperties;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-
 /**
  *
  * @author Melvin K
  */
 public class UpdateProp {
     static boolean updateSomeProp = false;
+
     static boolean updateSome() {
         updateSomeProp = true;
 
-        CRUDViewTemplate aUpdatePropMenu = new CRUDViewTemplate();
-        aUpdatePropMenu.setTitle("Update Property");
-        aUpdatePropMenu.setOpacity((float) 0.9);
-        aUpdatePropMenu.setBackground(new Color(0, 0, 0, 0));
-        aUpdatePropMenu.setIconImage(Toolkit.getDefaultToolkit().
-                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-        aUpdatePropMenu.setLocationRelativeTo(null);
-        aUpdatePropMenu.setVisible(true);
-        System.gc();
+        CRUDViewTemplate aCRUDViewTemplate = new CRUDViewTemplate();
+        aCRUDViewTemplate.setTitle("Update Property");
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCRUDViewTemplate);
 
         return updateSomeProp;
     }

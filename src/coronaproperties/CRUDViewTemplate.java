@@ -9,10 +9,8 @@ import static coronaproperties.CreateProp.createSomeProp;
 import static coronaproperties.DeleteProp.deleteSomeProp;
 import static coronaproperties.ReadPropAll.readPropAll;
 import static coronaproperties.UpdateProp.updateSomeProp;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import static java.lang.String.valueOf;
 import java.sql.*;
@@ -860,12 +858,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             MainMenu menu = new MainMenu();
 
             menu.setTitle("Corona Properties Main Menu");
-            menu.setOpacity((float) 0.9);
-            menu.setBackground(new Color(0, 0, 0, 0));
-            menu.setIconImage(Toolkit.getDefaultToolkit()
-                    .getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-            menu.setLocationRelativeTo(null);
-            menu.setVisible(true);
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
 
             System.gc();
 //            JOptionPane.showMessageDialog(null, "Record created successfully!");
@@ -1000,12 +993,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             MainMenu menu = new MainMenu();
 
             menu.setTitle("Corona Main Menu");
-            menu.setOpacity((float) 0.9);
-            menu.setBackground(new Color(0, 0, 0, 0));
-            menu.setIconImage(Toolkit.getDefaultToolkit().
-                    getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-            menu.setLocationRelativeTo(null);
-            menu.setVisible(true);
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
 
             System.gc();
         }

@@ -5,8 +5,6 @@
  */
 package coronaproperties;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -272,12 +270,7 @@ public class MainMenu extends javax.swing.JFrame {
         ComparativeViewsMenu aComparativeViewsMenu = new ComparativeViewsMenu();
 
         aComparativeViewsMenu.setTitle("Corona Comparative View");
-        aComparativeViewsMenu.setOpacity((float) 0.9);
-        aComparativeViewsMenu.setBackground(new Color(0, 0, 0, 0));
-        aComparativeViewsMenu.setIconImage(Toolkit.getDefaultToolkit().
-                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-        aComparativeViewsMenu.setLocationRelativeTo(null);
-        aComparativeViewsMenu.setVisible(true);
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComparativeViewsMenu);
 
         System.gc();
     }//GEN-LAST:event_btnComparativeViewsActionPerformed
@@ -289,12 +282,7 @@ public class MainMenu extends javax.swing.JFrame {
         ComputationMenu aComputationMenu = new ComputationMenu();
 
         aComputationMenu.setTitle("Corona Computation Menu");
-        aComputationMenu.setOpacity((float) 0.9);
-        aComputationMenu.setBackground(new Color(0, 0, 0, 0));
-        aComputationMenu.setIconImage(Toolkit.getDefaultToolkit().
-                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-        aComputationMenu.setLocationRelativeTo(null);
-        aComputationMenu.setVisible(true);
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComputationMenu);
 
         System.gc();
     }//GEN-LAST:event_btnComputationActionPerformed

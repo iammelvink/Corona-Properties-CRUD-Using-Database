@@ -33,6 +33,9 @@ public class SplashScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
+        bar.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+
+        lblHouse.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         lblHouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_House_100px.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
