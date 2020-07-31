@@ -8,13 +8,8 @@ import java.awt.Toolkit;
  * @author Melvin K
  */
 public class DeleteProp {
-    public static boolean deleteSomeProp = false;
-    DeleteProp() {
-        deleteSome();
-    }
-
-    private static boolean deleteSome() {
-
+    static boolean deleteSomeProp = false;
+    static boolean deleteSome() {
         deleteSomeProp = true;
 
         CRUDViewTemplate aUpdatePropMenu = new CRUDViewTemplate();

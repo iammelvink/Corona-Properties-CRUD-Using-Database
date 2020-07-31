@@ -194,8 +194,7 @@ public class ReadPropByMenu extends javax.swing.JFrame {
 
     private void btnViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAllActionPerformed
         this.dispose();
-        ReadPropAll aReadProp = new ReadPropAll();
-
+        ReadPropAll.readAll();
     }//GEN-LAST:event_btnViewAllActionPerformed
 
     private void btnViewByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewByStatusActionPerformed

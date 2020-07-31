@@ -8,14 +8,8 @@ import java.awt.Toolkit;
  * @author Melvin K
  */
 public class ReadPropAll {
-    public static boolean readPropAll = false;
-    ReadPropAll() {
-//        displayData();
-        readAll();
-    }
-
-    private static boolean readAll() {
-
+    static boolean readPropAll = false;
+    static boolean readAll() {
         readPropAll = true;
 
         CRUDViewTemplate aUpdatePropMenu = new CRUDViewTemplate();

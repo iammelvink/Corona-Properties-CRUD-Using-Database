@@ -8,13 +8,8 @@ import java.awt.Toolkit;
  * @author Melvin K
  */
 public class CreateProp {
-    public static boolean createSomeProp = false;
-    CreateProp() {
-        createSome();
-    }
-
-    private static boolean createSome() {
-
+    static boolean createSomeProp = false;
+    static boolean createSome() {
         createSomeProp = true;
 
         CRUDViewTemplate aUpdatePropMenu = new CRUDViewTemplate();

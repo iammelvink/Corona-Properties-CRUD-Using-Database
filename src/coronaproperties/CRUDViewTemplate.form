@@ -62,75 +62,74 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="758" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblpropertyType" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblpropertyPrimaryKey" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="txtpropertyPrimaryKey" min="-2" pref="147" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblpropertyPrimaryKey2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblconstructionStatus2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbluseOfProperty3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblvalue" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbluseOfProperty" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblconstructionStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbladdressNum" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbladdressStreet" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbladdressCity" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbladdressCode" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblpropertyType" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblpropertyPrimaryKey" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                      <Component id="txtpropertyPrimaryKey" min="-2" pref="147" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="lblpropertyPrimaryKey2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblconstructionStatus2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbluseOfProperty3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblvalue" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbluseOfProperty" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblconstructionStatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbladdressNum" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbladdressStreet" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbladdressCity" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbladdressCode" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="txttelephone" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Component id="txtemail" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Component id="txtaddressCity" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Component id="txtaddressStreet" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Component id="txtaddressNum" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Component id="txtaddressCode" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                                      <Component id="btnPrevious" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="btnNext" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txttelephone" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtemail" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtaddressCity" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtaddressStreet" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtaddressNum" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="txtaddressCode" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                              <Component id="btnPrevious" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                              <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                                      <Component id="jComboBoxpropertyType" min="-2" pref="147" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="jComboBoxconstructionStatus" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
-                                                          <Component id="jComboBoxuseOfProperty" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxpropertyType" min="-2" pref="147" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jComboBoxconstructionStatus" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
+                                              <Component id="jComboBoxuseOfProperty" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
                               </Group>
-                              <Component id="lbladdress" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="lbladdress" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTitle" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lblSearch" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtSearch" min="-2" pref="235" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lbladdressStreet1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbladdressNum1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -148,20 +147,20 @@
                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtlandArea" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtfloorArea" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtvalue" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtrates" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jSpinnerroom" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jSpinnergarage" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtlandArea" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="txtfloorArea" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="txtvalue" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="txtrates" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="jSpinnerroom" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="jSpinnergarage" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                                   <Component id="jSpinnerbath" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                               </Group>
                               <Component id="btnCancel" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -171,7 +170,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblHeading" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -297,7 +300,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnOK" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -751,6 +754,25 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPreviousActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSearch">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="16" style="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyTyped"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyPressed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSearch">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="21" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Search"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

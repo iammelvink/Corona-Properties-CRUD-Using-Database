@@ -7,7 +7,11 @@ package coronaproperties;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,6 +25,26 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        showDate();
+        showTime();
+    }
+
+    void showDate() {
+        java.util.Date date = new java.util.Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        lblDate.setText(dateFormat.format(date));
+    }
+
+    void showTime() {
+        new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                java.util.Date date = new java.util.Date();
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
+                lblTime.setText(timeFormat.format(date));
+            }
+
+        }).start();
     }
 
     /**
@@ -42,6 +66,8 @@ public class MainMenu extends javax.swing.JFrame {
         lblHeading = new javax.swing.JLabel();
         btnComparativeViews = new javax.swing.JButton();
         btnComputation = new javax.swing.JButton();
+        lblDate = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -120,14 +146,24 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        lblDate.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
+        lblDate.setText("Date");
+
+        lblTime.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
+        lblTime.setText("Time");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 227, Short.MAX_VALUE)
+                .addGap(0, 166, Short.MAX_VALUE)
+                .addComponent(lblDate)
+                .addGap(31, 31, 31)
                 .addComponent(lblHeading)
-                .addGap(219, 219, 219))
+                .addGap(47, 47, 47)
+                .addComponent(lblTime)
+                .addGap(107, 107, 107))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -142,29 +178,32 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(281, 281, 281)
                         .addComponent(btnComparativeViews))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(303, 303, 303)
+                        .addComponent(btnComputation))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(301, 301, 301)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnAdd)
-                            .addComponent(btnDisplay)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(btnComputation)))
+                            .addComponent(btnDisplay))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(lblHeading)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHeading)
+                    .addComponent(lblDate)
+                    .addComponent(lblTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnAdd)
                 .addGap(29, 29, 29)
                 .addComponent(btnDisplay)
                 .addGap(33, 33, 33)
                 .addComponent(btnComparativeViews)
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addComponent(btnComputation)
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addComponent(btnUpdate)
                 .addGap(37, 37, 37)
                 .addComponent(btnDelete)
@@ -193,15 +232,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.dispose();
-//        CreatePropMenu aRecordProp = new CreatePropMenu();
-//        aRecordProp.setTitle("Add New Property");
-//        aRecordProp.setOpacity((float) 0.9);
-//        aRecordProp.setBackground(new Color(0, 0, 0, 0));
-//        aRecordProp.setIconImage(Toolkit.getDefaultToolkit().
-//                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-//        aRecordProp.setLocationRelativeTo(null);
-//        aRecordProp.setVisible(true);
-        CreateProp aCreateProp = new CreateProp();
+        CreateProp.createSome();
         System.gc();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -218,38 +249,19 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.dispose();
-        DeleteProp aDeleteProp = new DeleteProp();
+        DeleteProp.deleteSome();
         System.gc();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         this.dispose();
-        UpdateProp aUpdateProp = new UpdateProp();
-//        UpdatePropMenu aUpdatePropMenu = new UpdatePropMenu();
-//        aUpdatePropMenu.setTitle("Update Property");
-//        aUpdatePropMenu.setOpacity((float) 0.9);
-//        aUpdatePropMenu.setBackground(new Color(0, 0, 0, 0));
-//        aUpdatePropMenu.setIconImage(Toolkit.getDefaultToolkit().
-//                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-//        aUpdatePropMenu.setLocationRelativeTo(null);
-//        aUpdatePropMenu.setVisible(true);
+        UpdateProp.updateSome();
         System.gc();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
         this.dispose();
-
-        //Open ReadPropByMenu
-        ReadPropByMenu aReadPropByMenu = new ReadPropByMenu();
-
-        aReadPropByMenu.setTitle("Corona View By Menu");
-        aReadPropByMenu.setOpacity((float) 0.9);
-        aReadPropByMenu.setBackground(new Color(0, 0, 0, 0));
-        aReadPropByMenu.setIconImage(Toolkit.getDefaultToolkit().
-                getImage(SetJFrame_Icon.class.getResource("/icons/icons8_House_100px.png")));
-        aReadPropByMenu.setLocationRelativeTo(null);
-        aReadPropByMenu.setVisible(true);
-
+        ReadPropAll.readAll();
         System.gc();
     }//GEN-LAST:event_btnDisplayActionPerformed
 
@@ -356,6 +368,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblHeading;
+    private javax.swing.JLabel lblTime;
     // End of variables declaration//GEN-END:variables
 }
