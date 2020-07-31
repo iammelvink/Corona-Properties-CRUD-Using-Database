@@ -62,7 +62,7 @@ public class Auth
         //1 means logged in
         int loggedIn = 1;
 
-        String sql = "UPDATE user SET signed_in = ? "
+        String sql = "UPDATE user SET action = ? "
                 + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
                 //Creating query

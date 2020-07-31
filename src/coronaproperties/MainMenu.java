@@ -5,8 +5,8 @@
  */
 package coronaproperties;
 
-import static coronaproperties.Auth.success;
 import static coronaproperties.Auth.user_id;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -251,32 +251,40 @@ public class MainMenu extends javax.swing.JFrame
          */
         if (option == 0)
         {
-            //0 means logged out
-            int loggedIn = 0;
-
-            String sql = "UPDATE user SET signed_in = ? "
-                    + "WHERE user_id = ?";
-            try (Connection conn = ConnectUtil.getConnection();
-                    //Creating query
-                    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-            {
-                pstmt.setInt(1, loggedIn);
-                pstmt.setInt(2, user_id);
-
-                pstmt.executeUpdate();
-// Authentication complete
-                success = true;
-            } catch (SQLException e)
-            {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-                System.out.println(e.getMessage());
-            } catch (Exception e)
-            {
-                JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void signOut() throws HeadlessException
+    {
+        //2 means logged out
+        int loggedIn = 2;
+
+        String sql = "UPDATE user SET action = ? "
+                + "WHERE user_id = ?";
+        try (Connection conn = ConnectUtil.getConnection();
+                //Creating query
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            pstmt.setInt(1, loggedIn);
+            pstmt.setInt(2, user_id);
+
+            pstmt.executeUpdate();
+
+            if (pstmt != null)
+            {
+                pstmt.close();
+            }
+        } catch (SQLException e)
+        {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.out.println(e.getMessage());
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.dispose();

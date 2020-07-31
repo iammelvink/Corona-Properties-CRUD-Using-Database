@@ -5,6 +5,7 @@
  */
 package coronaproperties;
 
+import static coronaproperties.Auth.user_id;
 import static coronaproperties.ComparativeViewsMenu.compareByCity;
 import static coronaproperties.ComparativeViewsMenu.compareByType;
 import static coronaproperties.ComparativeViewsMenu.compareByUse;
@@ -27,7 +28,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
  *
  * @author Melvin K
  */
-public class CRUDViewTemplate extends javax.swing.JFrame {
+public class CRUDViewTemplate extends javax.swing.JFrame
+{
     // fields
     private int xMouse;
     private int yMouse;
@@ -57,10 +59,12 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     /**
      * Creates new form UpdatePropMenu
      */
-    public CRUDViewTemplate() {
+    public CRUDViewTemplate()
+    {
         initComponents();
         txtpropertyPrimaryKey.setEditable(false);
-        if (createSomeProp) {
+        if (createSomeProp)
+        {
             lblTitle.setText("Add New Property");
             btnOK.setText("Save");
             lblSearch.setVisible(false);
@@ -68,31 +72,39 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             btnPrevious.setVisible(false);
             btnNext.setVisible(false);
         }
-        if (readPropAll) {
+        if (readPropAll)
+        {
             lblTitle.setText("View All Property");
             readOnlyhouseCleaning();
         }
-        if (updateSomeProp) {
+        if (updateSomeProp)
+        {
             lblTitle.setText("Update Property");
             btnOK.setText("Update");
         }
-        if (deleteSomeProp) {
+        if (deleteSomeProp)
+        {
             lblTitle.setText("Delete Property");
             btnOK.setText("Delete");
         }
-        if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp) {
-            if (loadData(rs)) {
+        if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp)
+        {
+            if (loadData(rs))
+            {
                 displayData();
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(null, "No records in the database!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    public CRUDViewTemplate(String searchString, String searchWhere) {
+    public CRUDViewTemplate(String searchString, String searchWhere)
+    {
         initComponents();
         txtpropertyPrimaryKey.setEditable(false);
-        if (compareByCity || compareByType || compareByUse) {
+        if (compareByCity || compareByType || compareByUse)
+        {
             lblTitle.setText("Compare Property");
             btnOK.setText("Save");
             lblSearch.setVisible(false);
@@ -101,9 +113,11 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             btnNext.setVisible(false);
             readOnlyhouseCleaning();
             getData(searchString, searchWhere);
-            if (loadData(rs)) {
+            if (loadData(rs))
+            {
                 displayData();
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }//House cleaning
@@ -117,18 +131,22 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         computeDep = false;
         computeAppre = false;
         //Close connection to db before leaving this form
-        try {
-            if (conn != null || pstmt != null || rs != null) {
+        try
+        {
+            if (conn != null || pstmt != null || rs != null)
+            {
                 conn.close();
                 pstmt.close();
                 rs.close();
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
     }
 
-    private void readOnlyhouseCleaning() {
+    private void readOnlyhouseCleaning()
+    {
         //Set invisible
         btnOK.setVisible(false);
 
@@ -157,13 +175,15 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         jTextAreadescription.setEditable(false);
     }
 
-    private boolean getData() throws HeadlessException {
+    private boolean getData() throws HeadlessException
+    {
         boolean isData = false;
         String sql = "SELECT * FROM property ";
         //Connecting using ConnectUtil
         //Standard try without resources
         //so that connection to db does not close automatically
-        try {
+        try
+        {
             conn = ConnectUtil.getConnection();
             //Creating query
             pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -171,24 +191,28 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             //Executing query
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
 //                loadData(rs);
                 isData = true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
         return isData;
     }
 
-    private boolean getData(String searchString, String searchWhere) throws HeadlessException {
+    private boolean getData(String searchString, String searchWhere) throws HeadlessException
+    {
         boolean isData = false;
         String sql = "SELECT * FROM property WHERE"
                 + " UPPER(" + searchWhere + ") LIKE ?";
         //Connecting using ConnectUtil
         //Standard try without resources
         //so that connection to db does not close automatically
-        try {
+        try
+        {
             conn = ConnectUtil.getConnection();
             //Creating query
             pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -199,19 +223,23 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             //Executing query
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
 //                loadData(rs);
                 isData = true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
         return isData;
     }
 
-    private boolean loadData(ResultSet rs) throws HeadlessException {
+    private boolean loadData(ResultSet rs) throws HeadlessException
+    {
         boolean dataLoaded = false;
-        try {
+        try
+        {
             propertyPrimaryKey = rs.getString("propertyPrimaryKey");
             propertyType = rs.getString("propertyType");
             addressNum = rs.getString("addressNum");
@@ -232,13 +260,15 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             email = rs.getString("email");
 
             dataLoaded = true;
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
         return dataLoaded;
     }
 
-    private void displayData() {
+    private void displayData()
+    {
         txtpropertyPrimaryKey.setText(propertyPrimaryKey);
         jComboBoxpropertyType.setSelectedItem(propertyType);
         txtaddressNum.setText(addressNum);
@@ -772,49 +802,57 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txttelephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelephoneKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (Character.isAlphabetic(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txttelephoneKeyTyped
 
     private void txtlandAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtlandAreaKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (Character.isAlphabetic(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtlandAreaKeyTyped
 
     private void txtfloorAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfloorAreaKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (Character.isAlphabetic(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtfloorAreaKeyTyped
 
     private void txtvalueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalueKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (Character.isAlphabetic(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtvalueKeyTyped
 
     private void txtratesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtratesKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (Character.isAlphabetic(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtratesKeyTyped
 
     private void jSpinnergarageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnergarageStateChanged
-        if ((int) jSpinnergarage.getValue() < 0) {
+        if ((int) jSpinnergarage.getValue() < 0)
+        {
             jSpinnergarage.setValue(0);
         }
     }//GEN-LAST:event_jSpinnergarageStateChanged
 
     private void jSpinnerroomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerroomStateChanged
-        if ((int) jSpinnerroom.getValue() < 0) {
+        if ((int) jSpinnerroom.getValue() < 0)
+        {
             jSpinnerroom.setValue(0);
         }
     }//GEN-LAST:event_jSpinnerroomStateChanged
 
     private void jSpinnerbathStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerbathStateChanged
-        if ((int) jSpinnerbath.getValue() < 0) {
+        if ((int) jSpinnerbath.getValue() < 0)
+        {
             jSpinnerbath.setValue(0);
         }
     }//GEN-LAST:event_jSpinnerbathStateChanged
@@ -826,28 +864,36 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
          * 0 = yes
          * 1 = no
          */
-        if (option == 0) {
+        if (option == 0)
+        {
             //Clear search field
             txtSearch.setText("");
-            if (createSomeProp) {
-                if (captureInput()) {
+            if (createSomeProp)
+            {
+                if (captureInput())
+                {
                     create();
                 }
-            } else if (updateSomeProp) {
-                if (captureInput()) {
+            } else if (updateSomeProp)
+            {
+                if (captureInput())
+                {
                     update();
                 }
-            } else if (deleteSomeProp) {
+            } else if (deleteSomeProp)
+            {
                 delete();
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
-    private boolean captureInput() throws HeadlessException {
+    private boolean captureInput() throws HeadlessException
+    {
 
         boolean captured = false;
 //Capture input into variables
-        try {
+        try
+        {
             propertyPrimaryKey = txtpropertyPrimaryKey.getText();
             propertyType = valueOf(jComboBoxpropertyType.getSelectedItem());
             addressNum = txtaddressNum.getText();
@@ -868,25 +914,30 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             email = txtemail.getText();
 
             //Validate email
-            if (Validate.isEmail(email)) {
+            if (Validate.isEmail(email))
+            {
                 captured = true;
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(null, "Email does NOT meet minimum requirements!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "One or more empty fields",
                     "Empty field(s)", JOptionPane.ERROR_MESSAGE);
         }
         return captured;
     }
 
-    private void create() throws HeadlessException {
+    private void create() throws HeadlessException
+    {
         int housePKey = 0;
 
         String sql = "INSERT INTO property(propertyType,addressNum,addressStreet,addressCity,addressCode,value,constructionStatus,useOfProperty,room,garage,bath,floorArea,landArea,rates,description,telephone,email) "
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         //Connecting using ConnectUtil
-        try {
+        try
+        {
             //Creating query
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -910,11 +961,17 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             pstmt.setString(17, email);
 
             int rowAffected = pstmt.executeUpdate();
-            if (rowAffected == 1) {
+            if (rowAffected == 1)
+            {
                 // get housePKey id
                 rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
+                if (rs.next())
+                {
                     housePKey = rs.getInt(1);
+                    //Audit log
+                    //3 means new
+                    int action = 3;
+                    auditLog(action);
                 }
             }
             //Refresh
@@ -935,15 +992,18 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
 
             System.gc();
 //            JOptionPane.showMessageDialog(null, "Record created successfully!");
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
 //            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void update() throws HeadlessException {
+    private void update() throws HeadlessException
+    {
 //        int housePKey = 0;
 
         String sql = "UPDATE property SET propertyType = ? , "
@@ -964,7 +1024,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
                 + "telephone = ? , "
                 + "email = ? "
                 + "WHERE propertyPrimaryKey = ?";
-        try {
+        try
+        {
             //Creating query
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -988,6 +1049,11 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             pstmt.setString(18, propertyPrimaryKey);
 
             pstmt.executeUpdate();
+
+            //Audit log
+            //4 means update
+            int action = 4;
+            auditLog(action);
 //            int rowAffected = pstmt.executeUpdate();
 //            if (rowAffected == 1) {
 //                // get housePKey id
@@ -1003,23 +1069,32 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             displayData();
 
             JOptionPane.showMessageDialog(null, "Property has been updated successfully!.");
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
 //            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void delete() throws HeadlessException {
+    private void delete() throws HeadlessException
+    {
         String sql = "DELETE FROM property WHERE propertyPrimaryKey = ?";
 
-        try {
+        try
+        {
             pstmt = conn.prepareStatement(sql);
             // set the corresponding param
             pstmt.setInt(1, Integer.parseInt(propertyPrimaryKey));
             // execute the delete statement
             pstmt.executeUpdate();
+
+            //Audit log
+            //5 means delete
+            int action = 5;
+            auditLog(action);
 
             //Refresh
             getData();
@@ -1027,10 +1102,39 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             displayData();
 
             JOptionPane.showMessageDialog(null, "Record deleted successfully!");
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
 //            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void auditLog(int action) throws HeadlessException
+    {
+        String sql;
+        //Audit log
+        //3 means new
+        sql = "UPDATE user SET action = ? "
+                + "WHERE user_id = ?";
+        try
+        {
+            //Creating query
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            {
+                pstmt.setInt(1, action);
+                pstmt.setInt(2, user_id);
+
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.out.println(e.getMessage());
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1041,7 +1145,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
          * 0 = yes
          * 1 = no
          */
-        if (option == 0) {
+        if (option == 0)
+        {
             //House cleaning
             createSomeProp = false;
             readPropAll = false;
@@ -1053,13 +1158,16 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
             computeDep = false;
             computeAppre = false;
             //Close connection to db before leaving this form
-            try {
-                if (conn != null || pstmt != null || rs != null) {
+            try
+            {
+                if (conn != null || pstmt != null || rs != null)
+                {
                     conn.close();
                     pstmt.close();
                     rs.close();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.out.println(e.getMessage());
             }
 
@@ -1077,30 +1185,38 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        try {
-            if (rs.next()) {
+        try
+        {
+            if (rs.next())
+            {
                 loadData(rs);
                 displayData();
 
-            } else {
+            } else
+            {
                 rs.previous();
                 showMessageDialog(null, "No more records!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        try {
-            if (rs.previous()) {
+        try
+        {
+            if (rs.previous())
+            {
                 loadData(rs);
                 displayData();
-            } else {
+            } else
+            {
                 rs.next();
                 showMessageDialog(null, "No previous records!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnPreviousActionPerformed
@@ -1128,7 +1244,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         search();
     }//GEN-LAST:event_txtSearchKeyTyped
 
-    private void search() throws HeadlessException {
+    private void search() throws HeadlessException
+    {
         String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
                 + " OR UPPER(addressNum) LIKE ?"
                 + " OR UPPER(addressStreet) LIKE ?"
@@ -1147,34 +1264,41 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
                 + " OR UPPER(telephone) LIKE ?"
                 + " OR UPPER(email) LIKE ?";
         //Connecting using ConnectUtil
-        try {
+        try
+        {
             //Creating query
             pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
 
-            for (int i = 1; i <= 16; i++) {
+            for (int i = 1; i <= 16; i++)
+            {
                 pstmt.setString(i, "%" + txtSearch.getText().toUpperCase() + "%");
             }
 
             //Executing query
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
                 loadData(rs);
                 displayData();
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
 //            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public double search(String searchString) throws HeadlessException {
+    public double search(String searchString) throws HeadlessException
+    {
 
         txtpropertyPrimaryKey.setEditable(false);
-        if (computeDep || computeAppre) {
+        if (computeDep || computeAppre)
+        {
             lblTitle.setText("Computations");
             btnOK.setText("Save");
             lblSearch.setVisible(false);
@@ -1200,30 +1324,37 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
                     + " OR UPPER(telephone) LIKE ?"
                     + " OR UPPER(email) LIKE ?";
             //Connecting using ConnectUtil
-            try {
+            try
+            {
                 //Creating query
                 pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
 
-                for (int i = 1; i <= 16; i++) {
+                for (int i = 1; i <= 16; i++)
+                {
                     pstmt.setString(i, "%" + searchString + "%");
                 }
 
                 //Executing query
                 rs = pstmt.executeQuery();
 
-                if (rs.next()) {
+                if (rs.next())
+                {
                     value = rs.getDouble("value");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
 //            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
                 System.out.println(e.getMessage());
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            if (loadData(rs)) {
+            if (loadData(rs))
+            {
                 displayData();
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -1238,29 +1369,35 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         computeDep = false;
         computeAppre = false;
         //Close connection to db before leaving this form
-        try {
-            if (conn != null || pstmt != null || rs != null) {
+        try
+        {
+            if (conn != null || pstmt != null || rs != null)
+            {
                 conn.close();
                 pstmt.close();
                 rs.close();
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
         return value;
     }
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        switch (evt.getKeyCode()) {
+        switch (evt.getKeyCode())
+        {
             case KeyEvent.VK_BACK_SPACE:
                 break;
             case KeyEvent.VK_ENTER:
                 txtSearch.setText(txtSearch.getText().toUpperCase());
                 break;
             default:
-                EventQueue.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         String txt = txtSearch.getText().toUpperCase();
                         autoComp(txt);
                     }
@@ -1270,19 +1407,23 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtSearchKeyPressed
 
-    public void autoComp(String searchKeyword) {
+    public void autoComp(String searchKeyword)
+    {
         String comp = "";
         int start = searchKeyword.length();
         int last = searchKeyword.length();
 
-        for (int i = 0; i < searchField.size(); i++) {
-            if (searchField.get(i).toString().startsWith(searchKeyword)) {
+        for (int i = 0; i < searchField.size(); i++)
+        {
+            if (searchField.get(i).toString().startsWith(searchKeyword))
+            {
                 comp = searchField.get(i).toString();
                 last = comp.length();
                 break;
             }
         }
-        if (last > start) {
+        if (last > start)
+        {
             txtSearch.setText(comp);
             txtSearch.setCaretPosition(last);
             txtSearch.moveCaretPosition(start);
@@ -1293,7 +1434,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /*
          * Set the Nimbus look and feel
          */
@@ -1304,20 +1446,27 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -1326,8 +1475,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CRUDViewTemplate().setVisible(true);
             }
 
