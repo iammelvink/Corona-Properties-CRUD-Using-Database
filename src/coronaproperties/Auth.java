@@ -7,13 +7,15 @@ import javax.swing.JOptionPane;
  *
  * @author Melvin K
  */
-public class Auth {
+public class Auth
+{
     private static boolean success = false;
-    static boolean login(String emailString, String passString) {
-
+    static int user_id;
+    static boolean login(String emailString, String passString)
+    {
         ResultSet rs = null;
 
-        String sql = "SELECT email, password FROM user "
+        String sql = "SELECT user_id, email, password FROM user "
                 + "WHERE email = ? AND password = ?";
 
         //Connecting using ConnectUtil
@@ -21,30 +23,70 @@ public class Auth {
         ///so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
                 //Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
             pstmt.setString(1, emailString);
             pstmt.setString(2, passString);
 
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                // Authenticating
-                success = true;
+
+            if (rs.next())
+            {
+                //Get user_id
+                user_id = rs.getInt("user_id");
+
+                //Log the login into the login_audit table
+                isLoggedIn(user_id);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.out.println(e.getMessage());
             }
         }
         return success;
     }
 
-    static boolean register(String fNameString, String lNameString, String emailString, String passString) {
+    static boolean isLoggedIn(int user_id)
+    {
+        //1 means logged in
+        int loggedIn = 1;
+
+        String sql = "UPDATE user SET logged_in = ? "
+                + "WHERE user_id = ?";
+        try (Connection conn = ConnectUtil.getConnection();
+                //Creating query
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            pstmt.setInt(1, loggedIn);
+            pstmt.setInt(2, user_id);
+
+            pstmt.executeUpdate();
+// Authentication complete
+            success = true;
+        } catch (SQLException e)
+        {
+//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.out.println(e.getMessage());
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return success;
+    }
+
+    static boolean register(String fNameString, String lNameString, String emailString, String passString)
+    {
         ResultSet rs = null;
 
         int userPKey = 0;
@@ -56,7 +98,8 @@ public class Auth {
         ///so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
                 //Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
             // set parameters for statement
             pstmt.setString(1, fNameString);
             pstmt.setString(2, lNameString);
@@ -64,36 +107,45 @@ public class Auth {
             pstmt.setString(4, passString);
             int rowAffected = pstmt.executeUpdate();
 
-            if (rowAffected == 1) {
+            if (rowAffected == 1)
+            {
                 // get userPKey id
                 rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
+                if (rs.next())
+                {
                     userPKey = rs.getInt(1);
                 }
             }
             JOptionPane.showMessageDialog(null, "Registered successfully\nUser ID is:  " + userPKey + ".");
 
             //Login after register
-            if (login(emailString, passString)) {
+            if (login(emailString, passString))
+            {
                 //registered successfully
                 success = true;
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.out.println(e.getMessage());
             }
         }
         return success;
     }
 
-    static void closeLoginScreen() {
+    static void closeLoginScreen()
+    {
         // Close Login screen
         Login loginScreen = new Login();
         loginScreen.setVisible(false);
@@ -101,7 +153,8 @@ public class Auth {
         System.gc();
     }
 
-    static void openMenu() {
+    static void openMenu()
+    {
         // Open menu
         MainMenu menu = new MainMenu();
 
