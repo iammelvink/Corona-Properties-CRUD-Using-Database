@@ -33,7 +33,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="kGradientPanel1" min="-2" pref="434" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Footer" pref="160" max="32767" attributes="0"/>
+              <Component id="Footer" min="-2" pref="82" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

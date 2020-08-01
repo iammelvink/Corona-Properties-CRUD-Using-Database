@@ -5,8 +5,12 @@
  */
 package coronaproperties;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -22,8 +26,30 @@ public class ComputationMenu extends javax.swing.JFrame {
      */
     public ComputationMenu() {
         initComponents();
+      showDate();
+        showTime();
+    }
+ void showDate()
+    {
+        java.util.Date date = new java.util.Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        lblDate.setText(dateFormat.format(date));
     }
 
+    void showTime()
+    {
+        new Timer(0, new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                java.util.Date date = new java.util.Date();
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
+                lblTime.setText(timeFormat.format(date));
+            }
+
+        }).start();
+    }
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -340,7 +366,7 @@ public class ComputationMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Footer, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                .addComponent(Footer, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
