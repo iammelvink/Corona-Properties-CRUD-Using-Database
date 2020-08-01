@@ -4,10 +4,11 @@ package coronaproperties;
  *
  * @author Melvin K
  */
-public class CreateProp {
+public class CreateProp
+{
     static boolean createSomeProp = false;
-
-    static boolean createSome() {
+    static boolean createSome()
+    {
         createSomeProp = true;
 
         CRUDViewTemplate aCRUDViewTemplate = new CRUDViewTemplate();

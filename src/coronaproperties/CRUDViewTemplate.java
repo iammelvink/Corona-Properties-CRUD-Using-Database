@@ -648,7 +648,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         lblTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblTitle.setForeground(java.awt.Color.white);
-        lblTitle.setText("Computation Menu");
+        lblTitle.setText("Menu");
         lblTitle.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 1, new java.awt.Color(0, 0, 0)));
 
         lblpropertyPrimaryKey.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
@@ -1200,18 +1200,22 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         compareByUse = false;
         computeDep = false;
         computeAppre = false;
+        lblSearch.setVisible(true);
+        txtSearch.setVisible(true);
     }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.dispose();
         CreateProp.createSome();
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
         this.dispose();
         ReadPropAll.readAll();
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnDisplayActionPerformed
 
     private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComparativeViewsActionPerformed
@@ -1224,6 +1228,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComparativeViewsMenu);
 
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnComparativeViewsActionPerformed
 
     private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputationActionPerformed
@@ -1236,18 +1241,21 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComputationMenu);
 
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnComputationActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         this.dispose();
         UpdateProp.updateSome();
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.dispose();
         DeleteProp.deleteSome();
         System.gc();
+        houseCleaning();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txttelephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelephoneKeyTyped
@@ -1333,6 +1341,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             {
                 delete();
             }
+            houseCleaning();
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -1734,13 +1743,13 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         txtpropertyPrimaryKey.setEditable(false);
         if (computeDep || computeAppre)
         {
-            lblTitle.setText("Computations");
-            btnOK.setText("Save");
-            lblSearch.setVisible(false);
-            txtSearch.setVisible(false);
-            btnPrevious.setVisible(false);
-            btnNext.setVisible(false);
-            readOnlyhouseCleaning();
+//            lblTitle.setText("Computations");
+//            btnOK.setText("Save");
+//            lblSearch.setVisible(false);
+//            txtSearch.setVisible(false);
+//            btnPrevious.setVisible(false);
+//            btnNext.setVisible(false);
+//            readOnlyhouseCleaning();
 
             String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
                     + " OR UPPER(addressNum) LIKE ?"
