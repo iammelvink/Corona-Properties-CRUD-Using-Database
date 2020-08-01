@@ -1,15 +1,12 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools | lates
  * and open the template in the editor.
  */
 package coronaproperties;
 
-import static coronaproperties.Auth.user_id;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -32,14 +29,14 @@ public class MainMenu extends javax.swing.JFrame
         showTime();
     }
 
-    void showDate()
+    private void showDate()
     {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         lblDate.setText(dateFormat.format(date));
     }
 
-    void showTime()
+    private void showTime()
     {
         new Timer(0, new ActionListener()
         {
@@ -62,7 +59,8 @@ public class MainMenu extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         kGradientPanel5 = new keeptoo.KGradientPanel();
         Header2 = new javax.swing.JPanel();
@@ -96,6 +94,24 @@ public class MainMenu extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                formMouseReleased(evt);
+            }
+        });
 
         kGradientPanel5.setkEndColor(new java.awt.Color(63, 81, 181));
         kGradientPanel5.setkStartColor(new java.awt.Color(144, 202, 249));
@@ -111,8 +127,10 @@ public class MainMenu extends javax.swing.JFrame
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel28MousePressed(evt);
             }
         });
@@ -120,8 +138,10 @@ public class MainMenu extends javax.swing.JFrame
 
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel29MousePressed(evt);
             }
         });
@@ -133,22 +153,24 @@ public class MainMenu extends javax.swing.JFrame
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Help_24px.png"))); // NOI18N
         Header2.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
 
-        lblTime.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
+        lblTime.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTime.setForeground(new java.awt.Color(255, 255, 255));
         lblTime.setText("Time");
-        Header2.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, -1));
+        Header2.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, -1, -1));
 
-        lblDate.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
+        lblDate.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDate.setForeground(new java.awt.Color(255, 255, 255));
         lblDate.setText("Date");
-        Header2.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        Header2.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, -1, -1));
 
         btnLogout2.setBackground(java.awt.Color.lightGray);
         btnLogout2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout2.setText("Logout");
         btnLogout2.setToolTipText("");
-        btnLogout2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogout2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLogout2ActionPerformed(evt);
             }
         });
@@ -162,8 +184,10 @@ public class MainMenu extends javax.swing.JFrame
         btnHome2.setText("Home");
         btnHome2.setAlignmentX(5.0F);
         btnHome2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnHome2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnHome2ActionPerformed(evt);
             }
         });
@@ -186,8 +210,10 @@ public class MainMenu extends javax.swing.JFrame
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
@@ -196,8 +222,10 @@ public class MainMenu extends javax.swing.JFrame
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -206,8 +234,10 @@ public class MainMenu extends javax.swing.JFrame
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -216,8 +246,10 @@ public class MainMenu extends javax.swing.JFrame
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComputation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -226,8 +258,10 @@ public class MainMenu extends javax.swing.JFrame
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -236,8 +270,10 @@ public class MainMenu extends javax.swing.JFrame
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -371,31 +407,38 @@ public class MainMenu extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
-        // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to Close?","EXIT",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel28MousePressed
 
     private void jLabel29MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MousePressed
-        // TODO add your handling code here:
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel29MousePressed
 
     private void btnLogout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout2ActionPerformed
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to logout?","Logout",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
-            new Login().setVisible(true);
-            this.dispose();
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
+            System.exit(0);
         }
     }//GEN-LAST:event_btnLogout2ActionPerformed
 
     private void btnHome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHome2ActionPerformed
-        new MainMenu().setVisible(true);
-        this.dispose();
+//        new MainMenu().setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnHome2ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -446,35 +489,24 @@ public class MainMenu extends javax.swing.JFrame
         System.gc();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void signOut() throws HeadlessException
-    {
-        //2 means logged out
-        int loggedIn = 2;
+    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
+    {//GEN-HEADEREND:event_formMouseDragged
+        setOpacity((float) 0.7);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
 
-        String sql = "UPDATE user SET action = ? "
-                + "WHERE user_id = ?";
-        try (Connection conn = ConnectUtil.getConnection();
-                //Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-        {
-            pstmt.setInt(1, loggedIn);
-            pstmt.setInt(2, user_id);
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
 
-            pstmt.executeUpdate();
-
-            if (pstmt != null)
-            {
-                pstmt.close();
-            }
-        } catch (SQLException e)
-        {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-            System.out.println(e.getMessage());
-        } catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_formMouseReleased
 
     /**
      * @param args the command line arguments
@@ -532,53 +564,17 @@ public class MainMenu extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Footer;
-    private javax.swing.JPanel Header;
-    private javax.swing.JPanel Header1;
     private javax.swing.JPanel Header2;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd1;
-    private javax.swing.JButton btnAdd2;
     private javax.swing.JButton btnComparativeViews;
-    private javax.swing.JButton btnComparativeViews1;
-    private javax.swing.JButton btnComparativeViews2;
     private javax.swing.JButton btnComputation;
-    private javax.swing.JButton btnComputation1;
-    private javax.swing.JButton btnComputation2;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnDelete1;
-    private javax.swing.JButton btnDelete2;
     private javax.swing.JButton btnDisplay;
-    private javax.swing.JButton btnDisplay1;
-    private javax.swing.JButton btnDisplay2;
-    private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnHome1;
     private javax.swing.JButton btnHome2;
-    private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnLogout1;
     private javax.swing.JButton btnLogout2;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnUpdate1;
-    private javax.swing.JButton btnUpdate2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -592,23 +588,9 @@ public class MainMenu extends javax.swing.JFrame
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private keeptoo.KGradientPanel kGradientPanel1;
-    private keeptoo.KGradientPanel kGradientPanel2;
-    private keeptoo.KGradientPanel kGradientPanel3;
-    private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
     private keeptoo.KGradientPanel kGradientPanel6;
     private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblDate1;
-    private javax.swing.JLabel lblDate2;
     private javax.swing.JLabel lblTime;
-    private javax.swing.JLabel lblTime1;
-    private javax.swing.JLabel lblTime2;
     // End of variables declaration//GEN-END:variables
 }

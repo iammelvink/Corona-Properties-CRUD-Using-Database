@@ -60,27 +60,27 @@ public class Login extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
-        kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
-        kGradientPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
         {
             public void mouseDragged(java.awt.event.MouseEvent evt)
             {
-                kGradientPanel1MouseDragged(evt);
+                formMouseDragged(evt);
             }
         });
-        kGradientPanel1.addMouseListener(new java.awt.event.MouseAdapter()
+        addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mousePressed(java.awt.event.MouseEvent evt)
             {
-                kGradientPanel1MousePressed(evt);
+                formMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt)
             {
-                kGradientPanel1MouseReleased(evt);
+                formMouseReleased(evt);
             }
         });
+
+        kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
+        kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 31, 63));
@@ -426,24 +426,24 @@ public class Login extends javax.swing.JFrame
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel10MousePressed
 
-    private void kGradientPanel1MouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MouseDragged
-    {//GEN-HEADEREND:event_kGradientPanel1MouseDragged
+    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
+    {//GEN-HEADEREND:event_formMouseDragged
+        setOpacity((float) 0.7);
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-    }//GEN-LAST:event_kGradientPanel1MouseDragged
+    }//GEN-LAST:event_formMouseDragged
 
-    private void kGradientPanel1MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MousePressed
-    {//GEN-HEADEREND:event_kGradientPanel1MousePressed
-        setOpacity((float) 0.7);
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-    }//GEN-LAST:event_kGradientPanel1MousePressed
+    }//GEN-LAST:event_formMousePressed
 
-    private void kGradientPanel1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MouseReleased
-    {//GEN-HEADEREND:event_kGradientPanel1MouseReleased
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
         setOpacity((float) 0.9);
-    }//GEN-LAST:event_kGradientPanel1MouseReleased
+    }//GEN-LAST:event_formMouseReleased
 
     public void whatAction()
     {
