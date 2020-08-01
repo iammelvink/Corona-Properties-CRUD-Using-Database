@@ -5,11 +5,7 @@
  */
 package coronaproperties;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  *
@@ -20,36 +16,14 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     static boolean compareByCity = false;
     static boolean compareByType = false;
     static boolean compareByUse = false;
+    private int xMouse;
+    private int yMouse;
     /**
      * Creates new form ReadPropByMenu
      */
     public ComparativeViewsMenu()
     {
         initComponents();
-        showDate();
-        showTime();
-    }
-
-    private void showDate()
-    {
-        java.util.Date date = new java.util.Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        lblDate.setText(dateFormat.format(date));
-    }
-
-    private void showTime()
-    {
-        new Timer(0, new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                java.util.Date date = new java.util.Date();
-                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
-                lblTime.setText(timeFormat.format(date));
-            }
-
-        }).start();
     }
 
     /**
@@ -60,7 +34,8 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         Header = new javax.swing.JPanel();
@@ -70,8 +45,6 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
-        lblTime = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
         btnHome = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
@@ -96,6 +69,24 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                formMouseReleased(evt);
+            }
+        });
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
         kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
@@ -107,12 +98,14 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Corona properties");
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel5MousePressed(evt);
             }
         });
@@ -120,8 +113,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel10MousePressed(evt);
             }
         });
@@ -137,22 +132,14 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setToolTipText("");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLogoutActionPerformed(evt);
             }
         });
         Header.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 80, -1));
-
-        lblTime.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(255, 255, 255));
-        lblTime.setText("Time");
-        Header.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, -1));
-
-        lblDate.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
-        lblDate.setForeground(new java.awt.Color(255, 255, 255));
-        lblDate.setText("Date");
-        Header.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, -1));
 
         kGradientPanel3.setkEndColor(new java.awt.Color(144, 202, 249));
         kGradientPanel3.setkStartColor(new java.awt.Color(88, 119, 202));
@@ -162,8 +149,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnHome.setText("Home");
         btnHome.setAlignmentX(5.0F);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnHome.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnHomeActionPerformed(evt);
             }
         });
@@ -184,8 +173,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
@@ -194,8 +185,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -204,8 +197,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -214,8 +209,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComputation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -224,8 +221,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -234,8 +233,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -313,8 +314,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnCompareByCity.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByCity.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByCity.setText("Compare By City");
-        btnCompareByCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByCity.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByCityActionPerformed(evt);
             }
         });
@@ -322,8 +325,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnCompareByUse.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByUse.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByUse.setText("Compare By Use");
-        btnCompareByUse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByUse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByUseActionPerformed(evt);
             }
         });
@@ -331,8 +336,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnCompareByType.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByType.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByType.setText("Compare By Type");
-        btnCompareByType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByType.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByTypeActionPerformed(evt);
             }
         });
@@ -369,7 +376,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                             .addComponent(btnCompareByUse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(btnCompareByType, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         Footer.setBackground(new java.awt.Color(0, 31, 63));
@@ -391,7 +398,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Footer, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -437,35 +444,65 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        new MainMenu().setVisible(true);
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
+        //Close this menu
         this.dispose();
+
+        //Back to main menu
+        MainMenu menu = new MainMenu();
+
+        menu.setTitle("Corona Main Menu");
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
+
+        System.gc();
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
         this.dispose();
         CreateProp.createSome();
         System.gc();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
         this.dispose();
         ReadPropAll.readAll();
         System.gc();
     }//GEN-LAST:event_btnDisplayActionPerformed
 
+    private void comparativeHouseCleaning()
+    {
+        compareByCity = false;
+        compareByType = false;
+        compareByUse = false;
+    }
+
     private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComparativeViewsActionPerformed
-        this.dispose();
-
-        //Open ComparativeViewsMenu
-        ComparativeViewsMenu aComparativeViewsMenu = new ComparativeViewsMenu();
-
-        aComparativeViewsMenu.setTitle("Corona Comparative View");
-        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComparativeViewsMenu);
-
-        System.gc();
+        //comparativeHouseCleaning
+//        comparativeHouseCleaning();
+//
+//        this.dispose();
+//
+//        //Open ComparativeViewsMenu
+//        ComparativeViewsMenu aComparativeViewsMenu = new ComparativeViewsMenu();
+//
+//        aComparativeViewsMenu.setTitle("Corona Comparative View");
+//        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComparativeViewsMenu);
+//
+//        System.gc();
     }//GEN-LAST:event_btnComparativeViewsActionPerformed
 
     private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputationActionPerformed
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
         this.dispose();
 
         //Open ComputationMenu
@@ -478,12 +515,18 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     }//GEN-LAST:event_btnComputationActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
         this.dispose();
         UpdateProp.updateSome();
         System.gc();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        //comparativeHouseCleaning
+        comparativeHouseCleaning();
+
         this.dispose();
         DeleteProp.deleteSome();
         System.gc();
@@ -507,7 +550,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
 
                     CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(useOfProperty2, searchWhere);
-                    aCrudViewTemplate1.setTitle("Compare by use 2");
+                    aCrudViewTemplate2.setTitle("Compare by use 2");
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
@@ -515,12 +558,27 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         } catch (Exception e)
         {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
+
         }    }//GEN-LAST:event_btnCompareByUseActionPerformed
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
+    {//GEN-HEADEREND:event_formMouseDragged
+        setOpacity((float) 0.7);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
 
-    }
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_formMouseReleased
 
     private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt)
     {
@@ -543,7 +601,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
 
                     CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(addressCity2, searchWhere);
-                    aCrudViewTemplate1.setTitle("Compare  by City 2");
+                    aCrudViewTemplate2.setTitle("Compare  by City 2");
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
@@ -573,7 +631,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate1);
 
                     CRUDViewTemplate aCrudViewTemplate2 = new CRUDViewTemplate(propertyType2, searchWhere);
-                    aCrudViewTemplate1.setTitle("Compare property type 2");
+                    aCrudViewTemplate2.setTitle("Compare property type 2");
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
@@ -675,7 +733,5 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     private javax.swing.JLabel jLabel7;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel3;
-    private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblTime;
     // End of variables declaration//GEN-END:variables
 }
