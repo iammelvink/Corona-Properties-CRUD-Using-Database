@@ -5,51 +5,29 @@
  */
 package coronaproperties;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  *
  * @author Melvin K
  */
-public class ComputationMenu extends javax.swing.JFrame {
+public class ComputationMenu extends javax.swing.JFrame
+{
     static boolean computeDep = false;
     static boolean computeAppre = false;
+    private int xMouse;
+    private int yMouse;
     private static String output = "";
     private static DecimalFormat df = new DecimalFormat("R ###,###,###,###,###,###.00");
     /**
      * Creates new form ReadPropByMenu
      */
-    public ComputationMenu() {
+    public ComputationMenu()
+    {
         initComponents();
-      showDate();
-        showTime();
-    }
- void showDate()
-    {
-        java.util.Date date = new java.util.Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        lblDate.setText(dateFormat.format(date));
     }
 
-    void showTime()
-    {
-        new Timer(0, new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                java.util.Date date = new java.util.Date();
-                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
-                lblTime.setText(timeFormat.format(date));
-            }
-
-        }).start();
-    }
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -58,7 +36,8 @@ public class ComputationMenu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         Header = new javax.swing.JPanel();
@@ -67,8 +46,6 @@ public class ComputationMenu extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        lblTime = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         kGradientPanel3 = new keeptoo.KGradientPanel();
         btnHome = new javax.swing.JButton();
@@ -93,6 +70,24 @@ public class ComputationMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                formMouseReleased(evt);
+            }
+        });
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
         kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
@@ -108,8 +103,10 @@ public class ComputationMenu extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel5MousePressed(evt);
             }
         });
@@ -117,8 +114,10 @@ public class ComputationMenu extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel10MousePressed(evt);
             }
         });
@@ -130,22 +129,14 @@ public class ComputationMenu extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Help_24px.png"))); // NOI18N
         Header.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
 
-        lblTime.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(255, 255, 255));
-        lblTime.setText("Time");
-        Header.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, -1));
-
-        lblDate.setFont(new java.awt.Font("Arial", 1, 21)); // NOI18N
-        lblDate.setForeground(new java.awt.Color(255, 255, 255));
-        lblDate.setText("Date");
-        Header.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, -1, -1));
-
         btnLogout.setBackground(java.awt.Color.lightGray);
         btnLogout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setToolTipText("");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLogoutActionPerformed(evt);
             }
         });
@@ -159,8 +150,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnHome.setText("Home");
         btnHome.setAlignmentX(5.0F);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnHome.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnHomeActionPerformed(evt);
             }
         });
@@ -181,8 +174,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
@@ -191,8 +186,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -201,8 +198,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -211,8 +210,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComputation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -221,8 +222,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -231,8 +234,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -310,8 +315,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnCompAppreciation.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnCompAppreciation.setForeground(new java.awt.Color(88, 119, 202));
         btnCompAppreciation.setText("Computate Appreciation");
-        btnCompAppreciation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompAppreciation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompAppreciationActionPerformed(evt);
             }
         });
@@ -319,8 +326,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         btnCompDepreciation.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnCompDepreciation.setForeground(new java.awt.Color(88, 119, 202));
         btnCompDepreciation.setText("Computate Depreciation");
-        btnCompDepreciation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompDepreciation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompDepreciationActionPerformed(evt);
             }
         });
@@ -349,7 +358,7 @@ public class ComputationMenu extends javax.swing.JFrame {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -378,7 +387,7 @@ public class ComputationMenu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Footer, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -387,25 +396,39 @@ public class ComputationMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to Close?","EXIT",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
+
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        // TODO add your handling code here:
+
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel10MousePressed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to logout?","Logout",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
-            new Login().setVisible(true);
-            this.dispose();
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
+            // Open Login Screen
+            Login loginScreen = new Login();
+            loginScreen.whatAction();
+
+            loginScreen.setTitle("Login");
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(loginScreen);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -439,15 +462,15 @@ public class ComputationMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnComparativeViewsActionPerformed
 
     private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputationActionPerformed
-        this.dispose();
-
-        //Open ComputationMenu
-        ComputationMenu aComputationMenu = new ComputationMenu();
-
-        aComputationMenu.setTitle("Corona Computation Menu");
-        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComputationMenu);
-
-        System.gc();
+//        this.dispose();
+//
+//        //Open ComputationMenu
+//        ComputationMenu aComputationMenu = new ComputationMenu();
+//
+//        aComputationMenu.setTitle("Corona Computation Menu");
+//        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComputationMenu);
+//
+//        System.gc();
     }//GEN-LAST:event_btnComputationActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -463,44 +486,51 @@ public class ComputationMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCompAppreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompAppreciationActionPerformed
-        try {
+        try
+        {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute appreciation on: ");
             computeAppre = true;
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             //Searching
-            if (!searchString.isEmpty()) {
+            if (!searchString.isEmpty())
+            {
                 double currentValue = aCrudViewTemplate.search(searchString);
 
                 String r = JOptionPane.showInputDialog("Enter rate of appreciation: ");
                 String t = JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ");
-                if (!r.isEmpty() && !t.isEmpty()) {
+                if (!r.isEmpty() && !t.isEmpty())
+                {
                     this.dispose();
                     //Computing
-                    computeDep(currentValue, r, t);
+                    computeAppre(currentValue, r, t);
                     aCrudViewTemplate.setTitle("Computations");
                     SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate);
                     displayData();
                 }
             }
             computeAppre = false;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCompAppreciationActionPerformed
 
     private void btnCompDepreciationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompDepreciationActionPerformed
-        try {
+        try
+        {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute depreciation on: ");
             computeDep = true;
 
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             //Searching
-            if (!searchString.isEmpty()) {
+            if (!searchString.isEmpty())
+            {
                 double currentValue = aCrudViewTemplate.search(searchString);
 
                 String r = JOptionPane.showInputDialog("Enter rate of depreciation: ");
                 String t = JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ");
-                if (!r.isEmpty() && !t.isEmpty()) {
+                if (!r.isEmpty() && !t.isEmpty())
+                {
                     this.dispose();
                     //Computing
                     computeDep(currentValue, r, t);
@@ -510,20 +540,43 @@ public class ComputationMenu extends javax.swing.JFrame {
                 }
             }
             computeDep = false;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCompDepreciationActionPerformed
 
-    private static String computeDep(double currentValue, String r, String t) {
+    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
+    {//GEN-HEADEREND:event_formMouseDragged
+        setOpacity((float) 0.7);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_formMouseReleased
+
+    private static String computeDep(double currentValue, String r, String t)
+    {
         double depreciation = (currentValue * Double.parseDouble(t) / 100 * Integer.parseInt(t));
         double valueAfterDep = currentValue - depreciation;
 
         output = "";
 
-        if (valueAfterDep < depreciation) {
+        if (valueAfterDep < depreciation)
+        {
             output = "This property no longer has any worth";
-        } else {
+        } else
+        {
             output = "Old value: " + df.format(currentValue)
                     + "\n\nAfter a depreciation rate of " + r + "% for " + t + " years"
                     + "\n\nThe properties' worth: "
@@ -532,12 +585,14 @@ public class ComputationMenu extends javax.swing.JFrame {
         return output;
     }
 
-    private static void displayData() {
+    private static void displayData()
+    {
         JOptionPane.showMessageDialog(null, output);
     }
 
-    static String computeAppre(double currentValue, double r, int t) {
-        double appreciation = (currentValue * r / 100 * t);
+    private static String computeAppre(double currentValue, String r, String t)
+    {
+        double appreciation = (currentValue * Double.parseDouble(r) / 100 * Double.parseDouble(t));
         double valueAfterAppre = currentValue + appreciation;
 
         output = "";
@@ -555,7 +610,8 @@ public class ComputationMenu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /*
          * Set the Nimbus look and feel
          */
@@ -566,23 +622,30 @@ public class ComputationMenu extends javax.swing.JFrame {
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(ComputationMenu.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(ComputationMenu.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(ComputationMenu.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(ComputationMenu.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -594,8 +657,10 @@ public class ComputationMenu extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new ComputationMenu().setVisible(true);
             }
 
@@ -631,7 +696,5 @@ public class ComputationMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel3;
-    private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblTime;
     // End of variables declaration//GEN-END:variables
 }
