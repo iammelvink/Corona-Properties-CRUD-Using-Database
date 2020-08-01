@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools | lates
  * and open the template in the editor.
  */
 package coronaproperties;
@@ -22,7 +22,6 @@ public class Login extends javax.swing.JFrame
     public Login()
     {
         initComponents();
-        whatAction();
     }
 
     /**
@@ -32,7 +31,8 @@ public class Login extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -63,6 +63,24 @@ public class Login extends javax.swing.JFrame
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
         kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
+        kGradientPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
+                kGradientPanel1MouseDragged(evt);
+            }
+        });
+        kGradientPanel1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                kGradientPanel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                kGradientPanel1MouseReleased(evt);
+            }
+        });
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 31, 63));
@@ -89,18 +107,15 @@ public class Login extends javax.swing.JFrame
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setMinimumSize(new java.awt.Dimension(64, 29));
         txtEmail.setOpaque(false);
-        txtEmail.setPreferredSize(new java.awt.Dimension(64, 29));
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
+        txtEmail.setPreferredSize(new java.awt.Dimension(327, 30));
 
         btnLogin.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Login_24px_1.png"))); // NOI18N
         btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLoginActionPerformed(evt);
             }
         });
@@ -108,8 +123,10 @@ public class Login extends javax.swing.JFrame
         jCheckBoxShowPass.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxShowPass.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jCheckBoxShowPass.setText("Show password");
-        jCheckBoxShowPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jCheckBoxShowPass.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jCheckBoxShowPassActionPerformed(evt);
             }
         });
@@ -117,11 +134,7 @@ public class Login extends javax.swing.JFrame
         txtPass.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtPass.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtPass.setOpaque(false);
-        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPassKeyTyped(evt);
-            }
-        });
+        txtPass.setPreferredSize(new java.awt.Dimension(327, 30));
 
         lblRegister.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblRegister.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -130,8 +143,10 @@ public class Login extends javax.swing.JFrame
 
         btnRegister.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRegister.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRegisterActionPerformed(evt);
             }
         });
@@ -143,10 +158,12 @@ public class Login extends javax.swing.JFrame
         txtForRegistration.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtForRegistration.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtForRegistration.setOpaque(false);
+        txtForRegistration.setPreferredSize(new java.awt.Dimension(327, 30));
 
         txtForRegistration1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtForRegistration1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtForRegistration1.setOpaque(false);
+        txtForRegistration1.setPreferredSize(new java.awt.Dimension(327, 30));
 
         lblForRegistration1.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         lblForRegistration1.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,14 +191,14 @@ public class Login extends javax.swing.JFrame
                         .addGap(24, 24, 24)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtForRegistration1)
-                        .addComponent(txtForRegistration, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtPass)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBoxShowPass, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addComponent(jCheckBoxShowPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtForRegistration, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtForRegistration1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(271, 271, 271)
                 .addComponent(lblTitle)
@@ -210,7 +227,7 @@ public class Login extends javax.swing.JFrame
                     .addComponent(txtForRegistration1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBoxShowPass)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogin)
@@ -236,8 +253,10 @@ public class Login extends javax.swing.JFrame
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel5MousePressed(evt);
             }
         });
@@ -245,8 +264,10 @@ public class Login extends javax.swing.JFrame
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel10MousePressed(evt);
             }
         });
@@ -274,13 +295,8 @@ public class Login extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
- if (!register)
+        if (!register)
         {
             //Capture email and password from GUI
             String remain = "";
@@ -378,34 +394,56 @@ public class Login extends javax.swing.JFrame
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jCheckBoxShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowPassActionPerformed
-        if (jCheckBoxShowPass.isSelected()) {
+        if (jCheckBoxShowPass.isSelected())
+        {
             txtPass.setEchoChar('\u0000');
-        } else {
+        } else
+        {
             txtPass.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBoxShowPassActionPerformed
-
-    private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
-        txtPass.setEchoChar('*');
-    }//GEN-LAST:event_txtPassKeyTyped
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         whatAction();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to Close?","EXIT",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
+
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        // TODO add your handling code here:
+
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel10MousePressed
+
+    private void kGradientPanel1MouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MouseDragged
+    {//GEN-HEADEREND:event_kGradientPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_kGradientPanel1MouseDragged
+
+    private void kGradientPanel1MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MousePressed
+    {//GEN-HEADEREND:event_kGradientPanel1MousePressed
+        setOpacity((float) 0.7);
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_kGradientPanel1MousePressed
+
+    private void kGradientPanel1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_kGradientPanel1MouseReleased
+    {//GEN-HEADEREND:event_kGradientPanel1MouseReleased
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_kGradientPanel1MouseReleased
 
     public void whatAction()
     {
