@@ -424,7 +424,7 @@ public class MainMenu extends javax.swing.JFrame
     }//GEN-LAST:event_jLabel29MousePressed
 
     private void btnLogout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout2ActionPerformed
-        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure", JOptionPane.YES_NO_OPTION);
         /*
          * 0 = yes
          * 1 = no
@@ -432,7 +432,12 @@ public class MainMenu extends javax.swing.JFrame
         if (option == 0)
         {
             Auth.signOut();
-            System.exit(0);
+            // Open Login Screen
+            Login loginScreen = new Login();
+            loginScreen.whatAction();
+
+            loginScreen.setTitle("Login");
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(loginScreen);
         }
     }//GEN-LAST:event_btnLogout2ActionPerformed
 

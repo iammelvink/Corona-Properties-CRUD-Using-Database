@@ -15,26 +15,29 @@ import javax.swing.Timer;
  *
  * @author Melvin K
  */
-public class ComparativeViewsMenu extends javax.swing.JFrame {
+public class ComparativeViewsMenu extends javax.swing.JFrame
+{
     static boolean compareByCity = false;
     static boolean compareByType = false;
     static boolean compareByUse = false;
     /**
      * Creates new form ReadPropByMenu
      */
-    public ComparativeViewsMenu() {
+    public ComparativeViewsMenu()
+    {
         initComponents();
         showDate();
         showTime();
     }
- void showDate()
+
+    private void showDate()
     {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         lblDate.setText(dateFormat.format(date));
     }
 
-    void showTime()
+    private void showTime()
     {
         new Timer(0, new ActionListener()
         {
@@ -48,6 +51,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
 
         }).start();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -396,25 +400,39 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to Close?","EXIT",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
+
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        // TODO add your handling code here:
+
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel10MousePressed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to logout?","Logout",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
-            new Login().setVisible(true);
-            this.dispose();
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
+            // Open Login Screen
+            Login loginScreen = new Login();
+            loginScreen.whatAction();
+
+            loginScreen.setTitle("Login");
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(loginScreen);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -472,13 +490,16 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCompareByUseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompareByUseActionPerformed
-        try {
+        try
+        {
             String searchWhere = "useOfProperty";
-            if (!searchWhere.isEmpty()) {
+            if (!searchWhere.isEmpty())
+            {
                 String useOfProperty1 = JOptionPane.showInputDialog("Enter use of property (Eg: Rented, Idle): ");
                 String useOfProperty2 = JOptionPane.showInputDialog("Enter another use of property (Eg: Rented, Idle): ");
                 compareByUse = true;
-                if (!useOfProperty1.isEmpty() && !useOfProperty2.isEmpty()) {
+                if (!useOfProperty1.isEmpty() && !useOfProperty2.isEmpty())
+                {
                     this.dispose();
                     //Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(useOfProperty1, searchWhere);
@@ -491,24 +512,30 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
                 }
             }
             compareByUse = false;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }    }//GEN-LAST:event_btnCompareByUseActionPerformed
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
     }
 
-    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
-        try {
+        try
+        {
             String searchWhere = "addressCity";
-            if (!searchWhere.isEmpty()) {
+            if (!searchWhere.isEmpty())
+            {
 
                 String addressCity1 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
                 String addressCity2 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
                 compareByCity = true;
-                if (!addressCity1.isEmpty() && !addressCity2.isEmpty()) {
+                if (!addressCity1.isEmpty() && !addressCity2.isEmpty())
+                {
                     this.dispose();
                     //Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(addressCity1, searchWhere);
@@ -521,19 +548,24 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
                 }
             }
             compareByCity = false;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
+    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        try
+        {
             String searchWhere = "propertyType";
-            if (!searchWhere.isEmpty()) {
+            if (!searchWhere.isEmpty())
+            {
                 String propertyType1 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
                 String propertyType2 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
                 compareByType = true;
-                if (!propertyType1.isEmpty() && !propertyType2.isEmpty()) {
+                if (!propertyType1.isEmpty() && !propertyType2.isEmpty())
+                {
                     this.dispose();
                     //Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(propertyType1, searchWhere);
@@ -546,14 +578,17 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
                 }
             }
             compareByType = false;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /*
          * Set the Nimbus look and feel
          */
@@ -565,23 +600,30 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
          * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
         }
@@ -593,8 +635,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new ComparativeViewsMenu().setVisible(true);
             }
 

@@ -104,14 +104,15 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         showDate();
         showTime();
     }
-    void showDate()
+
+    private void showDate()
     {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         lblDate.setText(dateFormat.format(date));
     }
 
-    void showTime()
+    private void showTime()
     {
         new Timer(0, new ActionListener()
         {
@@ -125,6 +126,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         }).start();
     }
+
     public CRUDViewTemplate(String searchString, String searchWhere)
     {
         initComponents();
@@ -147,15 +149,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }//House cleaning
-        createSomeProp = false;
-        readPropAll = false;
-        updateSomeProp = false;
-        deleteSomeProp = false;
-        compareByCity = false;
-        compareByType = false;
-        compareByUse = false;
-        computeDep = false;
-        computeAppre = false;
+        houseCleaning();
         //Close connection to db before leaving this form
         try
         {
@@ -205,7 +199,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     {
         boolean isData = false;
         String sql = "SELECT * FROM property ";
-        //Connecting using ConnectUtil
+        //Connecting using TempConnectUtil
         //Standard try without resources
         //so that connection to db does not close automatically
         try
@@ -234,7 +228,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         boolean isData = false;
         String sql = "SELECT * FROM property WHERE"
                 + " UPPER(" + searchWhere + ") LIKE ?";
-        //Connecting using ConnectUtil
+        //Connecting using TempConnectUtil
         //Standard try without resources
         //so that connection to db does not close automatically
         try
@@ -323,7 +317,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         Header = new javax.swing.JPanel();
@@ -404,6 +399,24 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                formMouseReleased(evt);
+            }
+        });
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 81, 181));
         kGradientPanel1.setkStartColor(new java.awt.Color(144, 202, 249));
@@ -419,8 +432,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel5MousePressed(evt);
             }
         });
@@ -428,8 +443,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel10MousePressed(evt);
             }
         });
@@ -455,8 +472,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setToolTipText("");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLogoutActionPerformed(evt);
             }
         });
@@ -470,8 +489,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnHome.setText("Home");
         btnHome.setAlignmentX(5.0F);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnHome.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnHomeActionPerformed(evt);
             }
         });
@@ -492,8 +513,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
@@ -502,8 +525,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -512,8 +537,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -522,8 +549,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComputation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -532,8 +561,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -542,8 +573,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -669,8 +702,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         txtaddressCode.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         txttelephone.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txttelephone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        txttelephone.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txttelephoneKeyTyped(evt);
             }
         });
@@ -714,22 +749,28 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         lbluseOfProperty1.setText("Value");
 
         txtlandArea.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtlandArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtlandArea.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txtlandAreaKeyTyped(evt);
             }
         });
 
         txtfloorArea.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtfloorArea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtfloorArea.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txtfloorAreaKeyTyped(evt);
             }
         });
 
         txtvalue.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtvalue.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtvalue.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txtvalueKeyTyped(evt);
             }
         });
@@ -739,8 +780,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         lbluseOfProperty2.setText("Rates");
 
         txtrates.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtrates.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtrates.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txtratesKeyTyped(evt);
             }
         });
@@ -767,22 +810,28 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextAreadescription);
 
         jSpinnergarage.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnergarage.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        jSpinnergarage.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 jSpinnergarageStateChanged(evt);
             }
         });
 
         jSpinnerroom.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnerroom.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        jSpinnerroom.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 jSpinnerroomStateChanged(evt);
             }
         });
 
         jSpinnerbath.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnerbath.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        jSpinnerbath.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 jSpinnerbathStateChanged(evt);
             }
         });
@@ -798,34 +847,43 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         btnOK.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnOK.setText("OK");
-        btnOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnOK.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnOKActionPerformed(evt);
             }
         });
 
         btnNext.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnNext.setText(">");
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnNext.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnNextActionPerformed(evt);
             }
         });
 
         btnPrevious.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnPrevious.setText("<");
-        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnPrevious.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnPreviousActionPerformed(evt);
             }
         });
 
         txtSearch.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
                 txtSearchKeyPressed(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 txtSearchKeyTyped(evt);
             }
         });
@@ -1066,32 +1124,83 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to Close?","EXIT",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
+
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        // TODO add your handling code here:
+
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel10MousePressed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int p = JOptionPane.showConfirmDialog(null, "Do you really want to logout?","Logout",
-            JOptionPane.YES_NO_OPTION);
-        if(p ==0){
-            new Login().setVisible(true);
-            this.dispose();
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        /*
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
+            Auth.signOut();
+            // Open Login Screen
+            Login loginScreen = new Login();
+            loginScreen.whatAction();
+
+            loginScreen.setTitle("Login");
+            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(loginScreen);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        new MainMenu().setVisible(true);
+        houseCleaning();
+        //Close connection to db before leaving this form
+        try
+        {
+            if (conn != null || pstmt != null || rs != null)
+            {
+                conn.close();
+                pstmt.close();
+                rs.close();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        //Close this menu
         this.dispose();
+
+        //Back to main menu
+        MainMenu menu = new MainMenu();
+
+        menu.setTitle("Corona Main Menu");
+        SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
+
+        System.gc();
     }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void houseCleaning()
+    {
+        //House cleaning
+        createSomeProp = false;
+        readPropAll = false;
+        updateSomeProp = false;
+        deleteSomeProp = false;
+        compareByCity = false;
+        compareByType = false;
+        compareByUse = false;
+        computeDep = false;
+        computeAppre = false;
+    }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.dispose();
@@ -1142,49 +1251,57 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txttelephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelephoneKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txttelephoneKeyTyped
 
     private void txtlandAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtlandAreaKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtlandAreaKeyTyped
 
     private void txtfloorAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfloorAreaKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtfloorAreaKeyTyped
 
     private void txtvalueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalueKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtvalueKeyTyped
 
     private void txtratesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtratesKeyTyped
-        if (Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()))
+        {
             evt.consume();
         }
     }//GEN-LAST:event_txtratesKeyTyped
 
     private void jSpinnergarageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnergarageStateChanged
-        if ((int) jSpinnergarage.getValue() < 0) {
+        if ((int) jSpinnergarage.getValue() < 0)
+        {
             jSpinnergarage.setValue(0);
         }
     }//GEN-LAST:event_jSpinnergarageStateChanged
 
     private void jSpinnerroomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerroomStateChanged
-        if ((int) jSpinnerroom.getValue() < 0) {
+        if ((int) jSpinnerroom.getValue() < 0)
+        {
             jSpinnerroom.setValue(0);
         }
     }//GEN-LAST:event_jSpinnerroomStateChanged
 
     private void jSpinnerbathStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerbathStateChanged
-        if ((int) jSpinnerbath.getValue() < 0) {
+        if ((int) jSpinnerbath.getValue() < 0)
+        {
             jSpinnerbath.setValue(0);
         }
     }//GEN-LAST:event_jSpinnerbathStateChanged
@@ -1193,80 +1310,116 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to?", "Are you sure", JOptionPane.YES_NO_OPTION);
         /*
-        * 0 = yes
-        * 1 = no
-        */
-        if (option == 0) {
+         * 0 = yes
+         * 1 = no
+         */
+        if (option == 0)
+        {
             //Clear search field
             txtSearch.setText("");
-            if (createSomeProp) {
-                if (captureInput()) {
+            if (createSomeProp)
+            {
+                if (captureInput())
+                {
                     create();
                 }
-            } else if (updateSomeProp) {
-                if (captureInput()) {
+            } else if (updateSomeProp)
+            {
+                if (captureInput())
+                {
                     update();
                 }
-            } else if (deleteSomeProp) {
+            } else if (deleteSomeProp)
+            {
                 delete();
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        try {
-            if (rs.next()) {
+        try
+        {
+            if (rs.next())
+            {
                 loadData(rs);
                 displayData();
 
-            } else {
+            } else
+            {
                 rs.previous();
                 showMessageDialog(null, "No more records!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        try {
-            if (rs.previous()) {
+        try
+        {
+            if (rs.previous())
+            {
                 loadData(rs);
                 displayData();
-            } else {
+            } else
+            {
                 rs.next();
                 showMessageDialog(null, "No previous records!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        switch (evt.getKeyCode()) {
+        switch (evt.getKeyCode())
+        {
             case KeyEvent.VK_BACK_SPACE:
-            break;
+                break;
             case KeyEvent.VK_ENTER:
-            txtSearch.setText(txtSearch.getText().toUpperCase());
-            break;
+                txtSearch.setText(txtSearch.getText().toUpperCase());
+                break;
             default:
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    String txt = txtSearch.getText().toUpperCase();
-                    autoComp(txt);
-                }
+                EventQueue.invokeLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        String txt = txtSearch.getText().toUpperCase();
+                        autoComp(txt);
+                    }
 
-            });
+                });
         }
     }//GEN-LAST:event_txtSearchKeyPressed
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         //        if (!Character.isLetterOrDigit(evt.getKeyChar())) {
-            //            evt.consume();
-            //        }
+        //            evt.consume();
+        //        }
         search();
     }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
+    {//GEN-HEADEREND:event_formMouseDragged
+        setOpacity((float) 0.7);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_formMouseReleased
 
     private boolean captureInput() throws HeadlessException
     {
@@ -1495,10 +1648,16 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
     private void auditLog(int action) throws HeadlessException
     {
-        String sql;
-        //Audit log
-        //3 means new
-        sql = "UPDATE user SET action = ? "
+        /**
+         * Audit log
+         * 0=default
+         * 1=SIGNED IN
+         * 2=SIGNED OUT
+         * 3=NEW
+         * 4=EDIT
+         * 5=DELETE
+         */
+        String sql = "UPDATE user SET action = ? "
                 + "WHERE user_id = ?";
         try
         {
@@ -1539,7 +1698,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
                 //                + " OR UPPER(description) LIKE ?"
                 + " OR UPPER(telephone) LIKE ?"
                 + " OR UPPER(email) LIKE ?";
-        //Connecting using ConnectUtil
+        //Connecting using TempConnectUtil
         try
         {
             //Creating query
@@ -1635,15 +1794,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             }
         }
         //House cleaning
-        createSomeProp = false;
-        readPropAll = false;
-        updateSomeProp = false;
-        deleteSomeProp = false;
-        compareByCity = false;
-        compareByType = false;
-        compareByUse = false;
-        computeDep = false;
-        computeAppre = false;
+        houseCleaning();
         //Close connection to db before leaving this form
         try
         {
