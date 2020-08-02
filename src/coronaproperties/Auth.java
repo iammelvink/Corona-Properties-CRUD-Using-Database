@@ -25,11 +25,13 @@ public class Auth
     static boolean readPropAll = false;
     static boolean updateSomeProp = false;
     static boolean deleteSomeProp = false;
+    static String user_name = "";
+    static String user_surname = "";
     static boolean login(String emailString, String passString)
     {
         ResultSet rs = null;
 
-        String sql = "SELECT user_id, email, password FROM user " + "WHERE email = ? AND password = ?";
+        String sql = "SELECT user_id, fName, lName, email, password FROM user " + "WHERE email = ? AND password = ?";
 
         // Connecting using ConnectUtil
         // using resources
@@ -47,6 +49,9 @@ public class Auth
             {
                 // Get user_id
                 user_id = rs.getInt("user_id");
+                //Get this users' fullname
+                user_name = rs.getString("fName");
+                user_surname = rs.getString("lName");
 
                 // Log the login into the login_audit table
                 signedIn(user_id);

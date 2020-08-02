@@ -82,8 +82,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         {
             lblTitle.setText("Add New Property");
             btnOK.setText("Save");
-            // lblSearch.setVisible(false);
-            // txtSearch.setVisible(false);
+            lblSearch.setVisible(false);
+            txtSearch.setVisible(false);
             btnPrevious.setVisible(false);
             btnNext.setVisible(false);
             undoReadOnlyhouseCleaning();
@@ -91,18 +91,24 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         if (readPropAll)
         {
             lblTitle.setText("View All Property");
+            lblSearch.setVisible(true);
+            txtSearch.setVisible(true);
             readOnlyhouseCleaning();
         }
         if (updateSomeProp)
         {
             lblTitle.setText("Update Property");
             btnOK.setText("Update");
+            lblSearch.setVisible(true);
+            txtSearch.setVisible(true);
             undoReadOnlyhouseCleaning();
         }
         if (deleteSomeProp)
         {
             lblTitle.setText("Delete Property");
             btnOK.setText("Delete");
+            lblSearch.setVisible(true);
+            txtSearch.setVisible(true);
             undoReadOnlyhouseCleaning();
         }
         if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp)
@@ -1376,8 +1382,31 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         Auth.houseCleaning();
         createSomeProp = true;
         actionChecker();
+        prepareToAdd();
 
     }// GEN-LAST:event_btnAddActionPerformed
+
+    private void prepareToAdd()
+    {
+        txtpropertyPrimaryKey.setText("");
+        jComboBoxpropertyType.setSelectedItem("");
+        txtaddressNum.setText("");
+        txtaddressStreet.setText("");
+        txtaddressCity.setText("");
+        txtaddressCode.setText("");
+        txtvalue.setText(String.valueOf(""));
+        jComboBoxconstructionStatus.setSelectedItem("");
+        jComboBoxuseOfProperty.setSelectedItem("");
+        jSpinnerroom.setValue(0);
+        jSpinnergarage.setValue(0);
+        jSpinnerbath.setValue(0);
+        txtfloorArea.setText(String.valueOf(""));
+        txtlandArea.setText(String.valueOf(""));
+        txtrates.setText(String.valueOf(""));
+        jTextAreadescription.setText("");
+        txttelephone.setText("");
+        txtemail.setText("");
+    }
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt)
     {// GEN-FIRST:event_btnDisplayActionPerformed

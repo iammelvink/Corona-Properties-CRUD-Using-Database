@@ -5,6 +5,8 @@
  */
 package coronaproperties;
 
+import static coronaproperties.Auth.user_name;
+import static coronaproperties.Auth.user_surname;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -25,8 +27,14 @@ public class MainMenu extends javax.swing.JFrame
     public MainMenu()
     {
         initComponents();
+        customStuff();
         showDate();
         showTime();
+    }
+
+    private void customStuff()
+    {
+        jLabel1.setText("Hello, " + user_name + " " + user_surname);
     }
 
     private void showDate()
