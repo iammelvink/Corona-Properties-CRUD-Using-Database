@@ -5,23 +5,27 @@
  */
 package coronaproperties;
 
+import static coronaproperties.Auth.createSomeProp;
+import static coronaproperties.Auth.deleteSomeProp;
+import static coronaproperties.Auth.readPropAll;
+import static coronaproperties.Auth.updateSomeProp;
 import static coronaproperties.Auth.user_id;
 import static coronaproperties.ComparativeViewsMenu.compareByCity;
 import static coronaproperties.ComparativeViewsMenu.compareByType;
 import static coronaproperties.ComparativeViewsMenu.compareByUse;
 import static coronaproperties.ComputationMenu.computeAppre;
 import static coronaproperties.ComputationMenu.computeDep;
-import static coronaproperties.CreateProp.createSomeProp;
-import static coronaproperties.DeleteProp.deleteSomeProp;
-import static coronaproperties.ReadPropAll.readPropAll;
-import static coronaproperties.UpdateProp.updateSomeProp;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import static java.lang.String.valueOf;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -40,7 +44,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
-//    private int curRow = 0;
+    // private int curRow = 0;
     private String propertyPrimaryKey;
     private String propertyType;
     private String addressNum;
@@ -66,15 +70,23 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     public CRUDViewTemplate()
     {
         initComponents();
-        txtpropertyPrimaryKey.setEditable(false);
+
+        actionChecker();
+        showDate();
+        showTime();
+    }
+
+    public void actionChecker() throws HeadlessException
+    {
         if (createSomeProp)
         {
             lblTitle.setText("Add New Property");
             btnOK.setText("Save");
-            lblSearch.setVisible(false);
-            txtSearch.setVisible(false);
+            // lblSearch.setVisible(false);
+            // txtSearch.setVisible(false);
             btnPrevious.setVisible(false);
             btnNext.setVisible(false);
+            undoReadOnlyhouseCleaning();
         }
         if (readPropAll)
         {
@@ -85,11 +97,13 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         {
             lblTitle.setText("Update Property");
             btnOK.setText("Update");
+            undoReadOnlyhouseCleaning();
         }
         if (deleteSomeProp)
         {
             lblTitle.setText("Delete Property");
             btnOK.setText("Delete");
+            undoReadOnlyhouseCleaning();
         }
         if (getData() && readPropAll || updateSomeProp || deleteSomeProp && !createSomeProp)
         {
@@ -101,8 +115,6 @@ public class CRUDViewTemplate extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "No records in the database!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        showDate();
-        showTime();
     }
 
     private void showDate()
@@ -130,7 +142,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     public CRUDViewTemplate(String searchString, String searchWhere)
     {
         initComponents();
-        txtpropertyPrimaryKey.setEditable(false);
+
         if (compareByCity || compareByType || compareByUse)
         {
             lblTitle.setText("Compare Property");
@@ -148,9 +160,9 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             {
                 JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }//House cleaning
-        houseCleaning();
-        //Close connection to db before leaving this form
+        }
+
+        // Close connection to db before leaving this form
         try
         {
             if (conn != null || pstmt != null || rs != null)
@@ -167,10 +179,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
     private void readOnlyhouseCleaning()
     {
-        //Set invisible
+        // Set invisible
         btnOK.setVisible(false);
 
-        //Set to read only
+        // Set to read only
         jComboBoxpropertyType.setEnabled(false);
         jComboBoxconstructionStatus.setEnabled(false);
         jComboBoxuseOfProperty.setEnabled(false);
@@ -182,38 +194,81 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         txtemail.setEditable(false);
         txtemail.setEditable(false);
 
-        //Disable
+        // Disable
         jSpinnerroom.setEnabled(false);
         jSpinnergarage.setEnabled(false);
         jSpinnerbath.setEnabled(false);
 
-        //Set more to read only
+        // Set more to read only
         txtfloorArea.setEditable(false);
         txtlandArea.setEditable(false);
         txtvalue.setEditable(false);
         txtrates.setEditable(false);
         jTextAreadescription.setEditable(false);
+
+        if (readPropAll)
+        {
+            btnPrevious.setVisible(true);
+            btnNext.setVisible(true);
+        }
+
+    }
+
+    private void undoReadOnlyhouseCleaning()
+    {
+        // Set invisible
+        btnOK.setVisible(true);
+
+        // Set to read only
+        jComboBoxpropertyType.setEnabled(true);
+        jComboBoxconstructionStatus.setEnabled(true);
+        jComboBoxuseOfProperty.setEnabled(true);
+        txtaddressNum.setEditable(true);
+        txtaddressStreet.setEditable(true);
+        txtaddressCity.setEditable(true);
+        txtaddressCode.setEditable(true);
+        txttelephone.setEditable(true);
+        txtemail.setEditable(true);
+        txtemail.setEditable(true);
+
+        // Disable
+        jSpinnerroom.setEnabled(true);
+        jSpinnergarage.setEnabled(true);
+        jSpinnerbath.setEnabled(true);
+
+        // Set more to read only
+        txtfloorArea.setEditable(true);
+        txtlandArea.setEditable(true);
+        txtvalue.setEditable(true);
+        txtrates.setEditable(true);
+        jTextAreadescription.setEditable(true);
+
+        if (updateSomeProp || deleteSomeProp)
+        {
+            btnPrevious.setVisible(true);
+            btnNext.setVisible(true);
+        }
     }
 
     private boolean getData() throws HeadlessException
     {
         boolean isData = false;
         String sql = "SELECT * FROM property ";
-        //Connecting using TempConnectUtil
-        //Standard try without resources
-        //so that connection to db does not close automatically
+        // Connecting using TempConnectUtil
+        // Standard try without resources
+        // so that connection to db does not close automatically
         try
         {
             conn = ConnectUtil.getConnection();
-            //Creating query
-            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
-            //Executing query
+            // Creating query
+            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE,
+                    Statement.RETURN_GENERATED_KEYS);
+            // Executing query
             rs = pstmt.executeQuery();
 
             if (rs.next())
             {
-//                loadData(rs);
+                // loadData(rs);
                 isData = true;
             }
         } catch (SQLException e)
@@ -226,26 +281,25 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     private boolean getData(String searchString, String searchWhere) throws HeadlessException
     {
         boolean isData = false;
-        String sql = "SELECT * FROM property WHERE"
-                + " UPPER(" + searchWhere + ") LIKE ?";
-        //Connecting using TempConnectUtil
-        //Standard try without resources
-        //so that connection to db does not close automatically
+        String sql = "SELECT * FROM property WHERE" + " UPPER(" + searchWhere + ") LIKE ?";
+        // Connecting using TempConnectUtil
+        // Standard try without resources
+        // so that connection to db does not close automatically
         try
         {
             conn = ConnectUtil.getConnection();
-            //Creating query
-            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+            // Creating query
+            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE,
+                    Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, "%" + searchString + "%");
 
-            //Executing query
+            // Executing query
             rs = pstmt.executeQuery();
 
             if (rs.next())
             {
-//                loadData(rs);
+                // loadData(rs);
                 isData = true;
             }
         } catch (SQLException e)
@@ -310,15 +364,14 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     }
 
     /**
-     * This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         Header = new javax.swing.JPanel();
@@ -399,21 +452,17 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
-        {
-            public void mouseDragged(java.awt.event.MouseEvent evt)
-            {
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
                 formMouseDragged(evt);
             }
         });
-        addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt)
-            {
+
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 formMouseReleased(evt);
             }
         });
@@ -432,10 +481,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel5MousePressed(evt);
             }
         });
@@ -443,10 +490,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel10MousePressed(evt);
             }
         });
@@ -472,10 +517,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setToolTipText("");
-        btnLogout.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
             }
         });
@@ -489,10 +532,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnHome.setText("Home");
         btnHome.setAlignmentX(5.0F);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
             }
         });
@@ -513,10 +554,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
@@ -525,10 +564,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -537,10 +574,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -549,10 +584,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnComputation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -561,10 +594,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -573,10 +604,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -585,66 +614,61 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
         kGradientPanel3.setLayout(kGradientPanel3Layout);
-        kGradientPanel3Layout.setHorizontalGroup(
-            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel15))
-                        .addComponent(jLabel16)
-                        .addComponent(jLabel19)
-                        .addComponent(jLabel18))
-                    .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnComparativeViews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnComputation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        kGradientPanel3Layout.setVerticalGroup(
-            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(btnAdd))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDisplay)
-                    .addComponent(jLabel15))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnComparativeViews)
-                    .addComponent(jLabel16))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnComputation)
-                    .addComponent(jLabel19))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUpdate)
-                    .addComponent(jLabel20))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete)
-                    .addComponent(jLabel18))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        kGradientPanel3Layout.setHorizontalGroup(kGradientPanel3Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel3Layout.createSequentialGroup().addContainerGap().addGroup(kGradientPanel3Layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(kGradientPanel3Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel14).addComponent(jLabel17).addComponent(jLabel15))
+                                .addComponent(jLabel16).addComponent(jLabel19).addComponent(jLabel18))
+                        .addComponent(jLabel20)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel3Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(btnComparativeViews, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnComputation, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))));
+        kGradientPanel3Layout.setVerticalGroup(kGradientPanel3Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel3Layout.createSequentialGroup().addContainerGap()
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel17).addComponent(btnAdd))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnDisplay).addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnComparativeViews).addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnComputation).addComponent(jLabel19))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnUpdate).addComponent(jLabel20))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnDelete).addComponent(jLabel18))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         lblTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblTitle.setForeground(java.awt.Color.white);
@@ -693,6 +717,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         txtaddressStreet.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        txtpropertyPrimaryKey.setEditable(false);
         txtpropertyPrimaryKey.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         txtaddressCity.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -702,10 +727,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         txtaddressCode.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         txttelephone.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txttelephone.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txttelephone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txttelephoneKeyTyped(evt);
             }
         });
@@ -749,28 +772,22 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         lbluseOfProperty1.setText("Value");
 
         txtlandArea.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtlandArea.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txtlandArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtlandAreaKeyTyped(evt);
             }
         });
 
         txtfloorArea.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtfloorArea.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txtfloorArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtfloorAreaKeyTyped(evt);
             }
         });
 
         txtvalue.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtvalue.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txtvalue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtvalueKeyTyped(evt);
             }
         });
@@ -780,10 +797,8 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         lbluseOfProperty2.setText("Rates");
 
         txtrates.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtrates.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txtrates.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtratesKeyTyped(evt);
             }
         });
@@ -810,81 +825,70 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextAreadescription);
 
         jSpinnergarage.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnergarage.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
+        jSpinnergarage.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinnergarageStateChanged(evt);
             }
         });
 
         jSpinnerroom.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnerroom.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
+        jSpinnerroom.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinnerroomStateChanged(evt);
             }
         });
 
         jSpinnerbath.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jSpinnerbath.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
+        jSpinnerbath.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinnerbathStateChanged(evt);
             }
         });
 
         jComboBoxconstructionStatus.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jComboBoxconstructionStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Completed", "Not Complete" }));
+        jComboBoxconstructionStatus
+                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Completed", "Not Complete" }));
 
         jComboBoxuseOfProperty.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jComboBoxuseOfProperty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rented", "Idle", "Dr Shaun's Home" }));
+        jComboBoxuseOfProperty
+                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rented", "Idle", "Dr Shaun's Home" }));
 
         jComboBoxpropertyType.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jComboBoxpropertyType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "House", "Flat", "Business" }));
+        jComboBoxpropertyType
+                .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "House", "Flat", "Business" }));
 
         btnOK.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnOK.setText("OK");
-        btnOK.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOKActionPerformed(evt);
             }
         });
 
         btnNext.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnNext.setText(">");
-        btnNext.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
             }
         });
 
         btnPrevious.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         btnPrevious.setText("<");
-        btnPrevious.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPreviousActionPerformed(evt);
             }
         });
 
         txtSearch.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
-                txtSearchKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchKeyTyped(evt);
+            }
+
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
             }
         });
 
@@ -893,208 +897,381 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblpropertyType)
-                                        .addComponent(lblpropertyPrimaryKey))
-                                    .addGap(46, 46, 46)
-                                    .addComponent(txtpropertyPrimaryKey, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lblpropertyPrimaryKey2)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblconstructionStatus2)
-                                        .addComponent(lbluseOfProperty3)
-                                        .addComponent(lblvalue)
-                                        .addComponent(lbluseOfProperty)
-                                        .addComponent(lblconstructionStatus)
-                                        .addComponent(lbladdressNum)
-                                        .addComponent(lbladdressStreet)
-                                        .addComponent(lbladdressCity)
-                                        .addComponent(lbladdressCode))
-                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                            .addGap(67, 67, 67)
-                                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txttelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtaddressCity, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtaddressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtaddressNum, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtaddressCode, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                                    .addGap(31, 31, 31)
-                                                    .addComponent(btnPrevious)
-                                                    .addGap(58, 58, 58)
-                                                    .addComponent(btnNext))))
-                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel1Layout.createSequentialGroup()
-                                                .addGap(65, 65, 65)
-                                                .addComponent(jComboBoxpropertyType, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jComboBoxconstructionStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jComboBoxuseOfProperty, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                            .addComponent(lbladdress))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbladdressStreet1)
-                            .addComponent(lbladdressNum1)
-                            .addComponent(lbladdressCity1)
-                            .addComponent(lblconstructionStatus1)
-                            .addComponent(lbluseOfProperty1)
-                            .addComponent(lblpropertyType1)
-                            .addComponent(lblpropertyPrimaryKey1)
-                            .addComponent(lblvalue1)
-                            .addComponent(lbladdressCode1)
-                            .addComponent(lbluseOfProperty2)
-                            .addComponent(lbluseOfProperty4)
-                            .addComponent(btnOK))
-                        .addGap(46, 46, 46)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtlandArea, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfloorArea, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtrates, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerroom, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnergarage, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerbath, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch)
-                        .addGap(65, 65, 65))))
-            .addComponent(Header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        kGradientPanel1Layout.setHorizontalGroup(kGradientPanel1Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSearch))
-                        .addGap(15, 15, 15)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblpropertyType1)
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup().addGroup(kGradientPanel1Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(lblpropertyType)
+                                                                .addComponent(lblpropertyPrimaryKey))
+                                                        .addGap(46, 46, 46).addComponent(txtpropertyPrimaryKey,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(lblpropertyPrimaryKey2)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                        kGradientPanel1Layout.createSequentialGroup()
+                                                                .addGroup(kGradientPanel1Layout.createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(lblconstructionStatus2)
+                                                                        .addComponent(lbluseOfProperty3)
+                                                                        .addComponent(lblvalue)
+                                                                        .addComponent(lbluseOfProperty)
+                                                                        .addComponent(lblconstructionStatus)
+                                                                        .addComponent(lbladdressNum)
+                                                                        .addComponent(lbladdressStreet)
+                                                                        .addComponent(lbladdressCity)
+                                                                        .addComponent(lbladdressCode))
+                                                                .addGroup(kGradientPanel1Layout.createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(kGradientPanel1Layout
+                                                                                .createSequentialGroup()
+                                                                                .addGap(67, 67, 67)
+                                                                                .addGroup(kGradientPanel1Layout
+                                                                                        .createParallelGroup(
+                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                                false)
+                                                                                        .addComponent(txttelephone,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtemail,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtaddressCity,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtaddressStreet,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtaddressNum,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtaddressCode,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                147,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addGroup(
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                kGradientPanel1Layout
+                                                                                                        .createSequentialGroup()
+                                                                                                        .addGap(31, 31,
+                                                                                                                31)
+                                                                                                        .addComponent(
+                                                                                                                btnPrevious)
+                                                                                                        .addGap(58, 58,
+                                                                                                                58)
+                                                                                                        .addComponent(
+                                                                                                                btnNext))))
+                                                                        .addGroup(kGradientPanel1Layout
+                                                                                .createParallelGroup(
+                                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addGroup(
+                                                                                        javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                        kGradientPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(65, 65, 65)
+                                                                                                .addComponent(
+                                                                                                        jComboBoxpropertyType,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                        147,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(kGradientPanel1Layout
+                                                                                        .createSequentialGroup()
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addGroup(kGradientPanel1Layout
+                                                                                                .createParallelGroup(
+                                                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                                .addComponent(
+                                                                                                        jComboBoxconstructionStatus,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                        147,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addComponent(
+                                                                                                        jComboBoxuseOfProperty,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                        147,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(lbladdress))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lbladdressStreet1).addComponent(lbladdressNum1)
+                                                .addComponent(lbladdressCity1).addComponent(lblconstructionStatus1)
+                                                .addComponent(lbluseOfProperty1).addComponent(lblpropertyType1)
+                                                .addComponent(lblpropertyPrimaryKey1).addComponent(lblvalue1)
+                                                .addComponent(lbladdressCode1).addComponent(lbluseOfProperty2)
+                                                .addComponent(lbluseOfProperty4).addComponent(btnOK))
+                                        .addGap(46, 46, 46)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtlandArea, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtfloorArea, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtrates, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jSpinnerroom, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jSpinnergarage, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jSpinnerbath, javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup().addComponent(lblSearch)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbladdressNum1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbladdressStreet1))
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jSpinnerroom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinnergarage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinnerbath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbladdressCity1)
-                                .addGap(5, 5, 5)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtfloorArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbladdressCode1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtlandArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblvalue1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblconstructionStatus1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtvalue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbluseOfProperty1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtrates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbluseOfProperty2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbluseOfProperty4)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblpropertyPrimaryKey2)
-                                        .addComponent(lblpropertyPrimaryKey1))
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addGap(58, 58, 58)
-                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                                .addComponent(lblpropertyPrimaryKey)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(lblpropertyType)
-                                                    .addComponent(jComboBoxpropertyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(txtpropertyPrimaryKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lblconstructionStatus2)
-                                            .addComponent(jComboBoxconstructionStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lbluseOfProperty3)
-                                            .addComponent(jComboBoxuseOfProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addComponent(lbladdress)
-                                .addGap(12, 12, 12)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbladdressNum)
-                                    .addComponent(txtaddressNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtaddressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtaddressCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtaddressCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(14, 14, 14))
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(lbladdressStreet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbladdressCity)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbladdressCode)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblvalue)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblconstructionStatus)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbluseOfProperty))
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(txttelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnOK)
-                            .addComponent(btnNext)
-                            .addComponent(btnPrevious))
-                        .addContainerGap())
-                    .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+                                        .addComponent(txtSearch).addGap(65, 65, 65))))
+                .addComponent(Header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        Short.MAX_VALUE));
+        kGradientPanel1Layout.setVerticalGroup(kGradientPanel1Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblSearch))
+                                        .addGap(15, 15, 15)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                        .addGap(52, 52, 52)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addComponent(lblpropertyType1)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(lbladdressNum1)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(lbladdressStreet1))
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addComponent(jSpinnerroom,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(jSpinnergarage,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(jSpinnerbath,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lbladdressCity1).addGap(5, 5, 5)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addComponent(txtfloorArea,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lbladdressCode1))
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addComponent(txtlandArea,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lblvalue1))
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblconstructionStatus1)
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addComponent(txtvalue,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lbluseOfProperty1))
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addComponent(txtrates,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(lbluseOfProperty2))
+                                                        .addPreferredGap(
+                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(lbluseOfProperty4)
+                                                                .addComponent(jScrollPane1,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 118,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(kGradientPanel1Layout.createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(lblpropertyPrimaryKey2)
+                                                                        .addComponent(lblpropertyPrimaryKey1))
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addGap(58, 58, 58)
+                                                                        .addGroup(kGradientPanel1Layout
+                                                                                .createParallelGroup(
+                                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(kGradientPanel1Layout
+                                                                                        .createSequentialGroup()
+                                                                                        .addComponent(
+                                                                                                lblpropertyPrimaryKey)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                        .addGroup(kGradientPanel1Layout
+                                                                                                .createParallelGroup(
+                                                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                                .addComponent(
+                                                                                                        lblpropertyType)
+                                                                                                .addComponent(
+                                                                                                        jComboBoxpropertyType,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                                .addComponent(txtpropertyPrimaryKey,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addGroup(kGradientPanel1Layout
+                                                                                .createParallelGroup(
+                                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                .addComponent(lblconstructionStatus2)
+                                                                                .addComponent(
+                                                                                        jComboBoxconstructionStatus,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addGroup(kGradientPanel1Layout
+                                                                                .createParallelGroup(
+                                                                                        javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                .addComponent(lbluseOfProperty3)
+                                                                                .addComponent(jComboBoxuseOfProperty,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addGap(18, 18, 18).addComponent(lbladdress).addGap(12, 12, 12)
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(lbladdressNum).addComponent(txtaddressNum,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(txtaddressStreet,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(txtaddressCity,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(txtaddressCode,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGap(14, 14, 14))
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addGap(4, 4, 4).addComponent(lbladdressStreet)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(lbladdressCity)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                        .addComponent(lbladdressCode)
+                                                                        .addGap(18, 18, 18)))
+                                                        .addGroup(kGradientPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addComponent(lblvalue)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(lblconstructionStatus)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(lbluseOfProperty))
+                                                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                                        .addComponent(txttelephone,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(txtemail,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(kGradientPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(btnOK).addComponent(btnNext).addComponent(btnPrevious))
+                                        .addContainerGap())
+                                .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
 
         Footer.setBackground(new java.awt.Color(0, 31, 63));
         Footer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1107,62 +1284,67 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Footer, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(Footer,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt)
+    {// GEN-FIRST:event_jLabel5MousePressed
 
-        int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        if (compareByCity || compareByType || compareByUse)
+        {
+            Auth.houseCleaning();
+            this.dispose();
+        } else
+        {
+            int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure",
+                    JOptionPane.YES_NO_OPTION);
+            /*
+             * 0 = yes 1 = no
+             */
+            if (option == 0)
+            {
+                Auth.signOut();
+                System.exit(0);
+            }
+        }
+    }// GEN-LAST:event_jLabel5MousePressed
+
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt)
+    {// GEN-FIRST:event_jLabel10MousePressed
+
+        this.setState(Login.ICONIFIED);
+    }// GEN-LAST:event_jLabel10MousePressed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnLogoutActionPerformed
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure",
+                JOptionPane.YES_NO_OPTION);
         /*
-         * 0 = yes
-         * 1 = no
+         * 0 = yes 1 = no
          */
         if (option == 0)
         {
             Auth.signOut();
             System.exit(0);
         }
-    }//GEN-LAST:event_jLabel5MousePressed
+    }// GEN-LAST:event_btnLogoutActionPerformed
 
-    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-
-        this.setState(Login.ICONIFIED);
-    }//GEN-LAST:event_jLabel10MousePressed
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure", JOptionPane.YES_NO_OPTION);
-        /*
-         * 0 = yes
-         * 1 = no
-         */
-        if (option == 0)
-        {
-            Auth.signOut();
-            // Open Login Screen
-            Login loginScreen = new Login();
-            loginScreen.whatAction();
-
-            loginScreen.setTitle("Login");
-            SetJFrameIcon setJFrameIcon = new SetJFrameIcon(loginScreen);
-        }
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        houseCleaning();
-        //Close connection to db before leaving this form
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnHomeActionPerformed
+        Auth.houseCleaning();
+        // Close connection to db before leaving this form
         try
         {
             if (conn != null || pstmt != null || rs != null)
@@ -1176,154 +1358,156 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             System.out.println(e.getMessage());
         }
 
-        //Close this menu
+        // Close this menu
         this.dispose();
 
-        //Back to main menu
+        // Back to main menu
         MainMenu menu = new MainMenu();
 
         menu.setTitle("Corona Main Menu");
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
 
-        System.gc();
-    }//GEN-LAST:event_btnHomeActionPerformed
+    }// GEN-LAST:event_btnHomeActionPerformed
 
-    private void houseCleaning()
-    {
-        //House cleaning
-        createSomeProp = false;
-        readPropAll = false;
-        updateSomeProp = false;
-        deleteSomeProp = false;
-        compareByCity = false;
-        compareByType = false;
-        compareByUse = false;
-        computeDep = false;
-        computeAppre = false;
-        lblSearch.setVisible(true);
-        txtSearch.setVisible(true);
-    }
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnAddActionPerformed
+//        this.dispose();
+//        CreateProp.createSome();
+        Auth.houseCleaning();
+        createSomeProp = true;
+        actionChecker();
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        this.dispose();
-        CreateProp.createSome();
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnAddActionPerformed
+    }// GEN-LAST:event_btnAddActionPerformed
 
-    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
-        this.dispose();
-        ReadPropAll.readAll();
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnDisplayActionPerformed
+    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnDisplayActionPerformed
+//        this.dispose();
+//        ReadPropAll.readAll();
+        Auth.houseCleaning();
+        readPropAll = true;
+        actionChecker();
 
-    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComparativeViewsActionPerformed
+    }// GEN-LAST:event_btnDisplayActionPerformed
+
+    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnComparativeViewsActionPerformed
         this.dispose();
 
-        //Open ComparativeViewsMenu
+        // Open ComparativeViewsMenu
         ComparativeViewsMenu aComparativeViewsMenu = new ComparativeViewsMenu();
 
         aComparativeViewsMenu.setTitle("Corona Comparative View");
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComparativeViewsMenu);
 
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnComparativeViewsActionPerformed
+    }// GEN-LAST:event_btnComparativeViewsActionPerformed
 
-    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputationActionPerformed
+    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnComputationActionPerformed
         this.dispose();
 
-        //Open ComputationMenu
+        // Open ComputationMenu
         ComputationMenu aComputationMenu = new ComputationMenu();
 
         aComputationMenu.setTitle("Corona Computation Menu");
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(aComputationMenu);
 
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnComputationActionPerformed
+    }// GEN-LAST:event_btnComputationActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        this.dispose();
-        UpdateProp.updateSome();
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnUpdateActionPerformed
+//        this.dispose();
+//        UpdateProp.updateSome();
+        Auth.houseCleaning();
+        updateSomeProp = true;
+        actionChecker();
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        this.dispose();
-        DeleteProp.deleteSome();
-        System.gc();
-        houseCleaning();
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }// GEN-LAST:event_btnUpdateActionPerformed
 
-    private void txttelephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelephoneKeyTyped
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnDeleteActionPerformed
+//        this.dispose();
+//        DeleteProp.deleteSome();
+        Auth.houseCleaning();
+        deleteSomeProp = true;
+        actionChecker();
+
+    }// GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txttelephoneKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txttelephoneKeyTyped
         if (!Character.isDigit(evt.getKeyChar()))
         {
             evt.consume();
         }
-    }//GEN-LAST:event_txttelephoneKeyTyped
+    }// GEN-LAST:event_txttelephoneKeyTyped
 
-    private void txtlandAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtlandAreaKeyTyped
+    private void txtlandAreaKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtlandAreaKeyTyped
         if (!Character.isDigit(evt.getKeyChar()))
         {
             evt.consume();
         }
-    }//GEN-LAST:event_txtlandAreaKeyTyped
+    }// GEN-LAST:event_txtlandAreaKeyTyped
 
-    private void txtfloorAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfloorAreaKeyTyped
+    private void txtfloorAreaKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtfloorAreaKeyTyped
         if (!Character.isDigit(evt.getKeyChar()))
         {
             evt.consume();
         }
-    }//GEN-LAST:event_txtfloorAreaKeyTyped
+    }// GEN-LAST:event_txtfloorAreaKeyTyped
 
-    private void txtvalueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalueKeyTyped
+    private void txtvalueKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtvalueKeyTyped
         if (!Character.isDigit(evt.getKeyChar()))
         {
             evt.consume();
         }
-    }//GEN-LAST:event_txtvalueKeyTyped
+    }// GEN-LAST:event_txtvalueKeyTyped
 
-    private void txtratesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtratesKeyTyped
+    private void txtratesKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtratesKeyTyped
         if (!Character.isDigit(evt.getKeyChar()))
         {
             evt.consume();
         }
-    }//GEN-LAST:event_txtratesKeyTyped
+    }// GEN-LAST:event_txtratesKeyTyped
 
-    private void jSpinnergarageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnergarageStateChanged
+    private void jSpinnergarageStateChanged(javax.swing.event.ChangeEvent evt)
+    {// GEN-FIRST:event_jSpinnergarageStateChanged
         if ((int) jSpinnergarage.getValue() < 0)
         {
             jSpinnergarage.setValue(0);
         }
-    }//GEN-LAST:event_jSpinnergarageStateChanged
+    }// GEN-LAST:event_jSpinnergarageStateChanged
 
-    private void jSpinnerroomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerroomStateChanged
+    private void jSpinnerroomStateChanged(javax.swing.event.ChangeEvent evt)
+    {// GEN-FIRST:event_jSpinnerroomStateChanged
         if ((int) jSpinnerroom.getValue() < 0)
         {
             jSpinnerroom.setValue(0);
         }
-    }//GEN-LAST:event_jSpinnerroomStateChanged
+    }// GEN-LAST:event_jSpinnerroomStateChanged
 
-    private void jSpinnerbathStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerbathStateChanged
+    private void jSpinnerbathStateChanged(javax.swing.event.ChangeEvent evt)
+    {// GEN-FIRST:event_jSpinnerbathStateChanged
         if ((int) jSpinnerbath.getValue() < 0)
         {
             jSpinnerbath.setValue(0);
         }
-    }//GEN-LAST:event_jSpinnerbathStateChanged
+    }// GEN-LAST:event_jSpinnerbathStateChanged
 
-    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnOKActionPerformed
 
-        int option = JOptionPane.showConfirmDialog(null, "Do you really want to?", "Are you sure", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, "Do you really want to?", "Are you sure",
+                JOptionPane.YES_NO_OPTION);
         /*
-         * 0 = yes
-         * 1 = no
+         * 0 = yes 1 = no
          */
         if (option == 0)
         {
-            //Clear search field
+            // Clear search field
             txtSearch.setText("");
             if (createSomeProp)
             {
@@ -1331,21 +1515,25 @@ public class CRUDViewTemplate extends javax.swing.JFrame
                 {
                     create();
                 }
+                createSomeProp = false;
             } else if (updateSomeProp)
             {
                 if (captureInput())
                 {
                     update();
                 }
+                updateSomeProp = false;
             } else if (deleteSomeProp)
             {
                 delete();
+                deleteSomeProp = false;
             }
-            houseCleaning();
-        }
-    }//GEN-LAST:event_btnOKActionPerformed
 
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        }
+    }// GEN-LAST:event_btnOKActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnNextActionPerformed
         try
         {
             if (rs.next())
@@ -1362,9 +1550,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_btnNextActionPerformed
+    }// GEN-LAST:event_btnNextActionPerformed
 
-    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt)
+    {// GEN-FIRST:event_btnPreviousActionPerformed
         try
         {
             if (rs.previous())
@@ -1380,9 +1569,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_btnPreviousActionPerformed
+    }// GEN-LAST:event_btnPreviousActionPerformed
 
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtSearchKeyPressed
         switch (evt.getKeyCode())
         {
             case KeyEvent.VK_BACK_SPACE:
@@ -1402,39 +1592,40 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
                 });
         }
-    }//GEN-LAST:event_txtSearchKeyPressed
+    }// GEN-LAST:event_txtSearchKeyPressed
 
-    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
-        //        if (!Character.isLetterOrDigit(evt.getKeyChar())) {
-        //            evt.consume();
-        //        }
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt)
+    {// GEN-FIRST:event_txtSearchKeyTyped
+        // if (!Character.isLetterOrDigit(evt.getKeyChar())) {
+        // evt.consume();
+        // }
         search();
-    }//GEN-LAST:event_txtSearchKeyTyped
+    }// GEN-LAST:event_txtSearchKeyTyped
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
-    {//GEN-HEADEREND:event_formMouseDragged
+    private void formMouseDragged(java.awt.event.MouseEvent evt)// GEN-FIRST:event_formMouseDragged
+    {// GEN-HEADEREND:event_formMouseDragged
         setOpacity((float) 0.7);
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-    }//GEN-LAST:event_formMouseDragged
+    }// GEN-LAST:event_formMouseDragged
 
-    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
-    {//GEN-HEADEREND:event_formMousePressed
+    private void formMousePressed(java.awt.event.MouseEvent evt)// GEN-FIRST:event_formMousePressed
+    {// GEN-HEADEREND:event_formMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-    }//GEN-LAST:event_formMousePressed
+    }// GEN-LAST:event_formMousePressed
 
-    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
-    {//GEN-HEADEREND:event_formMouseReleased
+    private void formMouseReleased(java.awt.event.MouseEvent evt)// GEN-FIRST:event_formMouseReleased
+    {// GEN-HEADEREND:event_formMouseReleased
         setOpacity((float) 0.9);
-    }//GEN-LAST:event_formMouseReleased
+    }// GEN-LAST:event_formMouseReleased
 
     private boolean captureInput() throws HeadlessException
     {
 
         boolean captured = false;
-//Capture input into variables
+        // Capture input into variables
         try
         {
             propertyPrimaryKey = txtpropertyPrimaryKey.getText();
@@ -1456,32 +1647,33 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             telephone = txttelephone.getText();
             email = txtemail.getText();
 
-            //Validate email
+            // Validate email
             if (Validate.isEmail(email))
             {
                 captured = true;
             } else
             {
-                JOptionPane.showMessageDialog(null, "Email does NOT meet minimum requirements!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Email does NOT meet minimum requirements!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null, "One or more empty fields",
-                    "Empty field(s)", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "One or more empty fields", "Empty field(s)",
+                    JOptionPane.ERROR_MESSAGE);
         }
         return captured;
     }
 
-    private void create() throws HeadlessException
+    void create() throws HeadlessException
     {
         int housePKey = 0;
 
         String sql = "INSERT INTO property(propertyType,addressNum,addressStreet,addressCity,addressCode,value,constructionStatus,useOfProperty,room,garage,bath,floorArea,landArea,rates,description,telephone,email) "
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        //Connecting using ConnectUtil
+        // Connecting using ConnectUtil
         try
         {
-            //Creating query
+            // Creating query
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // set parameters for statement
@@ -1511,20 +1703,22 @@ public class CRUDViewTemplate extends javax.swing.JFrame
                 if (rs.next())
                 {
                     housePKey = rs.getInt(1);
-                    //Audit log
-                    //3 means new
+                    // Audit log
+                    // 3 means new
                     int action = 3;
                     auditLog(action);
                 }
             }
-            //Refresh
-//            getData();
-//            loadData(rs);
-//            displayData();
+//            createSomeProp = false;
+            // Refresh
+            // getData();
+            // loadData(rs);
+            // displayData();
 
-            JOptionPane.showMessageDialog(null, "A new Property with Property Primary Key " + housePKey + " has been inserted.");
+            JOptionPane.showMessageDialog(null,
+                    "A new Property with Property Primary Key " + housePKey + " has been inserted.");
 
-            //Close this menu
+            // Close this menu
             this.dispose();
 
             // Open menu
@@ -1533,11 +1727,10 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             menu.setTitle("Corona Properties Main Menu");
             SetJFrameIcon setJFrameIcon = new SetJFrameIcon(menu);
 
-            System.gc();
-//            JOptionPane.showMessageDialog(null, "Record created successfully!");
+            // JOptionPane.showMessageDialog(null, "Record created successfully!");
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -1545,31 +1738,18 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         }
     }
 
-    private void update() throws HeadlessException
+    void update() throws HeadlessException
     {
-//        int housePKey = 0;
+        // int housePKey = 0;
 
-        String sql = "UPDATE property SET propertyType = ? , "
-                + "addressNum = ? , "
-                + "addressStreet = ? , "
-                + "addressCity = ? , "
-                + "addressCode = ? , "
-                + "value = ? , "
-                + "constructionStatus = ? , "
-                + "useOfProperty = ? , "
-                + "room = ? ,"
-                + "garage = ? , "
-                + "bath = ? ,"
-                + "floorArea = ? , "
-                + "landArea = ? , "
-                + "rates = ? , "
-                + "description = ? , "
-                + "telephone = ? , "
-                + "email = ? "
+        String sql = "UPDATE property SET propertyType = ? , " + "addressNum = ? , " + "addressStreet = ? , "
+                + "addressCity = ? , " + "addressCode = ? , " + "value = ? , " + "constructionStatus = ? , "
+                + "useOfProperty = ? , " + "room = ? ," + "garage = ? , " + "bath = ? ," + "floorArea = ? , "
+                + "landArea = ? , " + "rates = ? , " + "description = ? , " + "telephone = ? , " + "email = ? "
                 + "WHERE propertyPrimaryKey = ?";
         try
         {
-            //Creating query
+            // Creating query
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, propertyType);
@@ -1593,28 +1773,21 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
             pstmt.executeUpdate();
 
-            //Audit log
-            //4 means update
+            // Audit log
+            // 4 means update
             int action = 4;
             auditLog(action);
-//            int rowAffected = pstmt.executeUpdate();
-//            if (rowAffected == 1) {
-//                // get housePKey id
-//                rs = pstmt.getGeneratedKeys();
-//                if (rs.next()) {
-//                    housePKey = rs.getInt(1);
-//                }
-//            }
-            //Refresh
-//            curRow = rs.getRow();
+
+            // Refreshing data
             getData();
             loadData(rs);
             displayData();
 
+//            updateSomeProp = false;
             JOptionPane.showMessageDialog(null, "Property has been updated successfully!.");
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -1622,7 +1795,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         }
     }
 
-    private void delete() throws HeadlessException
+    void delete() throws HeadlessException
     {
         String sql = "DELETE FROM property WHERE propertyPrimaryKey = ?";
 
@@ -1634,20 +1807,21 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             // execute the delete statement
             pstmt.executeUpdate();
 
-            //Audit log
-            //5 means delete
+            // Audit log
+            // 5 means delete
             int action = 5;
             auditLog(action);
 
-            //Refresh
+            // Refreshing data
             getData();
             loadData(rs);
             displayData();
 
+//            deleteSomeProp = false;
             JOptionPane.showMessageDialog(null, "Record deleted successfully!");
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -1658,19 +1832,12 @@ public class CRUDViewTemplate extends javax.swing.JFrame
     private void auditLog(int action) throws HeadlessException
     {
         /**
-         * Audit log
-         * 0=default
-         * 1=SIGNED IN
-         * 2=SIGNED OUT
-         * 3=NEW
-         * 4=EDIT
-         * 5=DELETE
+         * Audit log 0=default 1=SIGNED IN 2=SIGNED OUT 3=NEW 4=EDIT 5=DELETE
          */
-        String sql = "UPDATE user SET action = ? "
-                + "WHERE user_id = ?";
+        String sql = "UPDATE user SET action = ? " + "WHERE user_id = ?";
         try
         {
-            //Creating query
+            // Creating query
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             {
                 pstmt.setInt(1, action);
@@ -1680,7 +1847,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             }
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -1690,36 +1857,26 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
     private void search() throws HeadlessException
     {
-        String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
-                + " OR UPPER(addressNum) LIKE ?"
-                + " OR UPPER(addressStreet) LIKE ?"
-                + " OR UPPER(addressCity) LIKE ?"
-                + " OR UPPER(addressCode) LIKE ?"
-                + " OR UPPER(value) LIKE ?"
-                + " OR UPPER(constructionStatus) LIKE ?"
-                + " OR UPPER(useOfProperty) LIKE ?"
-                + " OR UPPER(room) LIKE ?"
-                + " OR UPPER(garage) LIKE ?"
-                + " OR UPPER(bath) LIKE ?"
-                + " OR UPPER(floorArea) LIKE ?"
-                + " OR UPPER(landArea) LIKE ?"
-                + " OR UPPER(rates) LIKE ?"
-                //                + " OR UPPER(description) LIKE ?"
-                + " OR UPPER(telephone) LIKE ?"
-                + " OR UPPER(email) LIKE ?";
-        //Connecting using TempConnectUtil
+        String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?" + " OR UPPER(addressNum) LIKE ?"
+                + " OR UPPER(addressStreet) LIKE ?" + " OR UPPER(addressCity) LIKE ?" + " OR UPPER(addressCode) LIKE ?"
+                + " OR UPPER(value) LIKE ?" + " OR UPPER(constructionStatus) LIKE ?" + " OR UPPER(useOfProperty) LIKE ?"
+                + " OR UPPER(room) LIKE ?" + " OR UPPER(garage) LIKE ?" + " OR UPPER(bath) LIKE ?"
+                + " OR UPPER(floorArea) LIKE ?" + " OR UPPER(landArea) LIKE ?" + " OR UPPER(rates) LIKE ?"
+                // + " OR UPPER(description) LIKE ?"
+                + " OR UPPER(telephone) LIKE ?" + " OR UPPER(email) LIKE ?";
+        // Connecting using TempConnectUtil
         try
         {
-            //Creating query
-            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+            // Creating query
+            pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE,
+                    Statement.RETURN_GENERATED_KEYS);
 
             for (int i = 1; i <= 16; i++)
             {
                 pstmt.setString(i, "%" + txtSearch.getText().toUpperCase() + "%");
             }
 
-            //Executing query
+            // Executing query
             rs = pstmt.executeQuery();
 
             if (rs.next())
@@ -1729,7 +1886,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             }
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -1739,56 +1896,40 @@ public class CRUDViewTemplate extends javax.swing.JFrame
 
     public double search(String searchString) throws HeadlessException
     {
-
-        txtpropertyPrimaryKey.setEditable(false);
         if (computeDep || computeAppre)
         {
-//            lblTitle.setText("Computations");
-//            btnOK.setText("Save");
-//            lblSearch.setVisible(false);
-//            txtSearch.setVisible(false);
-//            btnPrevious.setVisible(false);
-//            btnNext.setVisible(false);
-//            readOnlyhouseCleaning();
-
-            String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?"
-                    + " OR UPPER(addressNum) LIKE ?"
-                    + " OR UPPER(addressStreet) LIKE ?"
-                    + " OR UPPER(addressCity) LIKE ?"
-                    + " OR UPPER(addressCode) LIKE ?"
-                    + " OR UPPER(value) LIKE ?"
-                    + " OR UPPER(constructionStatus) LIKE ?"
-                    + " OR UPPER(useOfProperty) LIKE ?"
-                    + " OR UPPER(room) LIKE ?"
-                    + " OR UPPER(garage) LIKE ?"
-                    + " OR UPPER(bath) LIKE ?"
-                    + " OR UPPER(floorArea) LIKE ?"
-                    + " OR UPPER(landArea) LIKE ?"
-                    + " OR UPPER(rates) LIKE ?"
-                    + " OR UPPER(telephone) LIKE ?"
-                    + " OR UPPER(email) LIKE ?";
-            //Connecting using ConnectUtil
+            String sql = "SELECT * FROM property WHERE UPPER(propertyType) LIKE ?" + " OR UPPER(addressNum) LIKE ?"
+                    + " OR UPPER(addressStreet) LIKE ?" + " OR UPPER(addressCity) LIKE ?"
+                    + " OR UPPER(addressCode) LIKE ?" + " OR UPPER(value) LIKE ?"
+                    + " OR UPPER(constructionStatus) LIKE ?" + " OR UPPER(useOfProperty) LIKE ?"
+                    + " OR UPPER(room) LIKE ?" + " OR UPPER(garage) LIKE ?" + " OR UPPER(bath) LIKE ?"
+                    + " OR UPPER(floorArea) LIKE ?" + " OR UPPER(landArea) LIKE ?" + " OR UPPER(rates) LIKE ?"
+                    + " OR UPPER(telephone) LIKE ?" + " OR UPPER(email) LIKE ?";
+            // Connecting using ConnectUtil
             try
             {
-                //Creating query
-                pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
-                        ResultSet.CONCUR_UPDATABLE, Statement.RETURN_GENERATED_KEYS);
+                // Creating query
+                pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE,
+                        Statement.RETURN_GENERATED_KEYS);
 
                 for (int i = 1; i <= 16; i++)
                 {
                     pstmt.setString(i, "%" + searchString + "%");
                 }
 
-                //Executing query
+                // Executing query
                 rs = pstmt.executeQuery();
 
                 if (rs.next())
                 {
                     value = rs.getDouble("value");
                 }
+
+                computeDep = false;
+                computeAppre = false;
             } catch (SQLException e)
             {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+                // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
                 System.out.println(e.getMessage());
             } catch (Exception e)
             {
@@ -1801,21 +1942,7 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             {
                 JOptionPane.showMessageDialog(null, "No results found!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        //House cleaning
-        houseCleaning();
-        //Close connection to db before leaving this form
-        try
-        {
-            if (conn != null || pstmt != null || rs != null)
-            {
-                conn.close();
-                pstmt.close();
-                rs.close();
-            }
-        } catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
+
         }
         return value;
     }
@@ -1852,11 +1979,12 @@ public class CRUDViewTemplate extends javax.swing.JFrame
         /*
          * Set the Nimbus look and feel
          */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+        // (optional) ">
         /*
          * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel.
-         * For details see
+         * default
+         * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try
@@ -1871,19 +1999,23 @@ public class CRUDViewTemplate extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CRUDViewTemplate.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
+        // </editor-fold>
+        // </editor-fold>
 
         /*
          * Create and display the form

@@ -1,7 +1,16 @@
 package coronaproperties;
 
+import static coronaproperties.ComparativeViewsMenu.compareByCity;
+import static coronaproperties.ComparativeViewsMenu.compareByType;
+import static coronaproperties.ComparativeViewsMenu.compareByUse;
+import static coronaproperties.ComputationMenu.computeAppre;
+import static coronaproperties.ComputationMenu.computeDep;
 import java.awt.HeadlessException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,18 +21,21 @@ public class Auth
 {
     static boolean success = false;
     static int user_id;
+    static boolean createSomeProp = false;
+    static boolean readPropAll = false;
+    static boolean updateSomeProp = false;
+    static boolean deleteSomeProp = false;
     static boolean login(String emailString, String passString)
     {
         ResultSet rs = null;
 
-        String sql = "SELECT user_id, email, password FROM user "
-                + "WHERE email = ? AND password = ?";
+        String sql = "SELECT user_id, email, password FROM user " + "WHERE email = ? AND password = ?";
 
-        //Connecting using ConnectUtil
-        //using resources
-        ///so that connection to db closes automatically
+        // Connecting using ConnectUtil
+        // using resources
+        /// so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
-                //Creating query
+                // Creating query
                 PreparedStatement pstmt = conn.prepareStatement(sql))
         {
             pstmt.setString(1, emailString);
@@ -33,10 +45,10 @@ public class Auth
 
             if (rs.next())
             {
-                //Get user_id
+                // Get user_id
                 user_id = rs.getInt("user_id");
 
-                //Log the login into the login_audit table
+                // Log the login into the login_audit table
                 signedIn(user_id);
             }
         } catch (SQLException e)
@@ -60,24 +72,23 @@ public class Auth
 
     static boolean signedIn(int user_id)
     {
-        //1 means logged in
+        // 1 means logged in
         int loggedIn = 1;
 
-        String sql = "UPDATE user SET action = ? "
-                + "WHERE user_id = ?";
+        String sql = "UPDATE user SET action = ? " + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
-                //Creating query
+                // Creating query
                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
             pstmt.setInt(1, loggedIn);
             pstmt.setInt(2, user_id);
 
             pstmt.executeUpdate();
-// Authentication complete
+            // Authentication complete
             success = true;
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -88,13 +99,12 @@ public class Auth
 
     static void signOut() throws HeadlessException
     {
-        //2 means logged out
+        // 2 means logged out
         int loggedIn = 2;
 
-        String sql = "UPDATE user SET action = ? "
-                + "WHERE user_id = ?";
+        String sql = "UPDATE user SET action = ? " + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
-                //Creating query
+                // Creating query
                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
             pstmt.setInt(1, loggedIn);
@@ -108,7 +118,7 @@ public class Auth
             }
         } catch (SQLException e)
         {
-//            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             System.out.println(e.getMessage());
         } catch (Exception e)
         {
@@ -122,13 +132,12 @@ public class Auth
 
         int userPKey = 0;
 
-        String sql = "INSERT INTO user(fName,lName,email,password) "
-                + "VALUES(?,?,?,?)";
-        //Connecting using ConnectUtil
-        //using resources
-        ///so that connection to db closes automatically
+        String sql = "INSERT INTO user(fName,lName,email,password) " + "VALUES(?,?,?,?)";
+        // Connecting using ConnectUtil
+        // using resources
+        /// so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
-                //Creating query
+                // Creating query
                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
             // set parameters for statement
@@ -149,10 +158,10 @@ public class Auth
             }
             JOptionPane.showMessageDialog(null, "Registered successfully\nUser ID is:  " + userPKey + ".");
 
-            //Login after register
+            // Login after register
             if (login(emailString, passString))
             {
-                //registered successfully
+                // registered successfully
                 success = true;
             }
 
@@ -175,13 +184,27 @@ public class Auth
         return success;
     }
 
+    static void houseCleaning()
+    {
+        // House cleaning
+        createSomeProp = false;
+        readPropAll = false;
+        updateSomeProp = false;
+        deleteSomeProp = false;
+        compareByCity = false;
+        compareByType = false;
+        compareByUse = false;
+        computeDep = false;
+        computeAppre = false;
+    }
+
     static void closeLoginScreen()
     {
         // Close Login screen
         Login loginScreen = new Login();
         loginScreen.setVisible(false);
         loginScreen.dispose();
-        System.gc();
+
     }
 
     static void openMenu()

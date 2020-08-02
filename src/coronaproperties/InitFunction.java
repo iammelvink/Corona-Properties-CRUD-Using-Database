@@ -21,7 +21,7 @@ public class InitFunction {
         SetJFrameIcon setJFrameIcon = new SetJFrameIcon(spl);
         try {
             for (int i = 0; i <= 100; i++) {
-                Thread.sleep(30);
+                Thread.sleep(20);
                 spl.lblHouse.setText(Integer.toString(i) + "%");
                 spl.bar.setValue(i);
 
@@ -29,7 +29,6 @@ public class InitFunction {
 
                     // Close SplashScreen screen
                     spl.dispose();
-                    System.gc();
 
                     // Open Login Screen
                     Login loginScreen = new Login();
