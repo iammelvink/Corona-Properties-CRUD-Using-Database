@@ -103,7 +103,7 @@ public class Login extends javax.swing.JFrame
         lblPass.setText("Password: ");
 
         txtEmail.setBackground(new java.awt.Color(240, 240, 240));
-        txtEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setMinimumSize(new java.awt.Dimension(64, 29));
         txtEmail.setOpaque(false);
@@ -155,12 +155,12 @@ public class Login extends javax.swing.JFrame
         lblForRegistration.setForeground(new java.awt.Color(255, 255, 255));
         lblForRegistration.setText("Password: ");
 
-        txtForRegistration.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtForRegistration.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtForRegistration.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtForRegistration.setOpaque(false);
         txtForRegistration.setPreferredSize(new java.awt.Dimension(327, 30));
 
-        txtForRegistration1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtForRegistration1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtForRegistration1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtForRegistration1.setOpaque(false);
         txtForRegistration1.setPreferredSize(new java.awt.Dimension(327, 30));
@@ -328,8 +328,7 @@ public class Login extends javax.swing.JFrame
                 String lN = String.valueOf(l);
                 String lNameString = lN + (tempLNameString.substring(1, tempLNameString.length()).toLowerCase());
 
-                System.out.println(fNameString + "\t" + lNameString + "\t" + emailString + "\t" + passString + "\t" + tempPassString);
-
+//                System.out.println(fNameString + "\t" + lNameString + "\t" + emailString + "\t" + passString + "\t" + tempPassString);
 //                //Check if passwords match
                 if (passString.compareTo(tempPassString) == 0)
                 {
