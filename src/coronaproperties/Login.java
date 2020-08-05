@@ -11,16 +11,14 @@ import javax.swing.JOptionPane;
  *
  * @author MightyBeatz
  */
-public class Login extends javax.swing.JFrame
-{
+public class Login extends javax.swing.JFrame {
     private boolean register = false;
     private int xMouse;
     private int yMouse;
     /**
      * Creates new form Login
      */
-    public Login()
-    {
+    public Login() {
         initComponents();
     }
 
@@ -296,8 +294,7 @@ public class Login extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (!register)
-        {
+        if (!register) {
             //Capture email and password from GUI
             String remain = "";
             String fullName = String.valueOf(txtEmail.getText()).toUpperCase();
@@ -305,11 +302,7 @@ public class Login extends javax.swing.JFrame
             String passString = String.valueOf(txtForRegistration.getPassword());
             String tempPassString = String.valueOf(txtForRegistration1.getPassword());
             //Checking for empty fields
-            if (!fullName.isEmpty() || !emailString.isEmpty() || !passString.isEmpty() || !tempPassString.isEmpty())
-            {
-                //Checking if fullname has illegal characters
-//                if (Validate.isWord(fullName))
-//                {
+            if (!fullName.isEmpty() || !emailString.isEmpty() || !passString.isEmpty() || !tempPassString.isEmpty()) {
                 //Split first and last name
                 String[] fullNameArray = fullName.trim().split("\\s+");
 
@@ -327,65 +320,45 @@ public class Login extends javax.swing.JFrame
                 char l = tempLNameString.charAt(0);
                 String lN = String.valueOf(l);
                 String lNameString = lN + (tempLNameString.substring(1, tempLNameString.length()).toLowerCase());
-
-//                System.out.println(fNameString + "\t" + lNameString + "\t" + emailString + "\t" + passString + "\t" + tempPassString);
 //                //Check if passwords match
-                if (passString.compareTo(tempPassString) == 0)
-                {
+                if (passString.compareTo(tempPassString) == 0) {
                     //Checking if email and password meets minimum requirements
 
-                    if (Validate.isEmail(emailString) && Validate.isPass(passString))
-                    {
-                        if (Auth.register(fNameString, lNameString, emailString, passString))
-                        {
+                    if (Validate.isEmail(emailString) && Validate.isPass(passString)) {
+                        if (Auth.register(fNameString, lNameString, emailString, passString)) {
                             this.dispose();
                             Auth.openMenu();
-                        } else
-                        {
+                        } else {
                             lblError.setText("Error occured!");
                         }
-                    } else
-                    {
+                    } else {
                         lblError.setText("Email or Password does NOT meet min requirements!");
                     }
-                } else
-                {
+                } else {
                     lblError.setText("Password do NOT match!");
                 }
-//                } else
-//                {
-//                    lblError.setText("Fullname contains illegal characters!");
-//                }
-            } else
-            {
+            } else {
                 lblError.setText("One or more fields are empty!");
             }
 
-        } else
-        {
+        } else {
             //Capture email and password from GUI
             String emailString = String.valueOf(txtEmail.getText());
             String passString = String.valueOf(txtPass.getPassword());
             //Checking for empty fields
-            if (!emailString.isEmpty() || !passString.isEmpty())
-            {
+            if (!emailString.isEmpty() || !passString.isEmpty()) {
                 //Checking if email and password meets minimum requirements
-                if (Validate.isEmail(emailString) && Validate.isPass(passString))
-                {
-                    if (Auth.login(emailString, passString))
-                    {
+                if (Validate.isEmail(emailString) && Validate.isPass(passString)) {
+                    if (Auth.login(emailString, passString)) {
                         this.dispose();
                         Auth.openMenu();
-                    } else
-                    {
+                    } else {
                         lblError.setText("Email or Password is incorrect!");
                     }
-                } else
-                {
+                } else {
                     lblError.setText("Email or Password does NOT meet min requirements!");
                 }
-            } else
-            {
+            } else {
                 lblError.setText("One or more fields are empty!");
             }
 
@@ -393,11 +366,9 @@ public class Login extends javax.swing.JFrame
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jCheckBoxShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowPassActionPerformed
-        if (jCheckBoxShowPass.isSelected())
-        {
+        if (jCheckBoxShowPass.isSelected()) {
             txtPass.setEchoChar('\u0000');
-        } else
-        {
+        } else {
             txtPass.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBoxShowPassActionPerformed
@@ -413,8 +384,7 @@ public class Login extends javax.swing.JFrame
          * 0 = yes
          * 1 = no
          */
-        if (option == 0)
-        {
+        if (option == 0) {
             Auth.signOut();
             System.exit(0);
         }
@@ -444,10 +414,8 @@ public class Login extends javax.swing.JFrame
         setOpacity((float) 0.9);
     }//GEN-LAST:event_formMouseReleased
 
-    public void whatAction()
-    {
-        if (register)
-        {
+    public void whatAction() {
+        if (register) {
             //Clear text fields first
             txtEmail.setText("");
             txtPass.setText("");
@@ -474,8 +442,7 @@ public class Login extends javax.swing.JFrame
             jCheckBoxShowPass.setVisible(false);
 
             register = false;
-        } else
-        {
+        } else {
             //Clear text fields first
             txtEmail.setText("");
             txtPass.setText("");
@@ -506,8 +473,7 @@ public class Login extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -518,27 +484,20 @@ public class Login extends javax.swing.JFrame
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -546,10 +505,8 @@ public class Login extends javax.swing.JFrame
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new Login().setVisible(true);
             }
 

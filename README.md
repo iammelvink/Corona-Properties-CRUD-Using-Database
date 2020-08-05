@@ -1,6 +1,14 @@
-# Corona-Properties-CRUD-Using-Database
+# Corona Properties CRUD Using Database
 
-## Repository for my Corona-Properties-CRUD-Using-Database project
+## Repository for my Corona Properties CRUD Using Database project
+
+### Front end
+
+![Front end](img/fron-end-corona-properties-collage.jpg 'Front end')
+
+### Database Design
+
+![Database Design](img/corona_properties_erd.jpg 'Database Design')
 
 Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso tackle CRUD functions and connect the system to a database, in Java.
 
@@ -15,13 +23,20 @@ Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso t
 
    `> git clone https://github.com/iammelvink/Corona-Properties-CRUD-Using-Database.git`
 
-3. Run XAMPP
+3. Run XAMPP and create the database tables and triggers
 
-4. Run Apache NetBeans and choose Open Project
+4. Update database connection credentials in the file named db.properties
 
-5. Update database connection credentials
+5. Download the following jar files and copy them to the root of the project in a folder named lib:
 
-6. Press play button to run the program
+   - beans-binding-bin.jar
+   - KGradientPanel.jar
+   - mysql-connector-java-8.0.21.jar
+   - swingx-all-1.6.5-1.jar
+
+6. Run Apache NetBeans and choose Open Project
+
+7. Press play button to run the program
 
 ## More Stuff
 

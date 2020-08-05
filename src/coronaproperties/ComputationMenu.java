@@ -12,8 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author Melvin K
  */
-public class ComputationMenu extends javax.swing.JFrame
-{
+public class ComputationMenu extends javax.swing.JFrame {
     static boolean computeDep = false;
     static boolean computeAppre = false;
     private int xMouse;
@@ -23,8 +22,7 @@ public class ComputationMenu extends javax.swing.JFrame
     /**
      * Creates new form ReadPropByMenu
      */
-    public ComputationMenu()
-    {
+    public ComputationMenu() {
         initComponents();
     }
 
@@ -371,43 +369,37 @@ public class ComputationMenu extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt)
-    {// GEN-FIRST:event_jLabel5MousePressed
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel5MousePressed
 
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure",
                 JOptionPane.YES_NO_OPTION);
         /*
          * 0 = yes 1 = no
          */
-        if (option == 0)
-        {
+        if (option == 0) {
             Auth.signOut();
             System.exit(0);
         }
     }// GEN-LAST:event_jLabel5MousePressed
 
-    private void jLabel10MousePressed(java.awt.event.MouseEvent evt)
-    {// GEN-FIRST:event_jLabel10MousePressed
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel10MousePressed
 
         this.setState(Login.ICONIFIED);
     }// GEN-LAST:event_jLabel10MousePressed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnLogoutActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogoutActionPerformed
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure",
                 JOptionPane.YES_NO_OPTION);
         /*
          * 0 = yes 1 = no
          */
-        if (option == 0)
-        {
+        if (option == 0) {
             Auth.signOut();
             System.exit(0);
         }
     }// GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnHomeActionPerformed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHomeActionPerformed
         Auth.houseCleaning();
 
         // Close this menu
@@ -421,8 +413,7 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnHomeActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnAddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddActionPerformed
 //        this.dispose();
 //        CreateProp.createSome();
         Auth.createSomeProp = true;
@@ -432,8 +423,7 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnAddActionPerformed
 
-    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnDisplayActionPerformed
+    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDisplayActionPerformed
 //        this.dispose();
 //        ReadPropAll.readAll();
         Auth.readPropAll = true;
@@ -443,8 +433,7 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnDisplayActionPerformed
 
-    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnComparativeViewsActionPerformed
+    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnComparativeViewsActionPerformed
         this.dispose();
 
         // Open ComparativeViewsMenu
@@ -455,8 +444,7 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnComparativeViewsActionPerformed
 
-    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnComputationActionPerformed
+    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnComputationActionPerformed
         // this.dispose();
         //
         // //Open ComputationMenu
@@ -468,8 +456,7 @@ public class ComputationMenu extends javax.swing.JFrame
         //
     }// GEN-LAST:event_btnComputationActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUpdateActionPerformed
 //        this.dispose();
 //        UpdateProp.updateSome();
         Auth.updateSomeProp = true;
@@ -479,8 +466,7 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnDeleteActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDeleteActionPerformed
 //        this.dispose();
 //        DeleteProp.deleteSome();
         Auth.deleteSomeProp = true;
@@ -490,22 +476,18 @@ public class ComputationMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnCompAppreciationActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnCompAppreciationActionPerformed
-        try
-        {
+    private void btnCompAppreciationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCompAppreciationActionPerformed
+        try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute appreciation on: ");
             computeAppre = true;
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             // Searching
-            if (!searchString.isEmpty())
-            {
+            if (!searchString.isEmpty()) {
                 double currentValue = aCrudViewTemplate.search(searchString);
 
                 String r = JOptionPane.showInputDialog("Enter rate of appreciation: ");
                 String t = JOptionPane.showInputDialog("Enter number of year(s) of appreciation: ");
-                if (!r.isEmpty() && !t.isEmpty())
-                {
+                if (!r.isEmpty() && !t.isEmpty()) {
                     this.dispose();
                     // Computing
                     computeAppre(currentValue, r, t);
@@ -515,29 +497,24 @@ public class ComputationMenu extends javax.swing.JFrame
                 }
             }
             computeAppre = false;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }// GEN-LAST:event_btnCompAppreciationActionPerformed
 
-    private void btnCompDepreciationActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnCompDepreciationActionPerformed
-        try
-        {
+    private void btnCompDepreciationActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
             String searchString = JOptionPane.showInputDialog("Enter property you want to compute depreciation on: ");
             computeDep = true;
 
             CRUDViewTemplate aCrudViewTemplate = new CRUDViewTemplate();
             // Searching
-            if (!searchString.isEmpty())
-            {
+            if (!searchString.isEmpty()) {
                 double currentValue = aCrudViewTemplate.search(searchString);
 
                 String r = JOptionPane.showInputDialog("Enter rate of depreciation: ");
                 String t = JOptionPane.showInputDialog("Enter number of year(s) of depreciation: ");
-                if (!r.isEmpty() && !t.isEmpty())
-                {
+                if (!r.isEmpty() && !t.isEmpty()) {
                     this.dispose();
                     // Computing
                     computeDep(currentValue, r, t);
@@ -547,11 +524,10 @@ public class ComputationMenu extends javax.swing.JFrame
                 }
             }
             computeDep = false;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }// GEN-LAST:event_btnCompDepreciationActionPerformed
+    }
 
     private void formMouseDragged(java.awt.event.MouseEvent evt)// GEN-FIRST:event_formMouseDragged
     {// GEN-HEADEREND:event_formMouseDragged
@@ -572,31 +548,26 @@ public class ComputationMenu extends javax.swing.JFrame
         setOpacity((float) 0.9);
     }// GEN-LAST:event_formMouseReleased
 
-    private static String computeDep(double currentValue, String r, String t)
-    {
+    private static String computeDep(double currentValue, String r, String t) {
         double depreciation = (currentValue * Double.parseDouble(t) / 100 * Integer.parseInt(t));
         double valueAfterDep = currentValue - depreciation;
 
         output = "";
 
-        if (valueAfterDep < depreciation)
-        {
+        if (valueAfterDep < depreciation) {
             output = "This property no longer has any worth";
-        } else
-        {
+        } else {
             output = "Old value: " + df.format(currentValue) + "\n\nAfter a depreciation rate of " + r + "% for " + t
                     + " years" + "\n\nThe properties' worth: " + df.format(valueAfterDep);
         }
         return output;
     }
 
-    private static void displayData()
-    {
+    private static void displayData() {
         JOptionPane.showMessageDialog(null, output);
     }
 
-    private static String computeAppre(double currentValue, String r, String t)
-    {
+    private static String computeAppre(double currentValue, String r, String t) {
         double appreciation = (currentValue * Double.parseDouble(r) / 100 * Double.parseDouble(t));
         double valueAfterAppre = currentValue + appreciation;
 
@@ -613,8 +584,7 @@ public class ComputationMenu extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -626,30 +596,23 @@ public class ComputationMenu extends javax.swing.JFrame
          * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ComputationMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
         }
@@ -661,10 +624,8 @@ public class ComputationMenu extends javax.swing.JFrame
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new ComputationMenu().setVisible(true);
             }
 

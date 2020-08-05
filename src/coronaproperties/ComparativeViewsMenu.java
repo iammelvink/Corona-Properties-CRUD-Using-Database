@@ -11,8 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Melvin K
  */
-public class ComparativeViewsMenu extends javax.swing.JFrame
-{
+public class ComparativeViewsMenu extends javax.swing.JFrame {
     static boolean compareByCity = false;
     static boolean compareByType = false;
     static boolean compareByUse = false;
@@ -21,8 +20,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     /**
      * Creates new form ReadPropByMenu
      */
-    public ComparativeViewsMenu()
-    {
+    public ComparativeViewsMenu() {
         initComponents();
     }
 
@@ -34,8 +32,9 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         Header = new javax.swing.JPanel();
@@ -69,17 +68,21 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseDragged(java.awt.event.MouseEvent evt)
+            {
                 formMouseDragged(evt);
             }
         });
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 formMousePressed(evt);
             }
-
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
                 formMouseReleased(evt);
             }
         });
@@ -98,8 +101,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Multiplication_24px_2.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel5MousePressed(evt);
             }
         });
@@ -107,8 +112,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Minus_24px.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
                 jLabel10MousePressed(evt);
             }
         });
@@ -124,8 +131,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnLogout.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setToolTipText("");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLogoutActionPerformed(evt);
             }
         });
@@ -139,8 +148,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnHome.setText("Home");
         btnHome.setAlignmentX(5.0F);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnHome.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnHomeActionPerformed(evt);
             }
         });
@@ -161,8 +172,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnAdd.setForeground(new java.awt.Color(88, 119, 202));
         btnAdd.setText("Add Property");
         btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
@@ -171,8 +184,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnDisplay.setForeground(new java.awt.Color(88, 119, 202));
         btnDisplay.setText("View Property");
         btnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDisplayActionPerformed(evt);
             }
         });
@@ -181,8 +196,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnComparativeViews.setForeground(new java.awt.Color(88, 119, 202));
         btnComparativeViews.setText("Comparative Views");
         btnComparativeViews.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComparativeViews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComparativeViews.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComparativeViewsActionPerformed(evt);
             }
         });
@@ -191,8 +208,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnComputation.setForeground(new java.awt.Color(88, 119, 202));
         btnComputation.setText("Computations");
         btnComputation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnComputation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnComputation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnComputationActionPerformed(evt);
             }
         });
@@ -201,8 +220,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnUpdate.setForeground(new java.awt.Color(88, 119, 202));
         btnUpdate.setText("Update Property");
         btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnUpdateActionPerformed(evt);
             }
         });
@@ -211,8 +232,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnDelete.setForeground(new java.awt.Color(88, 119, 202));
         btnDelete.setText("Delete Property");
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -221,72 +244,79 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
         kGradientPanel3.setLayout(kGradientPanel3Layout);
-        kGradientPanel3Layout.setHorizontalGroup(kGradientPanel3Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(kGradientPanel3Layout.createSequentialGroup().addContainerGap().addGroup(kGradientPanel3Layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(kGradientPanel3Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel14).addComponent(jLabel17).addComponent(jLabel15))
-                                .addComponent(jLabel16).addComponent(jLabel19).addComponent(jLabel18))
-                        .addComponent(jLabel20)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                                        .addGroup(kGradientPanel3Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(btnComparativeViews, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnComputation, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))));
-        kGradientPanel3Layout.setVerticalGroup(kGradientPanel3Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(kGradientPanel3Layout.createSequentialGroup().addContainerGap()
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel17).addComponent(btnAdd))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnDisplay).addComponent(jLabel15))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnComparativeViews).addComponent(jLabel16))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnComputation).addComponent(jLabel19))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnUpdate).addComponent(jLabel20))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnDelete).addComponent(jLabel18))
-                        .addContainerGap()));
+        kGradientPanel3Layout.setHorizontalGroup(
+            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel15))
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel19)
+                        .addComponent(jLabel18))
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnComparativeViews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnComputation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        kGradientPanel3Layout.setVerticalGroup(
+            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(btnAdd))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDisplay)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnComparativeViews)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnComputation)
+                    .addComponent(jLabel19))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate)
+                    .addComponent(jLabel20))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDelete)
+                    .addComponent(jLabel18))
+                .addContainerGap())
+        );
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("Computation Menu");
+        jLabel1.setText("Comparison Menu");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 1, new java.awt.Color(0, 0, 0)));
 
         btnCompareByCity.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByCity.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByCity.setText("Compare By City");
-        btnCompareByCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByCity.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByCityActionPerformed(evt);
             }
         });
@@ -294,8 +324,10 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnCompareByUse.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByUse.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByUse.setText("Compare By Use");
-        btnCompareByUse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByUse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByUseActionPerformed(evt);
             }
         });
@@ -303,56 +335,48 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         btnCompareByType.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         btnCompareByType.setForeground(new java.awt.Color(88, 119, 202));
         btnCompareByType.setText("Compare By Type");
-        btnCompareByType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCompareByType.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCompareByTypeActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(kGradientPanel1Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(kGradientPanel1Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(btnCompareByType, javax.swing.GroupLayout.Alignment.LEADING,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                                .addComponent(btnCompareByCity).addGap(18, 18, 18)
-                                                .addComponent(btnCompareByUse)))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 469,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE));
-        kGradientPanel1Layout.setVerticalGroup(kGradientPanel1Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(kGradientPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(btnCompareByCity, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        108, Short.MAX_VALUE)
-                                                .addComponent(btnCompareByUse, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18).addComponent(btnCompareByType,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 108,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(30, Short.MAX_VALUE)));
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnCompareByType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addComponent(btnCompareByCity)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnCompareByUse)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCompareByCity, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(btnCompareByUse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCompareByType, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         Footer.setBackground(new java.awt.Color(0, 31, 63));
         Footer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -365,58 +389,53 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(Footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                        .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(Footer,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Footer, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt)
-    {// GEN-FIRST:event_jLabel5MousePressed
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel5MousePressed
 
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Are you sure",
                 JOptionPane.YES_NO_OPTION);
         /*
          * 0 = yes 1 = no
          */
-        if (option == 0)
-        {
+        if (option == 0) {
             Auth.signOut();
             System.exit(0);
         }
     }// GEN-LAST:event_jLabel5MousePressed
 
-    private void jLabel10MousePressed(java.awt.event.MouseEvent evt)
-    {// GEN-FIRST:event_jLabel10MousePressed
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel10MousePressed
 
         this.setState(Login.ICONIFIED);
     }// GEN-LAST:event_jLabel10MousePressed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnLogoutActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogoutActionPerformed
         int option = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "Are you sure",
                 JOptionPane.YES_NO_OPTION);
         /*
          * 0 = yes 1 = no
          */
-        if (option == 0)
-        {
+        if (option == 0) {
             Auth.signOut();
             System.exit(0);
         }
     }// GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnHomeActionPerformed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHomeActionPerformed
 
         Auth.houseCleaning();
 
@@ -431,8 +450,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnHomeActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnAddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddActionPerformed
 
 //        this.dispose();
 //        CreateProp.createSome();
@@ -443,8 +461,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnAddActionPerformed
 
-    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnDisplayActionPerformed
+    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDisplayActionPerformed
 
 //        this.dispose();
 //        ReadPropAll.readAll();
@@ -455,8 +472,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnDisplayActionPerformed
 
-    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnComparativeViewsActionPerformed
+    private void btnComparativeViewsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnComparativeViewsActionPerformed
 
         //
         //
@@ -471,8 +487,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         //
     }// GEN-LAST:event_btnComparativeViewsActionPerformed
 
-    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnComputationActionPerformed
+    private void btnComputationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnComputationActionPerformed
 
         this.dispose();
 
@@ -484,8 +499,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnComputationActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUpdateActionPerformed
 
 //        this.dispose();
 //        UpdateProp.updateSome();
@@ -496,8 +510,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnDeleteActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDeleteActionPerformed
 
 //        this.dispose();
 //        DeleteProp.deleteSome();
@@ -508,20 +521,16 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
 
     }// GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnCompareByUseActionPerformed(java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_btnCompareByUseActionPerformed
+    private void btnCompareByUseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCompareByUseActionPerformed
         Auth.houseCleaning();
-        try
-        {
+        try {
             String searchWhere = "useOfProperty";
-            if (!searchWhere.isEmpty())
-            {
+            if (!searchWhere.isEmpty()) {
                 String useOfProperty1 = JOptionPane.showInputDialog("Enter use of property (Eg: Rented, Idle): ");
                 String useOfProperty2 = JOptionPane
                         .showInputDialog("Enter another use of property (Eg: Rented, Idle): ");
                 compareByUse = true;
-                if (!useOfProperty1.isEmpty() && !useOfProperty2.isEmpty())
-                {
+                if (!useOfProperty1.isEmpty() && !useOfProperty2.isEmpty()) {
                     this.dispose();
                     // Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(useOfProperty1, searchWhere);
@@ -533,8 +542,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
 
         }
@@ -559,20 +567,16 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         setOpacity((float) 0.9);
     }// GEN-LAST:event_formMouseReleased
 
-    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnCompareByCityActionPerformed(java.awt.event.ActionEvent evt) {
         Auth.houseCleaning();
-        try
-        {
+        try {
             String searchWhere = "addressCity";
-            if (!searchWhere.isEmpty())
-            {
+            if (!searchWhere.isEmpty()) {
 
                 String addressCity1 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
                 String addressCity2 = JOptionPane.showInputDialog("Enter city (Eg: Durban, Kimberley): ");
                 compareByCity = true;
-                if (!addressCity1.isEmpty() && !addressCity2.isEmpty())
-                {
+                if (!addressCity1.isEmpty() && !addressCity2.isEmpty()) {
                     this.dispose();
                     // Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(addressCity1, searchWhere);
@@ -584,25 +588,20 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnCompareByTypeActionPerformed(java.awt.event.ActionEvent evt) {
         Auth.houseCleaning();
-        try
-        {
+        try {
             String searchWhere = "propertyType";
-            if (!searchWhere.isEmpty())
-            {
+            if (!searchWhere.isEmpty()) {
                 String propertyType1 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
                 String propertyType2 = JOptionPane.showInputDialog("Eg: House, Flat, Business): ");
                 compareByType = true;
-                if (!propertyType1.isEmpty() && !propertyType2.isEmpty())
-                {
+                if (!propertyType1.isEmpty() && !propertyType2.isEmpty()) {
                     this.dispose();
                     // Searching
                     CRUDViewTemplate aCrudViewTemplate1 = new CRUDViewTemplate(propertyType1, searchWhere);
@@ -614,8 +613,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
                     setJFrameIcon = new SetJFrameIcon(aCrudViewTemplate2);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error ocurred!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -623,8 +621,7 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -636,30 +633,23 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
          * look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ComparativeViewsMenu.class.getName()).log(java.util.logging.Level.SEVERE,
                     null, ex);
         }
@@ -671,10 +661,8 @@ public class ComparativeViewsMenu extends javax.swing.JFrame
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new ComparativeViewsMenu().setVisible(true);
             }
 

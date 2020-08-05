@@ -3,64 +3,50 @@ package coronaproperties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validate
-{
-    static boolean isEmail(String email)
-    {
+public class Validate {
+    static boolean isEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$";
         Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPat.matcher(email);
         return matcher.find();
     }
 
-    static boolean isPass(String password)
-    {
-        if (password.length() > 6)
-        {
+    static boolean isPass(String password) {
+        if (password.length() > 6) {
             return validatePass(password);
-        } else
-        {
+        } else {
 
             return false;
         }
     }
 
-    private static boolean validatePass(String password)
-    {
+    private static boolean validatePass(String password) {
         boolean hasNum = false;
         boolean hasCap = false;
         boolean hasLow = false;
         char c;
-        for (int i = 0; i < password.length(); i++)
-        {
+        for (int i = 0; i < password.length(); i++) {
             c = password.charAt(i);
-            if (Character.isDigit(c))
-            {
+            if (Character.isDigit(c)) {
                 hasNum = true;
-            } else if (Character.isUpperCase(c))
-            {
+            } else if (Character.isUpperCase(c)) {
                 hasCap = true;
-            } else if (Character.isLowerCase(c))
-            {
+            } else if (Character.isLowerCase(c)) {
                 hasLow = true;
             }
-            for (char currentChar : password.toCharArray())
-            {
-                if (Character.isWhitespace(currentChar))
-                {
+            for (char currentChar : password.toCharArray()) {
+                if (Character.isWhitespace(currentChar)) {
                     return true;
                 }
             }
-            if (hasNum && hasCap && hasLow)
-            {
+            if (hasNum && hasCap && hasLow) {
                 return true;
             }
         }
         return false;
     }
 
-    static boolean isWord(String text)
-    {
+    static boolean isWord(String text) {
         return Pattern.matches("[a-zA-Z]+", text);
     }
 
