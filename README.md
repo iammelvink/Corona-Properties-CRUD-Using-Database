@@ -48,4 +48,4 @@ Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso t
 
 ## More Stuff
 
-Check out some of my other stuff on [iammelvink](https://iammelvink.github.io/ 'iammelvink Portfolio Website'). Follow me on [Twitter](https://twitter.com/iammelvink 'iammelvink') and [Instagram](https://www.instagram.com/iammelvink 'iammelvink').
+Check out some other stuff on [Melvin K](https://github.com/iammelvink 'Melvin K GitHub page') and [Obakeng Phikiso](https://github.com/ObakengPhikiso 'Obakeng Phikiso GitHub page').
