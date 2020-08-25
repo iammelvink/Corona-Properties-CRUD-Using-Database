@@ -11,6 +11,14 @@
 ![Database Design](img/corona_properties_erd.jpg 'Database Design')
 
 Find out how to build a CRUD system. Authors Melvin Kisten and Obakeng Phikiso tackle CRUD functions and connect the system to a database, in Java.
+1. Methodologies/Project Management:
+    - SCRUM
+2. Coding Practices:
+    - OOP (Object Oriented Programming)
+
+3. Programming Languages:
+    - Java
+    - SQL
 
 ## Instructions
 
