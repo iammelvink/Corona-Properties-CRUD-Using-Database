@@ -1,4 +1,4 @@
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

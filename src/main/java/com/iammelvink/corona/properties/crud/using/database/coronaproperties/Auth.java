@@ -1,20 +1,14 @@
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
-import static coronaproperties.ComparativeViewsMenu.compareByCity;
-import static coronaproperties.ComparativeViewsMenu.compareByType;
-import static coronaproperties.ComparativeViewsMenu.compareByUse;
-import static coronaproperties.ComputationMenu.computeAppre;
-import static coronaproperties.ComputationMenu.computeDep;
-import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
+import java.sql.*;
+
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComparativeViewsMenu.*;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComputationMenu.computeAppre;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComputationMenu.computeDep;
 
 /**
- *
  * @author Melvin K
  */
 public class Auth {
@@ -26,6 +20,7 @@ public class Auth {
     static boolean deleteSomeProp = false;
     static String user_name = "";
     static String user_surname = "";
+
     static boolean login(String emailString, String passString) {
         ResultSet rs = null;
 
@@ -35,8 +30,8 @@ public class Auth {
         // using resources
         /// so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
-                // Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             // Creating query
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, emailString);
             pstmt.setString(2, passString);
 
@@ -72,8 +67,8 @@ public class Auth {
 
         String sql = "UPDATE user SET action = ? " + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
-                // Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             // Creating query
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, loggedIn);
             pstmt.setInt(2, user_id);
 
@@ -95,8 +90,8 @@ public class Auth {
 
         String sql = "UPDATE user SET action = ? " + "WHERE user_id = ?";
         try (Connection conn = ConnectUtil.getConnection();
-                // Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             // Creating query
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, loggedIn);
             pstmt.setInt(2, user_id);
 
@@ -123,8 +118,8 @@ public class Auth {
         // using resources
         /// so that connection to db closes automatically
         try (Connection conn = ConnectUtil.getConnection();
-                // Creating query
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             // Creating query
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             // set parameters for statement
             pstmt.setString(1, fNameString);
             pstmt.setString(2, lNameString);

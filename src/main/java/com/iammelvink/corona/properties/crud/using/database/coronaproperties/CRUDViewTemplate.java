@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
-import static coronaproperties.Auth.createSomeProp;
-import static coronaproperties.Auth.deleteSomeProp;
-import static coronaproperties.Auth.readPropAll;
-import static coronaproperties.Auth.updateSomeProp;
-import static coronaproperties.Auth.user_id;
-import static coronaproperties.ComparativeViewsMenu.compareByCity;
-import static coronaproperties.ComparativeViewsMenu.compareByType;
-import static coronaproperties.ComparativeViewsMenu.compareByUse;
-import static coronaproperties.ComputationMenu.computeAppre;
-import static coronaproperties.ComputationMenu.computeDep;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.createSomeProp;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.deleteSomeProp;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.readPropAll;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.updateSomeProp;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.user_id;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComparativeViewsMenu.compareByCity;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComparativeViewsMenu.compareByType;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComparativeViewsMenu.compareByUse;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComputationMenu.computeAppre;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.ComputationMenu.computeDep;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +17,7 @@ import javax.swing.*;
  * @author Melvin K
  */
 public class SetJFrameIcon extends JFrame {
+
     SetJFrameIcon(JFrame ajFrame) {
         appIcon(ajFrame);
     }
@@ -26,6 +27,8 @@ public class SetJFrameIcon extends JFrame {
         ajFrame.setOpacity((float) 0.9);
         ajFrame.setBackground(new Color(0, 0, 0, 0));
         ajFrame.setLocationRelativeTo(null);
+        ajFrame.setName("Corona Properties");
+        ajFrame.setTitle("Corona Properties");
         // Read the image that will be used as the application icon.
         // Using "/" in front of the image file name will locate the
         // image at the root folder of our application. If you don't

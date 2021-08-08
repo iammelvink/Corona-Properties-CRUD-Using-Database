@@ -1,4 +1,4 @@
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
 import java.io.FileInputStream;
 import java.io.IOException;

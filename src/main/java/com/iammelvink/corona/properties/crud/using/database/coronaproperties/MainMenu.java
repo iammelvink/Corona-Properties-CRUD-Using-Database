@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | lates
  * and open the template in the editor.
  */
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
-import static coronaproperties.Auth.user_name;
-import static coronaproperties.Auth.user_surname;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.user_name;
+import static com.iammelvink.corona.properties.crud.using.database.coronaproperties.Auth.user_surname;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coronaproperties;
+package com.iammelvink.corona.properties.crud.using.database.coronaproperties;
 
 import javax.swing.JOptionPane;
 
